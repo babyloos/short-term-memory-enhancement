@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -15,17 +16,15 @@ const Tile = ({title}: ItemProps) => {
   );
 }
 
-const DATA = [
-  {
-    title: '1'
-  },
-  {
-    title: '2'
-  },
-  {
-    title: '3'
-  },
-]
+let DATA: Array<ItemProps> = [];
+
+const addTileData = (tileCount: number) => {
+  for (var i=1; i <= tileCount; i++) {
+    DATA.push({title: i.toString()})
+  }
+}
+
+addTileData(9);
 
 export default function HomeScreen() {
   return (
