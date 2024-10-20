@@ -1,4 +1,3 @@
-import { Stack } from 'expo-router';
 import {
   StyleSheet,
   Text,
@@ -6,14 +5,12 @@ import {
 } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 
-import { SafeAreaView } from 'react-native-safe-area-context';
-
 type ItemProps = {title: string};
 
 const Tile = ({title}: ItemProps) => {
   return (
-    <View>
-      <Text>{title}</Text>
+    <View style={styles.tile}>
+      <Text style={styles.tileTitle}>{title}</Text>
     </View>
   );
 }
@@ -58,5 +55,20 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#005500',
     backgroundColor: 'white',
+  },
+  tile: {
+    height: 80,
+    margin: 2,
+    flex: 1,
+    aspectRatio: 1,
+    justifyContent: 'center',
+    verticalAlign: 'middle',
+    backgroundColor: 'skyblue',
+  },
+  tileTitle: {
+    textAlign: 'center',
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: 'red'
   },
 });
