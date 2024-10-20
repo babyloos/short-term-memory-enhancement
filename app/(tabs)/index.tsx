@@ -5,11 +5,17 @@ import {
   View
 } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
+import { Audio } from 'expo-av';
+
+async function playSound() {
+    const { sound } = await Audio.Sound.createAsync(require('../../assets/sounds/enterTile.mp3'));
+    await sound.playAsync();
+  }
 
 type ItemProps = {title: string};
 
 const Tile = ({title}: ItemProps) => (
-  <View style={styles.tile} onTouchStart={ () => {console.log(title); }}>
+  <View style={styles.tile} onTouchStart={ () => {playSound()}}>
     <Text style={styles.tileTitle}>{title}</Text>
   </View>
 )
