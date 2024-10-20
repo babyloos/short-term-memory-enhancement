@@ -29,21 +29,26 @@ const DATA = [
 
 export default function HomeScreen() {
   return (
-    <View>
+    <View style={styles.container}>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>ステージ1</Text>
       </View>
-      <FlatList
-        data={DATA}
-        numColumns={3}
-        renderItem={({item}) => <Tile title={item.title} />}
-        keyExtractor={item => item.title}
-      />
+      <View style={styles.tileContainer}>
+        <FlatList
+          data={DATA}
+          numColumns={3}
+          renderItem={({item}) => <Tile title={item.title} />}
+          keyExtractor={item => item.title}
+        />
+      </View>
     </View>
     );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    height: '100%',
+  },
   titleContainer: {
     marginTop: 32,
     marginBottom: 8,
@@ -55,6 +60,9 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#005500',
     backgroundColor: 'white',
+  },
+  tileContainer: {
+    marginTop: 32,
   },
   tile: {
     height: 80,
