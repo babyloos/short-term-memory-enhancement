@@ -1,16 +1,15 @@
-import { useEffect, useState } from 'react';
+import { Audio } from 'expo-av';
 import {
   StyleSheet,
   Text,
   View
 } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import { Audio } from 'expo-av';
 
 async function playSound() {
-    const { sound } = await Audio.Sound.createAsync(require('../../assets/sounds/enterTile.mp3'));
-    await sound.playAsync();
-  }
+  const { sound } = await Audio.Sound.createAsync(require('../../assets/sounds/enterTile.mp3'));
+  await sound.playAsync();
+}
 
 type ItemProps = {title: string};
 
