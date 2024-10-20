@@ -8,13 +8,11 @@ import { FlatList } from 'react-native-gesture-handler';
 
 type ItemProps = {title: string};
 
-const Tile = ({title}: ItemProps) => {
-  return (
-    <View style={styles.tile}>
-      <Text style={styles.tileTitle}>{title}</Text>
-    </View>
-  );
-}
+const Tile = ({title}: ItemProps) => (
+  <View style={styles.tile} onTouchStart={ () => {console.log(title); }}>
+    <Text style={styles.tileTitle}>{title}</Text>
+  </View>
+)
 
 let DATA: Array<ItemProps> = [];
 
