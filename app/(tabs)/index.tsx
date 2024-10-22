@@ -1,4 +1,5 @@
 import { Audio } from 'expo-av';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -13,11 +14,21 @@ async function playSound() {
 
 type ItemProps = {title: string};
 
-const Tile = ({title}: ItemProps) => (
+const Tile = ({title}: ItemProps) => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setIsVisible(!isVisible);
+  //   }, 500);
+  // })
+
+  return (
   <View style={styles.tile} onTouchStart={ () => {playSound()}}>
-    <Text style={styles.tileTitle}>{title}</Text>
+    <Text style={isVisible ? styles.tileTitle : styles.hidden }>{title}</Text>
   </View>
-)
+  );
+}
 
 let DATA: Array<ItemProps> = [];
 
@@ -30,6 +41,10 @@ const addTileData = (tileCount: number) => {
 addTileData(9);
 
 export default function HomeScreen() {
+  useEffect(() => {
+    console.log("ゲームを開始する");
+  });
+
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
@@ -39,8 +54,11 @@ export default function HomeScreen() {
         <FlatList
           data={DATA}
           numColumns={3}
-          renderItem={({item}) => <Tile title={item.title} />}
+          renderItem={
+            ({item}) => <Tile title={item.title} />
+          }
           keyExtractor={item => item.title}
+          scrollEnabled={false}
         />
       </View>
     </View>
@@ -79,6 +97,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 32,
     fontWeight: 'bold',
-    color: 'red'
+    color: 'red',
+  },
+  hidden: {
+    display: 'none',
   },
 });
