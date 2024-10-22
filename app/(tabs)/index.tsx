@@ -17,7 +17,6 @@ type ItemProps = {title: string, index: number};
 let DATA: Array<ItemProps> = [];
 
 const addTileData = (tileCount: number) => {
-  console.log("1回")
   for (var i=1; i <= tileCount; i++) {
     DATA.push({title: i.toString(), index: i})
   }
@@ -49,7 +48,7 @@ export default function HomeScreen() {
       }
     }, 500);
 
-    return () => clearInterval(interval);  // クリーンアップ
+    return () => clearInterval(interval);
   });
 
   return (
