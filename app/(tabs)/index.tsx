@@ -12,37 +12,44 @@ async function playSound() {
   await sound.playAsync();
 }
 
-type ItemProps = {title: string};
-
-const Tile = ({title}: ItemProps) => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setIsVisible(!isVisible);
-  //   }, 500);
-  // })
-
-  return (
-  <View style={styles.tile} onTouchStart={ () => {playSound()}}>
-    <Text style={isVisible ? styles.tileTitle : styles.hidden }>{title}</Text>
-  </View>
-  );
-}
+type ItemProps = {title: string, index: number};
 
 let DATA: Array<ItemProps> = [];
 
 const addTileData = (tileCount: number) => {
+  console.log("1回")
   for (var i=1; i <= tileCount; i++) {
-    DATA.push({title: i.toString()})
+    DATA.push({title: i.toString(), index: i})
   }
 }
 
 addTileData(9);
 
 export default function HomeScreen() {
+  const [index, setIndex] = useState(0);
+  const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const [visibleIndex, setVisibleIndex] = useState(0);
+
+  const Tile = ({title, index}: ItemProps) => {
+    return (
+    <View style={styles.tile} onTouchStart={ () => {playSound()}}>
+      <Text style={visibleIndex == index ? styles.tileTitle : styles.hidden }>{title}</Text>
+    </View>
+    );
+  }
+
   useEffect(() => {
-    console.log("ゲームを開始する");
+    const interval = setInterval(() => {
+      if (index <= numbers.length) {
+        setVisibleIndex(index);
+        console.log(index)
+        setIndex(index+1)
+      } else {
+        clearInterval(interval);
+      }
+    }, 500);
+
+    return () => clearInterval(interval);  // クリーンアップ
   });
 
   return (
@@ -54,10 +61,8 @@ export default function HomeScreen() {
         <FlatList
           data={DATA}
           numColumns={3}
-          renderItem={
-            ({item}) => <Tile title={item.title} />
-          }
-          keyExtractor={item => item.title}
+          renderItem={({item}) => <Tile title={item.title} index={item.index} />}
+          keyExtractor={(item, index) => item.title}
           scrollEnabled={false}
         />
       </View>
