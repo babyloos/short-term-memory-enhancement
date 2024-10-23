@@ -26,6 +26,8 @@ const addTileData = (tileCount: number) => {
 addTileData(9);
 
 export default function HomeScreen() {
+  const [gameState, setGameState] = useState(0);
+
   const [index, setIndex] = useState(0);
   const panelCount = 9;
   const [numbers, setNumbers] = useState(Array<number>);
@@ -55,11 +57,23 @@ export default function HomeScreen() {
         } else {
           console.log('clear interval');
           clearInterval(interval);
+          setGameState(prevState => 1);
+          console.log('game state: ' + gameState);
           return 0;
         }
       });
     }, 500);
+
   };
+
+  useEffect(() => {
+    if (gameState == 1) {
+      console.log('回答開始');
+    }
+    console.log('回答終了');
+    setGameState(0);
+    console.log('change game state: ' + gameState);
+  }, [gameState]);
 
   return (
     <View style={styles.container}>
