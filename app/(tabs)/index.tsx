@@ -27,7 +27,8 @@ addTileData(9);
 
 export default function HomeScreen() {
   const [index, setIndex] = useState(0);
-  const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const panelCount = 9;
+  const [numbers, setNumbers] = useState(Array<number>);
   const [visibleIndex, setVisibleIndex] = useState(0);
 
   const Tile = ({title, index}: ItemProps) => {
@@ -39,14 +40,20 @@ export default function HomeScreen() {
   }
 
   const gameStart = () => {
+    setNumbers([]);
+    for (var i=0; i<panelCount; i++) {
+      numbers.push(Math.floor(Math.random() * 9) + 1);
+    }
+
     const interval = setInterval(() => {
       setIndex(prevIndex => {
-        if (prevIndex <= numbers.length) {
-          setVisibleIndex(prevIndex + 1);
+        if (prevIndex < numbers.length) {
+          setVisibleIndex(numbers[prevIndex + 1]);
           console.log(prevIndex + 1);
           return prevIndex + 1;
         } else {
           clearInterval(interval);
+          setIndex(0);
           return prevIndex;
         }
       });
