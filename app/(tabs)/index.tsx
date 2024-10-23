@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   Text,
+  TouchableOpacity,
   View
 } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
@@ -37,25 +38,29 @@ export default function HomeScreen() {
     );
   }
 
-  useEffect(() => {
+  const gameStart = () => {
     const interval = setInterval(() => {
-      if (index <= numbers.length) {
-        setVisibleIndex(index);
-        console.log(index)
-        setIndex(index+1)
-      } else {
-        clearInterval(interval);
-      }
+      setIndex(prevIndex => {
+        if (prevIndex <= numbers.length) {
+          setVisibleIndex(prevIndex + 1);
+          console.log(prevIndex + 1);
+          return prevIndex + 1;
+        } else {
+          clearInterval(interval);
+          return prevIndex;
+        }
+      });
     }, 500);
-
-    return () => clearInterval(interval);
-  });
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>ステージ1</Text>
       </View>
+      <TouchableOpacity style={{marginTop: 20, backgroundColor: 'red'}} onPress={() => gameStart()}>
+        <Text style={{fontSize: 40}}>GAME START</Text>
+      </TouchableOpacity>
       <View style={styles.tileContainer}>
         <FlatList
           data={DATA}
