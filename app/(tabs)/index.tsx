@@ -40,6 +40,7 @@ export default function HomeScreen() {
   }
 
   const gameStart = () => {
+    console.log('gameStart');
     setNumbers([]);
     for (var i=0; i<panelCount; i++) {
       numbers.push(Math.floor(Math.random() * 9) + 1);
@@ -52,9 +53,9 @@ export default function HomeScreen() {
           console.log(prevIndex + 1);
           return prevIndex + 1;
         } else {
+          console.log('clear interval');
           clearInterval(interval);
-          setIndex(0);
-          return prevIndex;
+          return 0;
         }
       });
     }, 500);
