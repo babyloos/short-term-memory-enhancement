@@ -33,6 +33,15 @@ export default function HomeScreen() {
   let numbers = Array<number>();
   const [visibleIndex, setVisibleIndex] = useState(0);
 
+  type countProps = { count: number }
+  const CountDownPanel = ({count}: countProps) => {
+    return (
+      <View style={styles.countDownPanel}>
+        <Text style={styles.countDownPanelText}>{count}</Text>
+      </View>
+    );
+  }
+
   const Tile = ({title, index}: ItemProps) => {
     return (
     <View style={styles.tile} onTouchStart={ () => {playSound()}}>
@@ -83,7 +92,6 @@ export default function HomeScreen() {
     if (gameState == 1) {
       console.log('回答開始');
     }
-    console.log('回答終了');
     setGameState(0);
     console.log('change game state: ' + gameState);
   }, [gameState]);
@@ -105,6 +113,7 @@ export default function HomeScreen() {
           scrollEnabled={false}
         />
       </View>
+      <CountDownPanel count={0} />
     </View>
     );
 }
@@ -145,5 +154,17 @@ const styles = StyleSheet.create({
   },
   hidden: {
     display: 'none',
+  },
+  countDownPanel: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    alignSelf: 'center',
+  },
+  countDownPanelText: {
+    color: 'brown',
+    top: '-50%',
+    left: '-50%',
+    fontSize: 300,
   },
 });
