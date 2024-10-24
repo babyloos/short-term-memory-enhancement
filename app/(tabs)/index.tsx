@@ -30,7 +30,7 @@ export default function HomeScreen() {
 
   const [index, setIndex] = useState(0);
   const panelCount = 9;
-  const [numbers, setNumbers] = useState(Array<number>);
+  let numbers = Array<number>();
   const [visibleIndex, setVisibleIndex] = useState(0);
 
   const Tile = ({title, index}: ItemProps) => {
@@ -54,11 +54,12 @@ export default function HomeScreen() {
 
   const gameStart = () => {
     console.log('gameStart');
-    setNumbers([]);
+    console.log(numbers);
+    console.log(panelCount);
     for (var i=1; i<=panelCount; i++) {
       numbers.push(i);
     }
-    setNumbers(arrayShuffle(numbers));
+    numbers = arrayShuffle(numbers);
 
     const interval = setInterval(() => {
       setIndex(prevIndex => {
