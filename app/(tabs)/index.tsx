@@ -65,6 +65,7 @@ export default function HomeScreen() {
   }
 
   const countDownStart = () => {
+    setCountDownNum(3);
     setCountDownIsVisible(true);
     const countDownInterval = setInterval(() => {
       setCountDownNum((prev) => {
@@ -109,7 +110,6 @@ export default function HomeScreen() {
     console.log(numbers);
     console.log(panelCount);
 
-    setCountDownNum(3);
     countDownStart();
   };
 
@@ -117,6 +117,9 @@ export default function HomeScreen() {
     if (gameState == 1) {
       console.log('出題開始');
       questionStart();
+    }
+    if (gameState == 2) {
+      console.log('回答開始');
     }
     console.log('change game state: ' + gameState);
   }, [gameState]);
