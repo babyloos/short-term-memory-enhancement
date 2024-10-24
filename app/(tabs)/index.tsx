@@ -41,12 +41,24 @@ export default function HomeScreen() {
     );
   }
 
+  const arrayShuffle = (array: Array<number>) => {
+    for(let i = (array.length - 1); 0 < i; i--){
+      let r = Math.floor(Math.random() * (i + 1));
+      let tmp = array[i];
+      array[i] = array[r];
+      array[r] = tmp;
+    }
+
+    return array;
+  }
+
   const gameStart = () => {
     console.log('gameStart');
     setNumbers([]);
-    for (var i=0; i<panelCount; i++) {
-      numbers.push(Math.floor(Math.random() * 9) + 1);
+    for (var i=1; i<=panelCount; i++) {
+      numbers.push(i);
     }
+    setNumbers(arrayShuffle(numbers));
 
     const interval = setInterval(() => {
       setIndex(prevIndex => {
