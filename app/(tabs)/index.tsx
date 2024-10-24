@@ -31,12 +31,16 @@ export default function HomeScreen() {
   const [index, setIndex] = useState(0);
   const panelCount = 9;
   let numbers = Array<number>();
+  const [countDownNum, setCountDownNum] = useState(3);
+  const [countDownIsVisible, setCountDownIsVisible] = useState(false);
+  let isCountDown = true;
   const [visibleIndex, setVisibleIndex] = useState(0);
 
-  type countProps = { count: number }
-  const CountDownPanel = ({count}: countProps) => {
+  type countProps = { count: number, isVisible: boolean }
+
+  const CountDownPanel = ({count, isVisible}: countProps) => {
     return (
-      <View style={styles.countDownPanel}>
+      <View style={[styles.countDownPanel, {display: isVisible ? 'flex' : 'none'}]}>
         <Text style={styles.countDownPanelText}>{count}</Text>
       </View>
     );
@@ -61,10 +65,29 @@ export default function HomeScreen() {
     return array;
   }
 
+  const countDownStart = () => {
+    setCountDownIsVisible(true);
+    const countDownInterval = setInterval(() => {
+      setCountDownNum((prev) => {
+        if (prev >= 2) {
+          return prev - 1;
+        } else {
+          setCountDownIsVisible((prev) => false);
+          clearInterval(countDownInterval);
+          return 0;
+        }
+      });
+    }, 500);
+    setCountDownIsVisible(true);
+  }
+
   const gameStart = () => {
+    countDownStart();
+
     console.log('gameStart');
     console.log(numbers);
     console.log(panelCount);
+
     for (var i=1; i<=panelCount; i++) {
       numbers.push(i);
     }
@@ -85,7 +108,6 @@ export default function HomeScreen() {
         }
       });
     }, 500);
-
   };
 
   useEffect(() => {
@@ -113,7 +135,7 @@ export default function HomeScreen() {
           scrollEnabled={false}
         />
       </View>
-      <CountDownPanel count={0} />
+      <CountDownPanel count={countDownNum} isVisible={countDownIsVisible} key={countDownNum}/>
     </View>
     );
 }
