@@ -33,7 +33,6 @@ export default function HomeScreen() {
   let numbers = Array<number>();
   const [countDownNum, setCountDownNum] = useState(3);
   const [countDownIsVisible, setCountDownIsVisible] = useState(false);
-  let isCountDown = true;
   const [visibleIndex, setVisibleIndex] = useState(0);
 
   type countProps = { count: number, isVisible: boolean }
@@ -72,6 +71,7 @@ export default function HomeScreen() {
         if (prev >= 2) {
           return prev - 1;
         } else {
+          setGameState((prev) => 1);
           setCountDownIsVisible((prev) => false);
           clearInterval(countDownInterval);
           return 0;
@@ -81,13 +81,7 @@ export default function HomeScreen() {
     setCountDownIsVisible(true);
   }
 
-  const gameStart = () => {
-    countDownStart();
-
-    console.log('gameStart');
-    console.log(numbers);
-    console.log(panelCount);
-
+  const questionStart = () => {
     for (var i=1; i<=panelCount; i++) {
       numbers.push(i);
     }
@@ -102,19 +96,28 @@ export default function HomeScreen() {
         } else {
           console.log('clear interval');
           clearInterval(interval);
-          setGameState(prevState => 1);
+          setGameState(prevState => 2);
           console.log('game state: ' + gameState);
           return 0;
         }
       });
     }, 500);
+  }
+
+  const gameStart = () => {
+    console.log('gameStart');
+    console.log(numbers);
+    console.log(panelCount);
+
+    setCountDownNum(3);
+    countDownStart();
   };
 
   useEffect(() => {
     if (gameState == 1) {
-      console.log('回答開始');
+      console.log('出題開始');
+      questionStart();
     }
-    setGameState(0);
     console.log('change game state: ' + gameState);
   }, [gameState]);
 
