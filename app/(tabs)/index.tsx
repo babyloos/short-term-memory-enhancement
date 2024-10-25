@@ -30,7 +30,9 @@ export default function HomeScreen() {
 
   const [index, setIndex] = useState(0);
   const panelCount = 9;
+  console.log('clear numbers');
   let numbers = Array<number>();
+  let answerStep = 0;
   const [countDownNum, setCountDownNum] = useState(3);
   const [countDownIsVisible, setCountDownIsVisible] = useState(false);
   const [visibleIndex, setVisibleIndex] = useState(0);
@@ -45,9 +47,24 @@ export default function HomeScreen() {
     );
   }
 
+  const judgeAnswer = (touchPanelNumber: number) => {
+    if (touchPanelNumber == numbers[answerStep]) {
+      console.log("正解");
+    } else {
+      console.log("不正解");
+    }
+    console.log("touchPanelNumber: " + touchPanelNumber);
+    answerStep+=1;
+  }
+
   const Tile = ({title, index}: ItemProps) => {
+    const touchedAction = () => {
+      playSound();
+      judgeAnswer(index);
+    }
+
     return (
-    <View style={styles.tile} onTouchStart={ () => {playSound()}}>
+    <View style={styles.tile} onTouchStart={ touchedAction }>
       <Text style={visibleIndex == index ? styles.tileTitle : styles.hidden }>{title}</Text>
     </View>
     );
@@ -92,24 +109,21 @@ export default function HomeScreen() {
       setIndex(prevIndex => {
         if (prevIndex < numbers.length) {
           setVisibleIndex(numbers[prevIndex + 1]);
-          console.log(prevIndex + 1);
           return prevIndex + 1;
         } else {
-          console.log('clear interval');
           clearInterval(interval);
           setGameState(prevState => 2);
-          console.log('game state: ' + gameState);
           return 0;
         }
       });
     }, 500);
   }
 
+  const answerStart = () => {
+  }
+
   const gameStart = () => {
     console.log('gameStart');
-    console.log(numbers);
-    console.log(panelCount);
-
     countDownStart();
   };
 
@@ -117,9 +131,13 @@ export default function HomeScreen() {
     if (gameState == 1) {
       console.log('出題開始');
       questionStart();
+      console.log("numbers 1: " + numbers);
     }
+
     if (gameState == 2) {
       console.log('回答開始');
+      answerStart();
+      console.log("numbers 2: " + numbers);
     }
     console.log('change game state: ' + gameState);
   }, [gameState]);
