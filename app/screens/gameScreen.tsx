@@ -14,13 +14,13 @@ async function playSound() {
   await sound.playAsync();
 }
 
-type ItemProps = {title: string, index: number};
+type ItemProps = { title: string, index: number };
 
 let DATA: Array<ItemProps> = [];
 
 const addTileData = (tileCount: number) => {
-  for (var i=1; i <= tileCount; i++) {
-    DATA.push({title: i.toString(), index: i})
+  for (var i = 1; i <= tileCount; i++) {
+    DATA.push({ title: i.toString(), index: i })
   }
 }
 
@@ -28,7 +28,7 @@ addTileData(9);
 
 export default function HomeScreen() {
   const [gameState, setGameState] = useState(0);
-
+  const [backgroundColor, setBackgroundColor] = useState('');
   const [index, setIndex] = useState(0);
   const panelCount = 3;
   const [numbers, setNumbers] = useState(Array<number>());
@@ -37,15 +37,24 @@ export default function HomeScreen() {
   const [countDownIsVisible, setCountDownIsVisible] = useState(false);
   const [visibleIndex, setVisibleIndex] = useState(0);
 
+  const flashBackgroundWith = (backgroundColor: string) => {
+    setBackgroundColor(backgroundColor);
+    setTimeout(() => {
+      setBackgroundColor('transparent');
+    }, 200);
+  }
+
   const judgeAnswer = (touchPanelNumber: number) => {
     if (touchPanelNumber == numbers[answerStep]) {
       console.log("正解");
+      flashBackgroundWith('pink');
     } else {
       console.log("不正解");
+      flashBackgroundWith('red');
     }
     console.log("touchPanelNumber: " + touchPanelNumber);
     console.log("answer: " + numbers[answerStep]);
-    setAnswerStep((prev) => prev+1);
+    setAnswerStep((prev) => prev + 1);
     if (answerStep >= numbers.length - 1) {
       setAnswerStep(0);
       console.log('numbers.length: ' + numbers.length);
@@ -54,7 +63,7 @@ export default function HomeScreen() {
     }
   }
 
-  const Tile = ({title, index}: ItemProps) => {
+  const Tile = ({ title, index }: ItemProps) => {
     const touchedAction = () => {
       playSound();
       console.log(index);
@@ -62,14 +71,14 @@ export default function HomeScreen() {
     }
 
     return (
-    <View style={styles.tile} onTouchStart={ touchedAction }>
-      <Text style={visibleIndex == index ? styles.tileTitle : styles.hidden }>{title}</Text>
-    </View>
+      <View style={styles.tile} onTouchStart={touchedAction}>
+        <Text style={visibleIndex == index ? styles.tileTitle : styles.hidden}>{title}</Text>
+      </View>
     );
   }
 
   const arrayShuffle = (array: Array<number>) => {
-    for(let i = (array.length - 1); 0 < i; i--){
+    for (let i = (array.length - 1); 0 < i; i--) {
       let r = Math.floor(Math.random() * (i + 1));
       let tmp = array[i];
       array[i] = array[r];
@@ -99,7 +108,7 @@ export default function HomeScreen() {
 
   const questionStart = () => {
     let numbers = Array<number>();
-    for (var i=1; i<=panelCount; i++) {
+    for (var i = 1; i <= panelCount; i++) {
       numbers.push(i);
     }
     numbers = arrayShuffle(numbers);
@@ -142,25 +151,25 @@ export default function HomeScreen() {
   }, [gameState]);
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: backgroundColor }]}>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>ステージ1</Text>
       </View>
-      <TouchableOpacity style={{marginTop: 20, backgroundColor: 'red'}} onPress={() => gameStart()}>
-        <Text style={{fontSize: 40}}>GAME START</Text>
+      <TouchableOpacity style={{ marginTop: 20, backgroundColor: 'red' }} onPress={() => gameStart()}>
+        <Text style={{ fontSize: 40 }}>GAME START</Text>
       </TouchableOpacity>
       <View style={styles.tileContainer}>
         <FlatList
           data={DATA}
           numColumns={3}
-          renderItem={({item}) => <Tile title={item.title} index={item.index} />}
+          renderItem={({ item }) => <Tile title={item.title} index={item.index} />}
           keyExtractor={(item, index) => item.title}
           scrollEnabled={false}
         />
       </View>
-      <CountDownPanel count={countDownNum} isVisible={countDownIsVisible} key={countDownNum}/>
+      <CountDownPanel count={countDownNum} isVisible={countDownIsVisible} key={countDownNum} />
     </View>
-    );
+  );
 }
 
 const styles = StyleSheet.create({
