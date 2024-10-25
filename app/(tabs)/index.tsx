@@ -30,8 +30,7 @@ export default function HomeScreen() {
 
   const [index, setIndex] = useState(0);
   const panelCount = 9;
-  console.log('clear numbers');
-  let numbers = Array<number>();
+  const [numbers, setNumbers] = useState(Array<number>());
   let answerStep = 0;
   const [countDownNum, setCountDownNum] = useState(3);
   const [countDownIsVisible, setCountDownIsVisible] = useState(false);
@@ -100,10 +99,12 @@ export default function HomeScreen() {
   }
 
   const questionStart = () => {
+    let numbers = Array<number>();
     for (var i=1; i<=panelCount; i++) {
       numbers.push(i);
     }
     numbers = arrayShuffle(numbers);
+    setNumbers(numbers);
 
     const interval = setInterval(() => {
       setIndex(prevIndex => {
@@ -131,7 +132,6 @@ export default function HomeScreen() {
     if (gameState == 1) {
       console.log('出題開始');
       questionStart();
-      console.log("numbers 1: " + numbers);
     }
 
     if (gameState == 2) {
