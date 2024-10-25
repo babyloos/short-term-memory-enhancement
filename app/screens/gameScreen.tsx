@@ -1,3 +1,4 @@
+import CountDownPanel from '@/components/CountDownPanel';
 import { Audio } from 'expo-av';
 import React, { useEffect, useState } from 'react';
 import {
@@ -35,16 +36,6 @@ export default function HomeScreen() {
   const [countDownNum, setCountDownNum] = useState(3);
   const [countDownIsVisible, setCountDownIsVisible] = useState(false);
   const [visibleIndex, setVisibleIndex] = useState(0);
-
-  type countProps = { count: number, isVisible: boolean }
-
-  const CountDownPanel = ({count, isVisible}: countProps) => {
-    return (
-      <View style={[styles.countDownPanel, {display: isVisible ? 'flex' : 'none'}]}>
-        <Text style={styles.countDownPanelText}>{count}</Text>
-      </View>
-    );
-  }
 
   const judgeAnswer = (touchPanelNumber: number) => {
     if (touchPanelNumber == numbers[answerStep]) {
@@ -208,17 +199,5 @@ const styles = StyleSheet.create({
   },
   hidden: {
     display: 'none',
-  },
-  countDownPanel: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    alignSelf: 'center',
-  },
-  countDownPanelText: {
-    color: 'brown',
-    top: '-50%',
-    left: '-50%',
-    fontSize: 300,
   },
 });
