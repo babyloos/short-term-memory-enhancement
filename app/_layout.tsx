@@ -14,7 +14,7 @@ import {
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import HomeScreen from './(tabs)';
+import HomeScreen from './screens/gameScreen';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
