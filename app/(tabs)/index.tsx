@@ -29,9 +29,9 @@ export default function HomeScreen() {
   const [gameState, setGameState] = useState(0);
 
   const [index, setIndex] = useState(0);
-  const panelCount = 9;
+  const panelCount = 3;
   const [numbers, setNumbers] = useState(Array<number>());
-  let answerStep = 0;
+  const [answerStep, setAnswerStep] = useState(0);
   const [countDownNum, setCountDownNum] = useState(3);
   const [countDownIsVisible, setCountDownIsVisible] = useState(false);
   const [visibleIndex, setVisibleIndex] = useState(0);
@@ -53,12 +53,20 @@ export default function HomeScreen() {
       console.log("不正解");
     }
     console.log("touchPanelNumber: " + touchPanelNumber);
-    answerStep+=1;
+    console.log("answer: " + numbers[answerStep]);
+    setAnswerStep((prev) => prev+1);
+    if (answerStep >= numbers.length - 1) {
+      setAnswerStep(0);
+      console.log('numbers.length: ' + numbers.length);
+      setGameState(0);
+      console.log("終了");
+    }
   }
 
   const Tile = ({title, index}: ItemProps) => {
     const touchedAction = () => {
       playSound();
+      console.log(index);
       judgeAnswer(index);
     }
 
@@ -108,8 +116,8 @@ export default function HomeScreen() {
 
     const interval = setInterval(() => {
       setIndex(prevIndex => {
-        if (prevIndex < numbers.length) {
-          setVisibleIndex(numbers[prevIndex + 1]);
+        if (prevIndex <= numbers.length) {
+          setVisibleIndex(numbers[prevIndex]);
           return prevIndex + 1;
         } else {
           clearInterval(interval);
@@ -121,6 +129,7 @@ export default function HomeScreen() {
   }
 
   const answerStart = () => {
+    console.log(numbers);
   }
 
   const gameStart = () => {
@@ -137,7 +146,6 @@ export default function HomeScreen() {
     if (gameState == 2) {
       console.log('回答開始');
       answerStart();
-      console.log("numbers 2: " + numbers);
     }
     console.log('change game state: ' + gameState);
   }, [gameState]);
