@@ -53,6 +53,7 @@ export default function HomeScreen() {
             setCorrectNum((prev) => prev+1);
         } else {
             flashBackgroundWith('red');
+            setGameState(3);
         }
         setAnswerStep((prev) => prev + 1);
         if (answerStep >= numbers.length - 1) {
