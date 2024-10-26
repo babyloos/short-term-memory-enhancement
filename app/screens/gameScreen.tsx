@@ -27,10 +27,10 @@ const addTileData = (tileCount: number) => {
 addTileData(9);
 
 export default function HomeScreen() {
+  const panelOneLineCount = 3;
   const [gameState, setGameState] = useState(0);
   const [backgroundColor, setBackgroundColor] = useState('');
   const [index, setIndex] = useState(0);
-  const panelCount = 3;
   const [numbers, setNumbers] = useState(Array<number>());
   const [answerStep, setAnswerStep] = useState(0);
   const [countDownNum, setCountDownNum] = useState(3);
@@ -108,7 +108,7 @@ export default function HomeScreen() {
 
   const questionStart = () => {
     let numbers = Array<number>();
-    for (var i = 1; i <= panelCount; i++) {
+    for (var i = 1; i <= panelOneLineCount; i++) {
       numbers.push(i);
     }
     numbers = arrayShuffle(numbers);
