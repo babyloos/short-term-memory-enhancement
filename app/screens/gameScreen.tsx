@@ -1,7 +1,8 @@
 import CountDownPanel from '@/components/CountDownPanel';
 import ResultPanel from '@/components/ResultPanel';
 import { Audio } from 'expo-av';
-import React, { useEffect, useState } from 'react';
+import { Sound } from 'expo-av/build/Audio';
+import React, { useEffect, useRef, useState } from 'react';
 import {
     StyleSheet,
     Text,
@@ -9,11 +10,6 @@ import {
     View
 } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-
-async function playSound() {
-    const { sound } = await Audio.Sound.createAsync(require('../../assets/sounds/enterTile.mp3'));
-    await sound.playAsync();
-}
 
 type TileDataProps = { title: string, index: number, isEnable: boolean };
 
@@ -29,12 +25,32 @@ export default function HomeScreen() {
     const [countDownNum, setCountDownNum] = useState(3);
     const [countDownIsVisible, setCountDownIsVisible] = useState(false);
     const [visibleIndex, setVisibleIndex] = useState(0);
-
     const [tileData, setTileData] = useState(Array<TileDataProps>);
+    const enterTitleSound = useRef<Audio.Sound | null>(null);
+    const [bgm, setBgm] = useState<Audio.Sound>();
 
     useEffect(() => {
+        console.log('only once logic');
+        loadSounds();
         addTileData(panelCount);
     }, []);
+
+    const playSound = async (sound: React.MutableRefObject<Sound | null>) => {
+        if (sound.current != null)
+            await sound.current.replayAsync();
+    }
+
+    const loadSounds = async () => {
+        {
+            const { sound } = await Audio.Sound.createAsync(require('../../assets/sounds/enterTile.mp3'));
+            enterTitleSound.current = sound;
+        }
+
+        // {
+        //     const { sound } = await Audio.Sound.createAsync(require('../../assets/sounds/drum_BPM123.mp3'));
+        //     setBgm(sound);
+        // }
+    }
 
     const addTileData = (tileCount: number) => {
         let data =Array<TileDataProps>();
@@ -67,7 +83,7 @@ export default function HomeScreen() {
     const Tile = ({ title, index, isEnable }: TileDataProps) => {
         const touchedAction = () => {
             if (!isEnable || gameState != 2) return;
-            playSound();
+            playSound(enterTitleSound);
             if (judgeAnswer(index)) {
                 flashBackgroundWith('pink');
                 setCorrectNum((prev) => prev+1);
