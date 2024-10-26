@@ -150,12 +150,12 @@ export default function HomeScreen() {
 
     const gameStart = () => {
         console.log('gameStart');
-        countDownStart();
     };
 
     useEffect(() => {
         if (gameState == 0) {
             resetTileData();
+            countDownStart();
         }
 
         if (gameState == 1) {
