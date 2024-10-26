@@ -29,6 +29,7 @@ addTileData(9);
 
 export default function HomeScreen() {
     const panelCount = 5;
+    // ゲームの状態, 0: ゲーム開始待機, 1: 出題中, 2: 回答中, 3: 結果表示中
     const [gameState, setGameState] = useState(0);
     const [backgroundColor, setBackgroundColor] = useState('');
     const [index, setIndex] = useState(0);
@@ -54,7 +55,7 @@ export default function HomeScreen() {
         setAnswerStep((prev) => prev + 1);
         if (answerStep >= numbers.length - 1) {
             setAnswerStep(0);
-            setGameState(0);
+            setGameState(3);
             console.log("終了");
         }
     }
@@ -165,7 +166,7 @@ export default function HomeScreen() {
                 />
             </View>
             <CountDownPanel count={countDownNum} isVisible={countDownIsVisible} key={countDownNum} />
-            <ResultPanel result={'gameClear'} ></ResultPanel>
+            <ResultPanel result={'gameClear'} isVisible={gameState == 3} ></ResultPanel>
         </View>
     );
 }
