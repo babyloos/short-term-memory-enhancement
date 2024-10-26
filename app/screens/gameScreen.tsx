@@ -15,13 +15,19 @@ async function playSound() {
     await sound.playAsync();
 }
 
-type ItemProps = { title: string, index: number };
+type TileDataProps = { title: string, index: number, isEnable: boolean };
 
-let DATA: Array<ItemProps> = [];
+let DATA: Array<TileDataProps> = [];
 
 const addTileData = (tileCount: number) => {
     for (var i = 1; i <= tileCount; i++) {
-        DATA.push({ title: i.toString(), index: i })
+        DATA.push({ title: i.toString(), index: i, isEnable: true })
+    }
+}
+
+const resetTileData = () => {
+    for (var i=0; i<DATA.length; i++) {
+        DATA[i].isEnable = true;
     }
 }
 
@@ -47,31 +53,38 @@ export default function HomeScreen() {
         }, 200);
     }
 
-    const judgeAnswer = (touchPanelNumber: number) => {
+    const judgeAnswer = (touchPanelNumber: number): boolean => {
         if (touchPanelNumber == numbers[answerStep]) {
-            flashBackgroundWith('pink');
-            setCorrectNum((prev) => prev+1);
+            return true;
         } else {
-            flashBackgroundWith('red');
-            setGameState(3);
-        }
-        setAnswerStep((prev) => prev + 1);
-        if (answerStep >= numbers.length - 1) {
-            setAnswerStep(0);
-            setGameState(3);
-            console.log("終了");
+            console.log('touchPanelNumber: ' + touchPanelNumber);
+            console.log('ansertStep: ' + answerStep);
+            console.log('numbers[ansertStep]: ' + numbers[answerStep]);
+            return false;
         }
     }
 
-    const Tile = ({ title, index }: ItemProps) => {
+    const Tile = ({ title, index, isEnable }: TileDataProps) => {
         const touchedAction = () => {
             playSound();
-            console.log(index);
-            judgeAnswer(index);
+            if (judgeAnswer(index)) {
+                flashBackgroundWith('pink');
+                setCorrectNum((prev) => prev+1);
+            } else {
+                flashBackgroundWith('red');
+                setGameState(3);
+            }
+
+            setAnswerStep((prev) => prev + 1);
+            if (answerStep >= numbers.length - 1) {
+                setGameState(3);
+            }
+
+            DATA[index-1].isEnable = false;
         }
 
         return (
-            <View style={styles.tile} onTouchStart={touchedAction}>
+            <View style={[styles.tile, {backgroundColor: isEnable ? 'skyblue' : 'gray'}]} onTouchStart={touchedAction}>
                 <Text style={visibleIndex == index ? styles.tileTitle : styles.hidden}>{title}</Text>
             </View>
         );
@@ -130,6 +143,7 @@ export default function HomeScreen() {
     }
 
     const answerStart = () => {
+        setAnswerStep(0);
         console.log(numbers);
     }
 
@@ -139,6 +153,11 @@ export default function HomeScreen() {
     };
 
     useEffect(() => {
+        if (gameState == 0) {
+            console.log('resetTileData');
+            resetTileData(); 
+        }
+
         if (gameState == 1) {
             questionStart();
         }
@@ -164,7 +183,7 @@ export default function HomeScreen() {
                 <FlatList
                     data={DATA}
                     numColumns={3}
-                    renderItem={({ item }) => <Tile title={item.title} index={item.index} />}
+                    renderItem={({ item }) => <Tile title={item.title} index={item.index} isEnable={item.isEnable} />}
                     keyExtractor={(item, index) => item.title}
                     scrollEnabled={false}
                 />
