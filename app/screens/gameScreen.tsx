@@ -28,9 +28,10 @@ const addTileData = (tileCount: number) => {
 addTileData(9);
 
 export default function HomeScreen() {
-    const panelCount = 5;
+    const panelCount = 9;
     // ゲームの状態, 0: ゲーム開始待機, 1: 出題中, 2: 回答中, 3: 結果表示中
     const [gameState, setGameState] = useState(0);
+    const [correctNum, setCorrectNum] = useState(0);
     const [backgroundColor, setBackgroundColor] = useState('');
     const [index, setIndex] = useState(0);
     const [numbers, setNumbers] = useState(Array<number>());
@@ -49,6 +50,7 @@ export default function HomeScreen() {
     const judgeAnswer = (touchPanelNumber: number) => {
         if (touchPanelNumber == numbers[answerStep]) {
             flashBackgroundWith('pink');
+            setCorrectNum((prev) => prev+1);
         } else {
             flashBackgroundWith('red');
         }
@@ -110,6 +112,7 @@ export default function HomeScreen() {
         }
         numbers = arrayShuffle(numbers);
         setNumbers(numbers);
+        setCorrectNum(0);
 
         const interval = setInterval(() => {
             setIndex(prevIndex => {
@@ -166,7 +169,7 @@ export default function HomeScreen() {
                 />
             </View>
             <CountDownPanel count={countDownNum} isVisible={countDownIsVisible} key={countDownNum} />
-            <ResultPanel result={'gameClear'} isVisible={gameState == 3} ></ResultPanel>
+            <ResultPanel result={correctNum} isVisible={gameState == 3} ></ResultPanel>
         </View>
     );
 }
