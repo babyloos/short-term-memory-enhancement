@@ -155,7 +155,11 @@ export default function HomeScreen() {
       <View style={styles.titleContainer}>
         <Text style={styles.title}>ステージ1</Text>
       </View>
-      <TouchableOpacity style={{ marginTop: 20, backgroundColor: 'red' }} onPress={() => gameStart()}>
+      <TouchableOpacity
+        disabled={gameState == 0 ? false : true }
+        style={[{ marginTop: 20 }, {backgroundColor: gameState == 0 ? 'white' : 'gray' }]}
+        onPress={() => gameStart()}
+      >
         <Text style={{ fontSize: 40 }}>GAME START</Text>
       </TouchableOpacity>
       <View style={styles.tileContainer}>
