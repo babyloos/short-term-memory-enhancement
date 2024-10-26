@@ -66,6 +66,7 @@ export default function HomeScreen() {
 
     const Tile = ({ title, index, isEnable }: TileDataProps) => {
         const touchedAction = () => {
+            if (!isEnable) return;
             playSound();
             if (judgeAnswer(index)) {
                 flashBackgroundWith('pink');
