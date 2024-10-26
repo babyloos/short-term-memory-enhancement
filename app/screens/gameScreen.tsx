@@ -27,10 +27,9 @@ export default function HomeScreen() {
     const [visibleIndex, setVisibleIndex] = useState(0);
     const [tileData, setTileData] = useState(Array<TileDataProps>);
     const enterTitleSound = useRef<Audio.Sound | null>(null);
-    const [bgm, setBgm] = useState<Audio.Sound>();
+    const bgm  = useRef<Audio.Sound | null>(null);
 
     useEffect(() => {
-        console.log('only once logic');
         loadSounds();
         addTileData(panelCount);
     }, []);
@@ -46,10 +45,10 @@ export default function HomeScreen() {
             enterTitleSound.current = sound;
         }
 
-        // {
-        //     const { sound } = await Audio.Sound.createAsync(require('../../assets/sounds/drum_BPM123.mp3'));
-        //     setBgm(sound);
-        // }
+        {
+            const { sound } = await Audio.Sound.createAsync(require('../../assets/sounds/drum_BPM123.mp3'));
+            bgm.current = sound;
+        }
     }
 
     const addTileData = (tileCount: number) => {
@@ -175,6 +174,7 @@ export default function HomeScreen() {
         }
 
         if (gameState == 1) {
+            playSound(bgm);
             questionStart();
         }
 
