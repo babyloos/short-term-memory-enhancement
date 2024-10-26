@@ -46,18 +46,13 @@ export default function HomeScreen() {
 
   const judgeAnswer = (touchPanelNumber: number) => {
     if (touchPanelNumber == numbers[answerStep]) {
-      console.log("正解");
       flashBackgroundWith('pink');
     } else {
-      console.log("不正解");
       flashBackgroundWith('red');
     }
-    console.log("touchPanelNumber: " + touchPanelNumber);
-    console.log("answer: " + numbers[answerStep]);
     setAnswerStep((prev) => prev + 1);
     if (answerStep >= numbers.length - 1) {
       setAnswerStep(0);
-      console.log('numbers.length: ' + numbers.length);
       setGameState(0);
       console.log("終了");
     }
@@ -139,15 +134,12 @@ export default function HomeScreen() {
 
   useEffect(() => {
     if (gameState == 1) {
-      console.log('出題開始');
       questionStart();
     }
 
     if (gameState == 2) {
-      console.log('回答開始');
       answerStart();
     }
-    console.log('change game state: ' + gameState);
   }, [gameState]);
 
   return (
