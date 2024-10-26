@@ -17,22 +17,6 @@ async function playSound() {
 
 type TileDataProps = { title: string, index: number, isEnable: boolean };
 
-let DATA: Array<TileDataProps> = [];
-
-const addTileData = (tileCount: number) => {
-    for (var i = 1; i <= tileCount; i++) {
-        DATA.push({ title: i.toString(), index: i, isEnable: true })
-    }
-}
-
-const resetTileData = () => {
-    for (var i=0; i<DATA.length; i++) {
-        DATA[i].isEnable = true;
-    }
-}
-
-addTileData(9);
-
 export default function HomeScreen() {
     const panelCount = 9;
     // ゲームの状態, 0: ゲーム開始待機, 1: 出題中, 2: 回答中, 3: 結果表示中
@@ -46,6 +30,25 @@ export default function HomeScreen() {
     const [countDownIsVisible, setCountDownIsVisible] = useState(false);
     const [visibleIndex, setVisibleIndex] = useState(0);
 
+    const [tileData, setTileData] = useState(Array<TileDataProps>);
+
+    useEffect(() => {
+        addTileData(panelCount);
+    }, []);
+
+    const addTileData = (tileCount: number) => {
+        let data =Array<TileDataProps>();
+        for (var i = 1; i <= tileCount; i++) {
+            data.push({ title: i.toString(), index: i, isEnable: true })
+        }
+        setTileData(data);
+    }
+
+    const resetTileData = () => {
+        setTileData([]);
+        addTileData(panelCount);
+    }
+
     const flashBackgroundWith = (backgroundColor: string) => {
         setBackgroundColor(backgroundColor);
         setTimeout(() => {
@@ -57,9 +60,6 @@ export default function HomeScreen() {
         if (touchPanelNumber == numbers[answerStep]) {
             return true;
         } else {
-            console.log('touchPanelNumber: ' + touchPanelNumber);
-            console.log('ansertStep: ' + answerStep);
-            console.log('numbers[ansertStep]: ' + numbers[answerStep]);
             return false;
         }
     }
@@ -80,7 +80,7 @@ export default function HomeScreen() {
                 setGameState(3);
             }
 
-            DATA[index-1].isEnable = false;
+            tileData[index-1].isEnable = false;
         }
 
         return (
@@ -154,8 +154,7 @@ export default function HomeScreen() {
 
     useEffect(() => {
         if (gameState == 0) {
-            console.log('resetTileData');
-            resetTileData(); 
+            resetTileData();
         }
 
         if (gameState == 1) {
@@ -181,7 +180,7 @@ export default function HomeScreen() {
             </TouchableOpacity>
             <View style={styles.tileContainer}>
                 <FlatList
-                    data={DATA}
+                    data={tileData}
                     numColumns={3}
                     renderItem={({ item }) => <Tile title={item.title} index={item.index} isEnable={item.isEnable} />}
                     keyExtractor={(item, index) => item.title}
