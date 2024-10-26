@@ -18,7 +18,7 @@ const ResultPanel = (props: ItemProps) => {
             top: top,
             width: panelWidth,
             height: panelHeight,
-            backgroundColor: 'red',
+            backgroundColor: 'limegreen',
         },
         title: {
             marginTop: 10,
@@ -27,7 +27,7 @@ const ResultPanel = (props: ItemProps) => {
         },
         contents: {
             marginTop: 50,
-            fontSize: 30,
+            fontSize: 50,
             textAlign: 'center',
         }
     });
