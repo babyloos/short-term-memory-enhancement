@@ -169,7 +169,7 @@ export default function HomeScreen() {
                 />
             </View>
             <CountDownPanel count={countDownNum} isVisible={countDownIsVisible} key={countDownNum} />
-            <ResultPanel result={correctNum} isVisible={gameState == 3} ></ResultPanel>
+            <ResultPanel result={correctNum} isVisible={gameState == 3} rePlayCallback={() => {setGameState(0)}}></ResultPanel>
         </View>
     );
 }

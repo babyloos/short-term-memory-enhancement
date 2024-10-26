@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-type ItemProps = { isVisible: boolean, result: number}
+type ItemProps = { isVisible: boolean, result: number, rePlayCallback: () => void}
 const ResultPanel = (props: ItemProps) => {
     const { width, height } = Dimensions.get('window');
     const panelWidth = width;
@@ -44,7 +44,7 @@ const ResultPanel = (props: ItemProps) => {
         <View style={styles.container}>
             <Text style={styles.title}>結果</Text>
             <Text style={styles.contents}>正解数: {props.result} / 9</Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={props.rePlayCallback}>
                 <Text style={[styles.contents, styles.restartButton]}>再プレイ</Text>
             </TouchableOpacity>
         </View>
