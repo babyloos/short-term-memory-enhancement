@@ -39,6 +39,11 @@ export default function HomeScreen() {
             await sound.current.replayAsync();
     }
 
+    const stopSound = async (sound: React.MutableRefObject<Sound | null>) => {
+        if (sound.current != null)
+            await sound.current.stopAsync();
+    }
+
     const loadSounds = async () => {
         {
             const { sound } = await Audio.Sound.createAsync(require('../../assets/sounds/enterTile.mp3'));
@@ -179,6 +184,7 @@ export default function HomeScreen() {
         }
 
         if (gameState == 2) {
+            stopSound(bgm);
             answerStart();
         }
     }, [gameState]);
