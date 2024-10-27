@@ -26,8 +26,11 @@ export default function HomeScreen() {
     const [countDownIsVisible, setCountDownIsVisible] = useState(false);
     const [visibleIndex, setVisibleIndex] = useState(0);
     const [tileData, setTileData] = useState(Array<TileDataProps>);
+    const bpm = 125;
+    const beatInterval = (60 / bpm) * 1000;
+
     const enterTitleSound = useRef<Audio.Sound | null>(null);
-    const bgm  = useRef<Audio.Sound | null>(null);
+    const bgm = useRef<Audio.Sound | null>(null);
 
     useEffect(() => {
         loadSounds();
@@ -57,7 +60,7 @@ export default function HomeScreen() {
     }
 
     const addTileData = (tileCount: number) => {
-        let data =Array<TileDataProps>();
+        let data = Array<TileDataProps>();
         for (var i = 1; i <= tileCount; i++) {
             data.push({ title: i.toString(), index: i, isEnable: true })
         }
@@ -90,7 +93,7 @@ export default function HomeScreen() {
             playSound(enterTitleSound);
             if (judgeAnswer(index)) {
                 flashBackgroundWith('pink');
-                setCorrectNum((prev) => prev+1);
+                setCorrectNum((prev) => prev + 1);
             } else {
                 flashBackgroundWith('red');
                 setGameState(3);
@@ -101,11 +104,11 @@ export default function HomeScreen() {
                 setGameState(3);
             }
 
-            tileData[index-1].isEnable = false;
+            tileData[index - 1].isEnable = false;
         }
 
         return (
-            <View style={[styles.tile, {backgroundColor: isEnable ? 'skyblue' : 'gray'}]} onTouchStart={touchedAction}>
+            <View style={[styles.tile, { backgroundColor: isEnable ? 'skyblue' : 'gray' }]} onTouchStart={touchedAction}>
                 <Text style={visibleIndex == index ? styles.tileTitle : styles.hidden}>{title}</Text>
             </View>
         );
@@ -149,18 +152,25 @@ export default function HomeScreen() {
         setNumbers(numbers);
         setCorrectNum(0);
 
-        const interval = setInterval(() => {
+        const showTile = (setIndex: React.Dispatch<React.SetStateAction<number>>, numbers: number[], setVisibleIndex: React.Dispatch<React.SetStateAction<number>>, interval: NodeJS.Timeout | null, setGameState: React.Dispatch<React.SetStateAction<number>>) => {
             setIndex(prevIndex => {
                 if (prevIndex <= numbers.length) {
                     setVisibleIndex(numbers[prevIndex]);
                     return prevIndex + 1;
                 } else {
-                    clearInterval(interval);
+                    if (interval)
+                        clearInterval(interval);
+                    stopSound(bgm);
                     setGameState(prevState => 2);
                     return 0;
                 }
             });
-        }, 500);
+        }
+
+        showTile(setIndex, numbers, setVisibleIndex, null, setGameState);
+        const interval = setInterval(() => {
+            showTile(setIndex, numbers, setVisibleIndex, interval, setGameState);
+        }, beatInterval);
     }
 
     const answerStart = () => {
@@ -184,7 +194,6 @@ export default function HomeScreen() {
         }
 
         if (gameState == 2) {
-            stopSound(bgm);
             answerStart();
         }
     }, [gameState]);
@@ -211,7 +220,7 @@ export default function HomeScreen() {
                 />
             </View>
             <CountDownPanel count={countDownNum} isVisible={countDownIsVisible} key={countDownNum} />
-            <ResultPanel result={correctNum} isVisible={gameState == 3} rePlayCallback={() => {setGameState(0)}}></ResultPanel>
+            <ResultPanel result={correctNum} isVisible={gameState == 3} rePlayCallback={() => { setGameState(0) }}></ResultPanel>
         </View>
     );
 }
@@ -254,3 +263,5 @@ const styles = StyleSheet.create({
         display: 'none',
     },
 });
+
+
