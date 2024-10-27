@@ -14,7 +14,7 @@ import { FlatList } from 'react-native-gesture-handler';
 type TileDataProps = { title: string, index: number, isEnable: boolean };
 
 export default function HomeScreen() {
-    const panelCount = 9;
+    const panelCount = 3;
     // ゲームの状態, 0: ゲーム開始待機, 1: 出題中, 2: 回答中, 3: 結果表示中
     const [gameState, setGameState] = useState(0);
     const [correctNum, setCorrectNum] = useState(0);
