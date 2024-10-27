@@ -32,6 +32,7 @@ export default function HomeScreen() {
 
     const enterTitleSound = useRef<Audio.Sound | null>(null);
     const bgm = useRef<Audio.Sound | null>(null);
+    const countDownSound = useRef<Audio.Sound | null>(null);
 
     useEffect(() => {
         loadSounds();
@@ -57,6 +58,11 @@ export default function HomeScreen() {
         {
             const { sound } = await Audio.Sound.createAsync(require('../../assets/sounds/drum_BPM123.mp3'));
             bgm.current = sound;
+        }
+
+        {
+            const { sound } = await Audio.Sound.createAsync(require('../../assets/sounds/countDown.mp3'));
+            countDownSound.current = sound;
         }
     }
 
@@ -129,9 +135,11 @@ export default function HomeScreen() {
     const countDownStart = () => {
         setCountDownNum(countStartNum);
         setCountDownIsVisible(true);
+        playSound(countDownSound);
         const countDownInterval = setInterval(() => {
             setCountDownNum((prev) => {
                 if (prev >= 2) {
+                    playSound(countDownSound);
                     return prev - 1;
                 } else {
                     setGameState((prev) => 1);
