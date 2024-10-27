@@ -140,7 +140,7 @@ export default function HomeScreen() {
                     return 0;
                 }
             });
-        }, 500);
+        }, beatInterval);
         setCountDownIsVisible(true);
     }
 
