@@ -15,6 +15,7 @@ type TileDataProps = { title: string, index: number, isEnable: boolean };
 
 export default function HomeScreen() {
     const panelCount = 3;
+    const countStartNum = 4;
     // ゲームの状態, 0: ゲーム開始待機, 1: 出題中, 2: 回答中, 3: 結果表示中
     const [gameState, setGameState] = useState(0);
     const [correctNum, setCorrectNum] = useState(0);
@@ -22,7 +23,7 @@ export default function HomeScreen() {
     const [index, setIndex] = useState(0);
     const [numbers, setNumbers] = useState(Array<number>());
     const [answerStep, setAnswerStep] = useState(0);
-    const [countDownNum, setCountDownNum] = useState(3);
+    const [countDownNum, setCountDownNum] = useState(countStartNum);
     const [countDownIsVisible, setCountDownIsVisible] = useState(false);
     const [visibleIndex, setVisibleIndex] = useState(0);
     const [tileData, setTileData] = useState(Array<TileDataProps>);
@@ -126,7 +127,7 @@ export default function HomeScreen() {
     }
 
     const countDownStart = () => {
-        setCountDownNum(3);
+        setCountDownNum(countStartNum);
         setCountDownIsVisible(true);
         const countDownInterval = setInterval(() => {
             setCountDownNum((prev) => {
