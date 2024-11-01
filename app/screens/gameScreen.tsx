@@ -198,10 +198,6 @@ export default function HomeScreen() {
         console.log(numbers);
     }
 
-    const gameStart = () => {
-        console.log('gameStart');
-    };
-
     useEffect(() => {
         if (gameState == STATE_START_QUESTION) {
             resetTileData();
@@ -235,13 +231,6 @@ export default function HomeScreen() {
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>ステージ1</Text>
             </View>
-            <TouchableOpacity
-                disabled={gameState == 0 ? false : true}
-                style={[{ marginTop: 20 }, { backgroundColor: gameState == 0 ? 'white' : 'gray' }]}
-                onPress={() => gameStart()}
-            >
-                <Text style={{ fontSize: 40 }}>GAME START</Text>
-            </TouchableOpacity>
             <View style={styles.tileContainer}>
                 <FlatList
                     data={tileData}
@@ -253,7 +242,7 @@ export default function HomeScreen() {
             </View>
             <CountDownPanel count={countDownNum} isVisible={countDownIsVisible} key={countDownNum} />
             <ResultPanel result={correctNum} isVisible={gameState == 4} rePlayCallback={() => { setGameState(STATE_START_QUESTION) }}></ResultPanel>
-        </View>
+        </View >
     );
 }
 
