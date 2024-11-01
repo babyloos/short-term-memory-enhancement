@@ -202,11 +202,12 @@ export default function HomeScreen() {
         setLeftTime(ANSWER_TIME_LIMIT);
         const interval = setInterval(() => {
             setLeftTime(prev => {
-                if (prev > 0) {
+                if (prev > 1) {
                     return prev - 1;
                 } else {
                     clearInterval(interval);
-                    return prev;
+                    failedAction();
+                    return prev - 1;
                 }
             });
         }, 1000);
