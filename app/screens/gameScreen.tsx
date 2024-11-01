@@ -95,7 +95,9 @@ export default function HomeScreen() {
     }
 
     const judgeAnswer = (touchPanelNumber: number): boolean => {
-        if (touchPanelNumber == numbers[answerStep]) {
+        if (touchPanelNumber == numbers[answerStep] &&
+            beatCount == answerStep
+        ) {
             return true;
         } else {
             return false;
@@ -104,7 +106,7 @@ export default function HomeScreen() {
 
     const Tile = ({ title, index, isEnable }: TileDataProps) => {
         const touchedAction = () => {
-            if (!isEnable || gameState != 3) return;
+            if (!isEnable || gameState != STATE_INPROGRESS_ANSWER) return;
             playSound(enterTitleSound);
             if (judgeAnswer(index)) {
                 flashBackgroundWith('pink');
