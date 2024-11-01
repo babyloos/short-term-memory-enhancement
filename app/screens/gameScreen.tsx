@@ -35,6 +35,8 @@ export default function HomeScreen() {
     const [tileData, setTileData] = useState(Array<TileDataProps>);
     const bpm = 125;
     const beatInterval = (60 / bpm) * 1000;
+    const [beatCount, setBeatCount] = useState(0);
+    const [beatCountInterval, setBeatCountInterval] = useState<NodeJS.Timeout>();
 
     const enterTitleSound = useRef<Audio.Sound | null>(null);
     const bgm = useRef<Audio.Sound | null>(null);
@@ -201,6 +203,7 @@ export default function HomeScreen() {
         if (gameState == STATE_START_QUESTION) {
             resetTileData();
             countDownStart();
+            setBeatCount(0);
         }
 
         if (gameState == STATE_INPROGRESS_QUESTION) {
@@ -216,9 +219,16 @@ export default function HomeScreen() {
         if (gameState == STATE_INPROGRESS_ANSWER) {
             playSound(bgm);
             answerStart();
+            setBeatCountInterval(setInterval(() => {
+                setBeatCount(prev => {
+                    console.log("beatCount: " + (prev+1));
+                    return prev + 1;
+                });
+            }, beatInterval));
         }
 
         if (gameState == STATE_RESULT) {
+            clearInterval(beatCountInterval);
             stopSound(bgm);
         }
 
