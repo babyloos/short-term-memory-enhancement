@@ -227,14 +227,18 @@ export default function HomeScreen() {
             answerStart();
             setBeatCountInterval(setInterval(() => {
                 setBeatCount(prev => {
-                    console.log("beatCount: " + (prev+1));
-                    // タイミングが遅れたら失敗
-                    if (answerStep != prev + 1) {
+                    const nextPrev = prev + 0.1;
+                    console.log("beatCount: " + nextPrev);
+                    console.log("answerStep: " + answerStep);
+                    const diff = answerStep - nextPrev;
+                    console.log("diff: " + diff);
+                    // タイミングがずれたら失敗
+                    if (Math.abs(diff) >= 1) {
                         failedAction();
                     }
-                    return prev + 1;
+                    return nextPrev;
                 });
-            }, beatInterval));
+            }, beatInterval / 10));
         }
 
         if (gameState == STATE_RESULT) {
