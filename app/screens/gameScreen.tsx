@@ -21,6 +21,8 @@ export default function HomeScreen() {
     const STATE_INPROGRESS_ANSWER = 3;
     const STATE_RESULT = 4;
 
+    const ANSWER_TIME_LIMIT = 3;
+
     const panelCount = 3;
     const countStartNum = 4;
     const [gameState, setGameState] = useState(STATE_START_QUESTION);
@@ -33,6 +35,7 @@ export default function HomeScreen() {
     const [countDownIsVisible, setCountDownIsVisible] = useState(false);
     const [visibleIndex, setVisibleIndex] = useState(0);
     const [tileData, setTileData] = useState(Array<TileDataProps>);
+    const [leftTime, setLeftTime] = useState(ANSWER_TIME_LIMIT);
     const bpm = 125;
     const beatInterval = (60 / bpm) * 1000;
 
@@ -195,8 +198,25 @@ export default function HomeScreen() {
 
     const answerStart = () => {
         setAnswerStep(0);
-        console.log(numbers);
+        playSound(bgm);
+        setLeftTime(ANSWER_TIME_LIMIT);
+        const interval = setInterval(() => {
+            setLeftTime(prev => {
+                if (prev > 0) {
+                    return prev - 1;
+                } else {
+                    clearInterval(interval);
+                    return prev;
+                }
+            });
+        }, 1000);
     }
+
+    useEffect(() => {
+        setLeftTime(prev => {
+            return ANSWER_TIME_LIMIT;
+        })
+    }, [answerStep]);
 
     useEffect(() => {
         if (gameState == STATE_START_QUESTION) {
@@ -212,10 +232,10 @@ export default function HomeScreen() {
         if (gameState == STATE_START_ANSWER) {
             stopSound(bgm);
             countDownStart();
+            console.log(numbers);
         }
 
         if (gameState == STATE_INPROGRESS_ANSWER) {
-            playSound(bgm);
             answerStart();
         }
 
@@ -230,6 +250,9 @@ export default function HomeScreen() {
         <View style={[styles.container, { backgroundColor: backgroundColor }]}>
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>ステージ1</Text>
+            </View>
+            <View style={styles.leftTimer}>
+                <Text style={styles.leftTimerText}>{leftTime}</Text>
             </View>
             <View style={styles.tileContainer}>
                 <FlatList
@@ -249,6 +272,18 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
     container: {
         height: '100%',
+    },
+    leftTimer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginTop: 32,
+        backgroundColor: 'lightgreen',
+        width: '100%',
+        height: 64,
+    },
+    leftTimerText: {
+        fontSize: 64, 
+        textAlign: 'center',
     },
     titleContainer: {
         marginTop: 32,
