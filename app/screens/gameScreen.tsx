@@ -35,8 +35,6 @@ export default function HomeScreen() {
     const [tileData, setTileData] = useState(Array<TileDataProps>);
     const bpm = 125;
     const beatInterval = (60 / bpm) * 1000;
-    const [beatCount, setBeatCount] = useState(0);
-    const [beatCountInterval, setBeatCountInterval] = useState<NodeJS.Timeout>();
 
     const enterTitleSound = useRef<Audio.Sound | null>(null);
     const bgm = useRef<Audio.Sound | null>(null);
@@ -208,7 +206,6 @@ export default function HomeScreen() {
         if (gameState == STATE_START_QUESTION) {
             resetTileData();
             countDownStart();
-            setBeatCount(0);
         }
 
         if (gameState == STATE_INPROGRESS_QUESTION) {
@@ -224,32 +221,13 @@ export default function HomeScreen() {
         if (gameState == STATE_INPROGRESS_ANSWER) {
             playSound(bgm);
             answerStart();
-            setBeatCountInterval(setInterval(() => {
-                setBeatCount(prev => {
-                    const nextPrev = prev + 1;
-                    if (prev % 10 == 0) {
-                        flashBackgroundWith("white");
-                    }
-                    const diff = (answerStep * 10) - nextPrev;
-                    // console.log("diff: " + diff);
-                    // タイミングがずれたら失敗
-                    if (Math.abs(diff) >= 30) {
-                        failedAction();
-                        console.log("beatCount: " + nextPrev);
-                        console.log("answerStep: " + answerStep);
-                        console.log("failed diff: " + Math.abs(diff));
-                    }
-                    return nextPrev;
-                });
-            }, beatInterval / 10));
         }
 
         if (gameState == STATE_RESULT) {
-            clearInterval(beatCountInterval);
             stopSound(bgm);
         }
 
-        // console.log("gameState: " + gameState);
+        console.log("gameState: " + gameState);
     }, [gameState]);
 
     return (
