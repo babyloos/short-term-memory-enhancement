@@ -104,6 +104,11 @@ export default function HomeScreen() {
         }
     }
 
+    const failedAction = (): void => {
+        flashBackgroundWith('red');
+        setGameState(STATE_RESULT);
+    }
+
     const Tile = ({ title, index, isEnable }: TileDataProps) => {
         const touchedAction = () => {
             if (!isEnable || gameState != STATE_INPROGRESS_ANSWER) return;
@@ -112,8 +117,7 @@ export default function HomeScreen() {
                 flashBackgroundWith('pink');
                 setCorrectNum((prev) => prev + 1);
             } else {
-                flashBackgroundWith('red');
-                setGameState(STATE_RESULT);
+                failedAction();
             }
 
             setAnswerStep((prev) => prev + 1);
@@ -224,6 +228,10 @@ export default function HomeScreen() {
             setBeatCountInterval(setInterval(() => {
                 setBeatCount(prev => {
                     console.log("beatCount: " + (prev+1));
+                    // タイミングが遅れたら失敗
+                    if (answerStep != prev + 1) {
+                        failedAction();
+                    }
                     return prev + 1;
                 });
             }, beatInterval));
