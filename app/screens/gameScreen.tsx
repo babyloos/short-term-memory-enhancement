@@ -98,6 +98,7 @@ export default function HomeScreen() {
         if (touchPanelNumber == numbers[answerStep]) {
             return true;
         } else {
+            console.log("touched failed");
             return false;
         }
     }
@@ -112,7 +113,7 @@ export default function HomeScreen() {
             if (!isEnable || (gameState != STATE_INPROGRESS_ANSWER && gameState != STATE_START_ANSWER)) return;
             playSound(enterTitleSound);
             if (judgeAnswer(index)) {
-                flashBackgroundWith('pink');
+                // flashBackgroundWith('pink');
                 setCorrectNum((prev) => prev + 1);
             } else {
                 failedAction();
@@ -127,9 +128,9 @@ export default function HomeScreen() {
         }
 
         return (
-            <View style={[styles.tile, { backgroundColor: isEnable ? 'skyblue' : 'gray' }]} onTouchStart={touchedAction}>
+            <TouchableOpacity style={[styles.tile, { backgroundColor: isEnable ? 'skyblue' : 'gray' }]} onPressIn={touchedAction}>
                 <Text style={visibleIndex == index ? styles.tileTitle : styles.hidden}>{title}</Text>
-            </View>
+            </TouchableOpacity>
         );
     }
 
@@ -225,14 +226,17 @@ export default function HomeScreen() {
             answerStart();
             setBeatCountInterval(setInterval(() => {
                 setBeatCount(prev => {
-                    const nextPrev = prev + 0.1;
-                    console.log("beatCount: " + nextPrev);
-                    console.log("answerStep: " + answerStep);
-                    const diff = answerStep - nextPrev;
-                    console.log("diff: " + diff);
+                    const nextPrev = prev + 1;
+                    if (prev % 10 == 0) {
+                        flashBackgroundWith("white");
+                    }
+                    const diff = (answerStep * 10) - nextPrev;
+                    // console.log("diff: " + diff);
                     // タイミングがずれたら失敗
-                    if (Math.abs(diff) >= 1) {
+                    if (Math.abs(diff) >= 30) {
                         failedAction();
+                        console.log("beatCount: " + nextPrev);
+                        console.log("answerStep: " + answerStep);
                         console.log("failed diff: " + Math.abs(diff));
                     }
                     return nextPrev;
@@ -245,7 +249,7 @@ export default function HomeScreen() {
             stopSound(bgm);
         }
 
-        console.log("gameState: " + gameState);
+        // console.log("gameState: " + gameState);
     }, [gameState]);
 
     return (
