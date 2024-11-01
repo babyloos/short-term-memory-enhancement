@@ -21,7 +21,6 @@ export default function HomeScreen() {
     const STATE_INPROGRESS_ANSWER = 3;
     const STATE_RESULT = 4;
 
-
     const panelCount = 3;
     const countStartNum = 4;
     const [gameState, setGameState] = useState(STATE_START_QUESTION);
@@ -210,12 +209,19 @@ export default function HomeScreen() {
         }
 
         if (gameState == STATE_START_ANSWER) {
+            stopSound(bgm);
             countDownStart();
         }
 
         if (gameState == STATE_INPROGRESS_ANSWER) {
+            playSound(bgm);
             answerStart();
         }
+
+        if (gameState == STATE_RESULT) {
+            stopSound(bgm);
+        }
+
         console.log("gameState: " + gameState);
     }, [gameState]);
 
