@@ -16,7 +16,7 @@ type TileDataProps = { title: string, index: number, isEnable: boolean };
 export default function HomeScreen() {
     const panelCount = 3;
     const countStartNum = 4;
-    // ゲームの状態, 0: ゲーム開始待機, 1: 出題中, 2: 回答中, 3: 結果表示中
+    // ゲームの状態, 0: 出題開始, 1: 出題中, 2: 回答開始 3: 回答中, 4: 結果表示中
     const [gameState, setGameState] = useState(0);
     const [correctNum, setCorrectNum] = useState(0);
     const [backgroundColor, setBackgroundColor] = useState('');
@@ -96,19 +96,19 @@ export default function HomeScreen() {
 
     const Tile = ({ title, index, isEnable }: TileDataProps) => {
         const touchedAction = () => {
-            if (!isEnable || gameState != 2) return;
+            if (!isEnable || gameState != 3) return;
             playSound(enterTitleSound);
             if (judgeAnswer(index)) {
                 flashBackgroundWith('pink');
                 setCorrectNum((prev) => prev + 1);
             } else {
                 flashBackgroundWith('red');
-                setGameState(3);
+                setGameState(4);
             }
 
             setAnswerStep((prev) => prev + 1);
             if (answerStep >= numbers.length - 1) {
-                setGameState(3);
+                setGameState(4);
             }
 
             tileData[index - 1].isEnable = false;
@@ -142,7 +142,7 @@ export default function HomeScreen() {
                     playSound(countDownSound);
                     return prev - 1;
                 } else {
-                    setGameState((prev) => 1);
+                    setGameState((prev) => prev + 1);
                     setCountDownIsVisible((prev) => false);
                     clearInterval(countDownInterval);
                     return 0;
@@ -203,8 +203,13 @@ export default function HomeScreen() {
         }
 
         if (gameState == 2) {
+            countDownStart();
+        }
+
+        if (gameState == 3) {
             answerStart();
         }
+        console.log("gameState: " + gameState);
     }, [gameState]);
 
     return (
@@ -229,7 +234,7 @@ export default function HomeScreen() {
                 />
             </View>
             <CountDownPanel count={countDownNum} isVisible={countDownIsVisible} key={countDownNum} />
-            <ResultPanel result={correctNum} isVisible={gameState == 3} rePlayCallback={() => { setGameState(0) }}></ResultPanel>
+            <ResultPanel result={correctNum} isVisible={gameState == 4} rePlayCallback={() => { setGameState(0) }}></ResultPanel>
         </View>
     );
 }
