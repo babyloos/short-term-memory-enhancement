@@ -14,10 +14,17 @@ import { FlatList } from 'react-native-gesture-handler';
 type TileDataProps = { title: string, index: number, isEnable: boolean };
 
 export default function HomeScreen() {
+    // ゲームの状態, 0: 出題開始, 1: 出題中, 2: 回答開始 3: 回答中, 4: 結果表示中
+    const STATE_START_QUESTION = 0;
+    const STATE_INPROGRESS_QUESTION = 1;
+    const STATE_START_ANSWER = 2;
+    const STATE_INPROGRESS_ANSWER = 3;
+    const STATE_RESULT = 4;
+
+
     const panelCount = 3;
     const countStartNum = 4;
-    // ゲームの状態, 0: 出題開始, 1: 出題中, 2: 回答開始 3: 回答中, 4: 結果表示中
-    const [gameState, setGameState] = useState(0);
+    const [gameState, setGameState] = useState(STATE_START_QUESTION);
     const [correctNum, setCorrectNum] = useState(0);
     const [backgroundColor, setBackgroundColor] = useState('');
     const [index, setIndex] = useState(0);
@@ -103,12 +110,12 @@ export default function HomeScreen() {
                 setCorrectNum((prev) => prev + 1);
             } else {
                 flashBackgroundWith('red');
-                setGameState(4);
+                setGameState(STATE_RESULT);
             }
 
             setAnswerStep((prev) => prev + 1);
             if (answerStep >= numbers.length - 1) {
-                setGameState(4);
+                setGameState(STATE_RESULT);
             }
 
             tileData[index - 1].isEnable = false;
@@ -170,7 +177,7 @@ export default function HomeScreen() {
                     if (interval)
                         clearInterval(interval);
                     stopSound(bgm);
-                    setGameState(prevState => 2);
+                    setGameState(prevState => STATE_START_ANSWER);
                     return 0;
                 }
             });
@@ -192,21 +199,21 @@ export default function HomeScreen() {
     };
 
     useEffect(() => {
-        if (gameState == 0) {
+        if (gameState == STATE_START_QUESTION) {
             resetTileData();
             countDownStart();
         }
 
-        if (gameState == 1) {
+        if (gameState == STATE_INPROGRESS_QUESTION) {
             playSound(bgm);
             questionStart();
         }
 
-        if (gameState == 2) {
+        if (gameState == STATE_START_ANSWER) {
             countDownStart();
         }
 
-        if (gameState == 3) {
+        if (gameState == STATE_INPROGRESS_ANSWER) {
             answerStart();
         }
         console.log("gameState: " + gameState);
@@ -234,7 +241,7 @@ export default function HomeScreen() {
                 />
             </View>
             <CountDownPanel count={countDownNum} isVisible={countDownIsVisible} key={countDownNum} />
-            <ResultPanel result={correctNum} isVisible={gameState == 4} rePlayCallback={() => { setGameState(0) }}></ResultPanel>
+            <ResultPanel result={correctNum} isVisible={gameState == 4} rePlayCallback={() => { setGameState(STATE_START_QUESTION) }}></ResultPanel>
         </View>
     );
 }
