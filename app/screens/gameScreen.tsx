@@ -95,9 +95,7 @@ export default function HomeScreen() {
     }
 
     const judgeAnswer = (touchPanelNumber: number): boolean => {
-        if (touchPanelNumber == numbers[answerStep] &&
-            beatCount == answerStep
-        ) {
+        if (touchPanelNumber == numbers[answerStep]) {
             return true;
         } else {
             return false;
@@ -111,7 +109,7 @@ export default function HomeScreen() {
 
     const Tile = ({ title, index, isEnable }: TileDataProps) => {
         const touchedAction = () => {
-            if (!isEnable || gameState != STATE_INPROGRESS_ANSWER) return;
+            if (!isEnable || (gameState != STATE_INPROGRESS_ANSWER && gameState != STATE_START_ANSWER)) return;
             playSound(enterTitleSound);
             if (judgeAnswer(index)) {
                 flashBackgroundWith('pink');
@@ -235,6 +233,7 @@ export default function HomeScreen() {
                     // タイミングがずれたら失敗
                     if (Math.abs(diff) >= 1) {
                         failedAction();
+                        console.log("failed diff: " + Math.abs(diff));
                     }
                     return nextPrev;
                 });
