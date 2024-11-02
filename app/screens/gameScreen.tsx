@@ -37,6 +37,7 @@ export default function HomeScreen() {
     const [visibleIndex, setVisibleIndex] = useState(0);
     const [tileData, setTileData] = useState(Array<TileDataProps>);
     const [leftTime, setLeftTime] = useState(ANSWER_TIME_LIMIT);
+    const [leftTimeInterval, setLeftTimeInterval] = useState<NodeJS.Timeout>();
     const bpm = 125;
     const beatInterval = (60 / bpm) * 1000;
 
@@ -212,6 +213,7 @@ export default function HomeScreen() {
                 }
             });
         }, 1000);
+        setLeftTimeInterval(interval);
     }
 
     useEffect(() => {
@@ -242,6 +244,7 @@ export default function HomeScreen() {
         }
 
         if (gameState == STATE_RESULT) {
+            clearInterval(leftTimeInterval);
             stopSound(bgm);
         }
 
