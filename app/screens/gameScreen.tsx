@@ -113,10 +113,11 @@ export default function HomeScreen() {
 
     const Tile = ({ title, index, isEnable }: TileDataProps) => {
         const touchedAction = () => {
-            if (!isEnable || (gameState != STATE_INPROGRESS_ANSWER && gameState != STATE_START_ANSWER)) return;
+            if (!isEnable || (gameState != STATE_INPROGRESS_ANSWER && gameState != STATE_START_ANSWER)) {
+                return;
+            }
             playSound(enterTitleSound);
             if (judgeAnswer(index)) {
-                // flashBackgroundWith('pink');
                 setCorrectNum((prev) => prev + 1);
             } else {
                 failedAction();
@@ -131,7 +132,7 @@ export default function HomeScreen() {
         }
 
         return (
-            <TouchableOpacity style={[styles.tile, { backgroundColor: isEnable ? '#52B6DE' : '#F06E1D' }]} onPressIn={touchedAction}>
+            <TouchableOpacity style={[styles.tile, { backgroundColor: visibleIndex != index  && isEnable ? '#52B6DE' : '#F06E1D' }]} onPressIn={touchedAction}>
                 <Text style={visibleIndex == index ? styles.tileTitle : styles.hidden}>{title}</Text>
             </TouchableOpacity>
         );
@@ -185,7 +186,6 @@ export default function HomeScreen() {
                 } else {
                     if (interval)
                         clearInterval(interval);
-                    stopSound(bgm);
                     setGameState(prevState => STATE_START_ANSWER);
                     return 0;
                 }
@@ -231,10 +231,10 @@ export default function HomeScreen() {
         if (gameState == STATE_INPROGRESS_QUESTION) {
             playSound(bgm);
             questionStart();
-            console.log(numbers);
         }
 
         if (gameState == STATE_START_ANSWER) {
+            console.log(numbers);
             setGameState(prev => prev + 1);
         }
 
