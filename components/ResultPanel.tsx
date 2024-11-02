@@ -25,6 +25,9 @@ const ResultPanel = (props: ItemProps) => {
             backgroundColor: '#52B6DE',
             borderRadius: 6,
             alignItems: 'center',
+            shadowColor: '#2E8EB8',
+            shadowOffset: { width: 3, height: 3 },
+            shadowOpacity: 0.5,
         },
         titleContainer: {
             marginTop: 48,
@@ -32,6 +35,9 @@ const ResultPanel = (props: ItemProps) => {
             width: 256,
             backgroundColor: '#F58B44',
             borderRadius: 6,
+            shadowColor: '#D2691E',
+            shadowOffset: { width: 3, height: 3 },
+            shadowOpacity: 0.5,
         },
         title: {
             marginTop: 10,
@@ -46,6 +52,9 @@ const ResultPanel = (props: ItemProps) => {
             width: 248,
             backgroundColor: '#F58B44',
             borderRadius: 6,
+            shadowColor: '#D2691E',
+            shadowOffset: { width: 3, height: 3 },
+            shadowOpacity: 0.5,
         },
         retry: {
             marginTop: 10,
@@ -60,6 +69,9 @@ const ResultPanel = (props: ItemProps) => {
             width: 178,
             backgroundColor: '#F58B44',
             borderRadius: 6,
+            shadowColor: '#D2691E',
+            shadowOffset: { width: 3, height: 3 },
+            shadowOpacity: 0.5,
         },
         next: {
             marginTop: 10,

@@ -281,6 +281,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#F58B44',
         marginHorizontal: '10%',
         borderRadius: 6,
+        shadowColor: '#D2691E',
+        shadowOffset: {width: 3, height: 3},
+        shadowOpacity: 0.5,
     },
     title: {
         fontSize: 32,
