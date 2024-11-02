@@ -302,15 +302,17 @@ const styles = StyleSheet.create({
     },
     tileContainer: {
         marginTop: 102,
+        marginLeft: 12,
+        marginRight: 12,
     },
     tile: {
-        height: 80,
-        margin: 2,
+        margin: 4,
         flex: 1,
         aspectRatio: 1,
         justifyContent: 'center',
         verticalAlign: 'middle',
         backgroundColor: 'skyblue',
+        borderRadius: 6,
     },
     tileTitle: {
         textAlign: 'center',
