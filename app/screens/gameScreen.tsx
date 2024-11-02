@@ -1,5 +1,6 @@
 import CountDownPanel from '@/components/CountDownPanel';
 import ResultPanel from '@/components/ResultPanel';
+import TimerPanel from '@/components/TimerPanel';
 import { Audio } from 'expo-av';
 import { Sound } from 'expo-av/build/Audio';
 import React, { useEffect, useRef, useState } from 'react';
@@ -252,9 +253,7 @@ export default function HomeScreen() {
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>ステージ1</Text>
             </View>
-            {/* <View style={styles.leftTimer}>
-                <Text style={styles.leftTimerText}>{leftTime}</Text>
-            </View> */}
+            <TimerPanel count={leftTime} isVisible={true} />
             <View style={styles.tileContainer}>
                 <FlatList
                     data={tileData}
@@ -265,7 +264,6 @@ export default function HomeScreen() {
                 />
             </View>
             <CountDownPanel count={countDownNum} isVisible={countDownIsVisible} key={countDownNum} />
-            {/* <CountDownPanel count={countDownNum} isVisible={true} key={countDownNum} /> */}
             <ResultPanel result={correctNum} isVisible={gameState == 4} rePlayCallback={() => { setGameState(STATE_START_QUESTION) }}></ResultPanel>
         </View >
     );
@@ -274,18 +272,6 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-    },
-    leftTimer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        marginTop: 32,
-        backgroundColor: 'lightgreen',
-        width: '100%',
-        height: 64,
-    },
-    leftTimerText: {
-        fontSize: 64, 
-        textAlign: 'center',
     },
     titleContainer: {
         marginTop: 62,
@@ -302,7 +288,7 @@ const styles = StyleSheet.create({
         color: '#4B5161',
     },
     tileContainer: {
-        marginTop: 102,
+        marginTop: 24,
         marginLeft: 12,
         marginRight: 12,
     },
