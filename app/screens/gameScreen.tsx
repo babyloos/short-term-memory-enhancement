@@ -231,12 +231,11 @@ export default function HomeScreen() {
         if (gameState == STATE_INPROGRESS_QUESTION) {
             playSound(bgm);
             questionStart();
+            console.log(numbers);
         }
 
         if (gameState == STATE_START_ANSWER) {
-            stopSound(bgm);
-            countDownStart();
-            console.log(numbers);
+            setGameState(prev => prev + 1);
         }
 
         if (gameState == STATE_INPROGRESS_ANSWER) {
