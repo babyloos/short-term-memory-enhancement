@@ -23,7 +23,7 @@ export default function HomeScreen() {
 
     const ANSWER_TIME_LIMIT = 3;
 
-    const panelCount = 3;
+    const panelCount = 9;
     const countStartNum = 4;
     const [gameState, setGameState] = useState(STATE_START_QUESTION);
     const [correctNum, setCorrectNum] = useState(0);
@@ -252,9 +252,9 @@ export default function HomeScreen() {
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>ステージ1</Text>
             </View>
-            <View style={styles.leftTimer}>
+            {/* <View style={styles.leftTimer}>
                 <Text style={styles.leftTimerText}>{leftTime}</Text>
-            </View>
+            </View> */}
             <View style={styles.tileContainer}>
                 <FlatList
                     data={tileData}
@@ -265,7 +265,7 @@ export default function HomeScreen() {
                 />
             </View>
             <CountDownPanel count={countDownNum} isVisible={countDownIsVisible} key={countDownNum} />
-            <ResultPanel result={correctNum} isVisible={gameState == 4} rePlayCallback={() => { setGameState(STATE_START_QUESTION) }}></ResultPanel>
+            {/* <ResultPanel result={correctNum} isVisible={gameState == 4} rePlayCallback={() => { setGameState(STATE_START_QUESTION) }}></ResultPanel> */}
         </View >
     );
 }
@@ -287,19 +287,21 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     titleContainer: {
-        marginTop: 32,
-        marginBottom: 8,
+        marginTop: 62,
+        height: 62,
+        justifyContent: 'center',
+        backgroundColor: '#F58B44',
+        marginHorizontal: '10%',
+        borderRadius: 6,
     },
     title: {
         fontSize: 32,
         textAlign: 'center',
-        marginHorizontal: 100,
         fontWeight: '600',
-        color: '#005500',
-        backgroundColor: 'white',
+        color: '#4B5161',
     },
     tileContainer: {
-        marginTop: 32,
+        marginTop: 102,
     },
     tile: {
         height: 80,
