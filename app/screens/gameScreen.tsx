@@ -248,7 +248,7 @@ export default function HomeScreen() {
     }, [gameState]);
 
     return (
-        <View style={[styles.container, { backgroundColor: backgroundColor }]}>
+        <View style={[styles.container]}>
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>ステージ1</Text>
             </View>
@@ -264,7 +264,8 @@ export default function HomeScreen() {
                     scrollEnabled={false}
                 />
             </View>
-            <CountDownPanel count={countDownNum} isVisible={countDownIsVisible} key={countDownNum} />
+            {/* <CountDownPanel count={countDownNum} isVisible={countDownIsVisible} key={countDownNum} /> */}
+            <CountDownPanel count={countDownNum} isVisible={true} key={countDownNum} />
             {/* <ResultPanel result={correctNum} isVisible={gameState == 4} rePlayCallback={() => { setGameState(STATE_START_QUESTION) }}></ResultPanel> */}
         </View >
     );
@@ -272,7 +273,8 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
     container: {
-        height: '100%',
+        flex: 1,
+        backgroundColor: 'gray',
     },
     leftTimer: {
         flexDirection: 'row',
