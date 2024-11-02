@@ -256,7 +256,7 @@ export default function HomeScreen() {
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>ステージ1</Text>
             </View>
-            <TimerPanel count={leftTime} isVisible={true} />
+            <TimerPanel count={leftTime} isVisible={gameState == STATE_INPROGRESS_ANSWER} />
             <View style={styles.tileContainer}>
                 <FlatList
                     data={tileData}

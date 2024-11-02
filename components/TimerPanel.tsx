@@ -7,7 +7,7 @@ import {
 type countProps = { count: number, isVisible: boolean }
 const TimerPanel = ({ count, isVisible }: countProps) => {
   return (
-    <View style={[styles.timerPanel, { display: isVisible ? 'flex' : 'none' }]}>
+    <View style={[styles.timerPanel, { opacity: isVisible ? 100 : 0 }]}>
       <Text style={styles.timerPanelText}>{count}</Text>
     </View>
   );
