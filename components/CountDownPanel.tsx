@@ -18,7 +18,7 @@ export default CountDownPanel;
 const styles = StyleSheet.create({
   countDownPanel: {
     position: 'absolute',
-    top: '50%',
+    top: '55%',
     left: '50%',
     transform: [{ translateX: -150 }, { translateY: -150 }],
     width: 300,

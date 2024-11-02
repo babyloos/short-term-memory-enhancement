@@ -129,7 +129,7 @@ export default function HomeScreen() {
         }
 
         return (
-            <TouchableOpacity style={[styles.tile, { backgroundColor: isEnable ? 'skyblue' : 'gray' }]} onPressIn={touchedAction}>
+            <TouchableOpacity style={[styles.tile, { backgroundColor: isEnable ? '#52B6DE' : '#F06E1D' }]} onPressIn={touchedAction}>
                 <Text style={visibleIndex == index ? styles.tileTitle : styles.hidden}>{title}</Text>
             </TouchableOpacity>
         );
@@ -264,9 +264,9 @@ export default function HomeScreen() {
                     scrollEnabled={false}
                 />
             </View>
-            {/* <CountDownPanel count={countDownNum} isVisible={countDownIsVisible} key={countDownNum} /> */}
-            <CountDownPanel count={countDownNum} isVisible={true} key={countDownNum} />
-            {/* <ResultPanel result={correctNum} isVisible={gameState == 4} rePlayCallback={() => { setGameState(STATE_START_QUESTION) }}></ResultPanel> */}
+            <CountDownPanel count={countDownNum} isVisible={countDownIsVisible} key={countDownNum} />
+            {/* <CountDownPanel count={countDownNum} isVisible={true} key={countDownNum} /> */}
+            <ResultPanel result={correctNum} isVisible={gameState == 4} rePlayCallback={() => { setGameState(STATE_START_QUESTION) }}></ResultPanel>
         </View >
     );
 }
@@ -274,7 +274,6 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'gray',
     },
     leftTimer: {
         flexDirection: 'row',
