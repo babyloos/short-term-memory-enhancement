@@ -30,6 +30,6 @@ const styles = StyleSheet.create({
   },
   countDownPanelText: {
     color: 'white',
-    fontSize: 180,
+    fontSize: 160,
   },
 });
