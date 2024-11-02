@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 
-type TileDataProps = { title: string, index: number, isEnable: boolean };
+type TileDataProps = { index: number, isEnable: boolean };
 
 export default function HomeScreen() {
     // ゲームの状態, 0: 出題開始, 1: 出題中, 2: 回答開始 3: 回答中, 4: 結果表示中
@@ -80,7 +80,7 @@ export default function HomeScreen() {
     const addTileData = (tileCount: number) => {
         let data = Array<TileDataProps>();
         for (var i = 1; i <= tileCount; i++) {
-            data.push({ title: i.toString(), index: i, isEnable: true })
+            data.push({ index: i, isEnable: true })
         }
         setTileData(data);
     }
@@ -111,7 +111,7 @@ export default function HomeScreen() {
         setGameState(STATE_RESULT);
     }
 
-    const Tile = ({ title, index, isEnable }: TileDataProps) => {
+    const Tile = ({ index, isEnable }: TileDataProps) => {
         const touchedAction = () => {
             if (!isEnable || (gameState != STATE_INPROGRESS_ANSWER && gameState != STATE_START_ANSWER)) {
                 return;
@@ -133,7 +133,6 @@ export default function HomeScreen() {
 
         return (
             <TouchableOpacity style={[styles.tile, { backgroundColor: visibleIndex != index  && isEnable ? '#52B6DE' : '#F06E1D' }]} onPressIn={touchedAction}>
-                <Text style={visibleIndex == index ? styles.tileTitle : styles.hidden}>{title}</Text>
             </TouchableOpacity>
         );
     }
@@ -260,8 +259,8 @@ export default function HomeScreen() {
                 <FlatList
                     data={tileData}
                     numColumns={3}
-                    renderItem={({ item }) => <Tile title={item.title} index={item.index} isEnable={item.isEnable} />}
-                    keyExtractor={(item, index) => item.title}
+                    renderItem={({ item }) => <Tile index={item.index} isEnable={item.isEnable} />}
+                    keyExtractor={(item, index) => index.toString()}
                     scrollEnabled={false}
                 />
             </View>
@@ -302,15 +301,6 @@ const styles = StyleSheet.create({
         verticalAlign: 'middle',
         backgroundColor: 'skyblue',
         borderRadius: 6,
-    },
-    tileTitle: {
-        textAlign: 'center',
-        fontSize: 32,
-        fontWeight: 'bold',
-        color: 'red',
-    },
-    hidden: {
-        display: 'none',
     },
 });
 
