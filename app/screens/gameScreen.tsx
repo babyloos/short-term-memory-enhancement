@@ -28,6 +28,7 @@ const HomeScreen = () => {
     const ANSWER_TIME_LIMIT = 3;
 
     const panelCount = 9;
+    const questionCount = 3;
     const countStartNum = 4;
     const [gameState, setGameState] = useState(STATE_START_QUESTION);
     const [correctNum, setCorrectNum] = useState(0);
@@ -131,7 +132,7 @@ const HomeScreen = () => {
             }
 
             setAnswerStep((prev) => prev + 1);
-            if (answerStep >= numbers.length - 1) {
+            if (answerStep >= questionCount - 1) {
                 setGameState(STATE_RESULT);
             }
 
@@ -215,7 +216,7 @@ const HomeScreen = () => {
 
         const showTile = (setIndex: React.Dispatch<React.SetStateAction<number>>, numbers: number[], setVisibleIndex: React.Dispatch<React.SetStateAction<number>>, interval: NodeJS.Timeout | null, setGameState: React.Dispatch<React.SetStateAction<number>>) => {
             setIndex(prevIndex => {
-                if (prevIndex <= numbers.length) {
+                if (prevIndex < questionCount) {
                     setVisibleIndex(numbers[prevIndex]);
                     return prevIndex + 1;
                 } else {
