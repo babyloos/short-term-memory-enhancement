@@ -90,7 +90,7 @@ const ResultPanel = (props: ItemProps) => {
             <TouchableOpacity style={styles.retryContainer} onPress={props.rePlayCallback}>
                 <Text style={styles.retry}>もう一度</Text>
             </TouchableOpacity>
-            <View style={styles.retryContainer}>
+            <View style={[styles.retryContainer, {backgroundColor: '#70737C'}]}>
                 <Text style={[styles.retry, styles.next]}>次へ</Text>
             </View>
         </View>
