@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-type ItemProps = { isVisible: boolean, result: number, rePlayCallback: (stageNum: number) => void }
+type ItemProps = { isVisible: boolean, rePlayCallback: () => void, nextPlayCallback: () => void}
 const ResultPanel = (props: ItemProps) => {
     const { width, height } = Dimensions.get('window');
     const panelWidth = width;
@@ -88,12 +88,12 @@ const ResultPanel = (props: ItemProps) => {
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>合格</Text>
             </View>
-            <TouchableOpacity style={styles.retryContainer} onPress={() => {props.rePlayCallback(3)}}>
+            <TouchableOpacity style={styles.retryContainer} onPress={() => {props.rePlayCallback()}}>
                 <Text style={styles.retry}>もう一度</Text>
             </TouchableOpacity>
-            <View style={[styles.retryContainer, {backgroundColor: colors.disabled}]}>
+            <TouchableOpacity style={[styles.retryContainer, {backgroundColor: colors.disabled}]} onPress={() => {props.nextPlayCallback()}}>
                 <Text style={[styles.retry, styles.next]}>次へ</Text>
-            </View>
+            </TouchableOpacity>
         </View>
     );
 }

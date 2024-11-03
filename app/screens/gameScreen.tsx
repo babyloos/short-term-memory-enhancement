@@ -16,8 +16,8 @@ import colors from '../util/constants';
 
 type TileDataProps = { index: number, isEnable: boolean };
 
-type HomeScreenProps = {stageNum: number, changeEnable: (isEnable: boolean)=>void};
-const HomeScreen = ({stageNum, changeEnable}: HomeScreenProps) => {
+type HomeScreenProps = { stageNum: number, changeEnable: (isEnable: boolean) => void };
+const HomeScreen = ({ stageNum, changeEnable }: HomeScreenProps) => {
     // export default function HomeScreen() {
     // ゲームの状態, 0: 出題開始, 1: 出題中, 2: 回答開始 3: 回答中, 4: 結果表示中
     const STATE_START_QUESTION = 0;
@@ -146,7 +146,7 @@ const HomeScreen = ({stageNum, changeEnable}: HomeScreenProps) => {
             inputRange: [0, 1],
             outputRange: [colors.panel, colors.orange],
         });
-        
+
         const colorChange = (isEnable: boolean) => {
             backgroundColor.stopAnimation();
             Animated.timing(backgroundColor, {
@@ -289,8 +289,13 @@ const HomeScreen = ({stageNum, changeEnable}: HomeScreenProps) => {
         console.log("gameState: " + gameState);
     }, [gameState]);
 
-    const replay = (stageNum: number) => {
-        setStageNumState(stageNum);
+    const replay = () => {
+        setGameState(STATE_START_QUESTION);
+    }
+
+    const nextPlay = () => {
+        setStageNumState(prev => prev + 1);
+        setQuestionCountState(prev => prev + 1);
         setGameState(STATE_START_QUESTION);
     }
 
@@ -310,7 +315,7 @@ const HomeScreen = ({stageNum, changeEnable}: HomeScreenProps) => {
                 />
             </View>
             <CountDownPanel count={countDownNum} isVisible={countDownIsVisible} key={countDownNum} />
-            <ResultPanel isVisible={gameState == 4} rePlayCallback={(stageNum) => { replay(stageNum) }}></ResultPanel>
+            <ResultPanel isVisible={gameState == 4} rePlayCallback={() => { replay(); }} nextPlayCallback={() => { nextPlay() }}></ResultPanel>
         </View >
     );
 }
