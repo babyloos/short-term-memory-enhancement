@@ -11,10 +11,12 @@ import {
     View
 } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
+import colors from '../util/constants';
 
 type TileDataProps = { index: number, isEnable: boolean };
 
-export default function HomeScreen() {
+const HomeScreen = () => {
+    // export default function HomeScreen() {
     // ゲームの状態, 0: 出題開始, 1: 出題中, 2: 回答開始 3: 回答中, 4: 結果表示中
     const STATE_START_QUESTION = 0;
     const STATE_INPROGRESS_QUESTION = 1;
@@ -132,7 +134,7 @@ export default function HomeScreen() {
         }
 
         return (
-            <TouchableOpacity style={[styles.tile, { backgroundColor: visibleIndex != index  && isEnable ? '#52B6DE' : '#F06E1D' }]} onPressIn={touchedAction}>
+            <TouchableOpacity style={[styles.tile, { backgroundColor: visibleIndex != index && isEnable ? colors.panel : colors.orange }]} onPressIn={touchedAction}>
             </TouchableOpacity>
         );
     }
@@ -270,6 +272,8 @@ export default function HomeScreen() {
     );
 }
 
+export default HomeScreen;
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -278,18 +282,18 @@ const styles = StyleSheet.create({
         marginTop: 62,
         height: 62,
         justifyContent: 'center',
-        backgroundColor: '#F58B44',
+        backgroundColor: colors.base,
         marginHorizontal: '10%',
         borderRadius: 6,
-        shadowColor: '#D2691E',
-        shadowOffset: {width: 3, height: 3},
+        shadowColor: colors.baseShadow,
+        shadowOffset: { width: 3, height: 3 },
         shadowOpacity: 0.5,
     },
     title: {
         fontSize: 32,
         textAlign: 'center',
         fontWeight: '600',
-        color: '#4B5161',
+        color: colors.text,
     },
     tileContainer: {
         marginTop: 24,
@@ -302,7 +306,7 @@ const styles = StyleSheet.create({
         aspectRatio: 1,
         justifyContent: 'center',
         verticalAlign: 'middle',
-        backgroundColor: 'skyblue',
+        backgroundColor: colors.panel,
         borderRadius: 6,
     },
 });
