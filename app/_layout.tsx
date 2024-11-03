@@ -51,7 +51,7 @@ const RootLayout = () => {
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
             <SafeAreaView style={[styles.container, { backgroundColor: isEnable ? colors.background : colors.disabledBackground }]}>
                 <GestureHandlerRootView>
-                    <HomeScreen questionCount={3} stageNum={2} changeEnable={changeEnable} />
+                    <HomeScreen stageNum={2} changeEnable={changeEnable} />
                 </GestureHandlerRootView>
             </SafeAreaView>
         </ThemeProvider>

@@ -16,8 +16,8 @@ import colors from '../util/constants';
 
 type TileDataProps = { index: number, isEnable: boolean };
 
-type HomeScreenProps = {questionCount: number, stageNum: number, changeEnable: (isEnable: boolean)=>void};
-const HomeScreen = ({questionCount, stageNum, changeEnable}: HomeScreenProps) => {
+type HomeScreenProps = {stageNum: number, changeEnable: (isEnable: boolean)=>void};
+const HomeScreen = ({stageNum, changeEnable}: HomeScreenProps) => {
     // export default function HomeScreen() {
     // ゲームの状態, 0: 出題開始, 1: 出題中, 2: 回答開始 3: 回答中, 4: 結果表示中
     const STATE_START_QUESTION = 0;
@@ -29,7 +29,7 @@ const HomeScreen = ({questionCount, stageNum, changeEnable}: HomeScreenProps) =>
     const ANSWER_TIME_LIMIT = 3;
 
     const panelCount = 9;
-    const [questionCountState, setQuestionCountState] = useState(2 + stageNum);
+    const [questionCountState, setQuestionCountState] = useState(stageNum + 2);
     const [stageNumState, setStageNumState] = useState(stageNum);
     const countStartNum = 4;
     const [gameState, setGameState] = useState(STATE_START_QUESTION);
