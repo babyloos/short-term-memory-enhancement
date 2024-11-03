@@ -16,8 +16,8 @@ import colors from '../util/constants';
 
 type TileDataProps = { index: number, isEnable: boolean };
 
-type HomeScreenProps = {questionCount: number, changeEnable: (isEnable: boolean)=>void};
-const HomeScreen = ({questionCount, changeEnable}: HomeScreenProps) => {
+type HomeScreenProps = {questionCount: number, stageNum: number, changeEnable: (isEnable: boolean)=>void};
+const HomeScreen = ({questionCount, stageNum, changeEnable}: HomeScreenProps) => {
     // export default function HomeScreen() {
     // ゲームの状態, 0: 出題開始, 1: 出題中, 2: 回答開始 3: 回答中, 4: 結果表示中
     const STATE_START_QUESTION = 0;
@@ -29,6 +29,8 @@ const HomeScreen = ({questionCount, changeEnable}: HomeScreenProps) => {
     const ANSWER_TIME_LIMIT = 3;
 
     const panelCount = 9;
+    const [questionCountState, setQuestionCountState] = useState(2 + stageNum);
+    const [stageNumState, setStageNumState] = useState(stageNum);
     const countStartNum = 4;
     const [gameState, setGameState] = useState(STATE_START_QUESTION);
     const [correctNum, setCorrectNum] = useState(0);
@@ -132,7 +134,7 @@ const HomeScreen = ({questionCount, changeEnable}: HomeScreenProps) => {
             }
 
             setAnswerStep((prev) => prev + 1);
-            if (answerStep >= questionCount - 1) {
+            if (answerStep >= questionCountState - 1) {
                 setGameState(STATE_RESULT);
             }
 
@@ -216,7 +218,7 @@ const HomeScreen = ({questionCount, changeEnable}: HomeScreenProps) => {
 
         const showTile = (setIndex: React.Dispatch<React.SetStateAction<number>>, numbers: number[], setVisibleIndex: React.Dispatch<React.SetStateAction<number>>, interval: NodeJS.Timeout | null, setGameState: React.Dispatch<React.SetStateAction<number>>) => {
             setIndex(prevIndex => {
-                if (prevIndex < questionCount) {
+                if (prevIndex < questionCountState) {
                     setVisibleIndex(numbers[prevIndex]);
                     return prevIndex + 1;
                 } else {
@@ -290,7 +292,7 @@ const HomeScreen = ({questionCount, changeEnable}: HomeScreenProps) => {
     return (
         <View style={[styles.container]}>
             <View style={styles.titleContainer}>
-                <Text style={styles.title}>ステージ1</Text>
+                <Text style={styles.title}>ステージ{stageNumState}</Text>
             </View>
             <TimerPanel count={leftTime} isVisible={gameState == STATE_INPROGRESS_ANSWER} />
             <View style={styles.tileContainer}>
