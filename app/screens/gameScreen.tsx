@@ -310,7 +310,7 @@ const HomeScreen = ({stageNum, changeEnable}: HomeScreenProps) => {
                 />
             </View>
             <CountDownPanel count={countDownNum} isVisible={countDownIsVisible} key={countDownNum} />
-            <ResultPanel result={correctNum} isVisible={gameState == 4} rePlayCallback={(stageNum) => { replay(stageNum) }}></ResultPanel>
+            <ResultPanel isVisible={gameState == 4} rePlayCallback={(stageNum) => { replay(stageNum) }}></ResultPanel>
         </View >
     );
 }
