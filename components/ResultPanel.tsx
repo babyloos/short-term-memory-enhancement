@@ -1,3 +1,4 @@
+import colors from '@/app/util/constants';
 import {
     Text,
     View,
@@ -22,10 +23,10 @@ const ResultPanel = (props: ItemProps) => {
             left: 12,
             width: panelWidth - 27,
             height: panelHeight,
-            backgroundColor: '#52B6DE',
+            backgroundColor: colors.panel,
             borderRadius: 6,
             alignItems: 'center',
-            shadowColor: '#2E8EB8',
+            shadowColor: colors.panelShadow,
             shadowOffset: { width: 3, height: 3 },
             shadowOpacity: 0.5,
         },
@@ -33,9 +34,9 @@ const ResultPanel = (props: ItemProps) => {
             marginTop: 48,
             height: 84,
             width: 256,
-            backgroundColor: '#F58B44',
+            backgroundColor: colors.base,
             borderRadius: 6,
-            shadowColor: '#D2691E',
+            shadowColor: colors.baseShadow,
             shadowOffset: { width: 3, height: 3 },
             shadowOpacity: 0.5,
         },
@@ -44,15 +45,15 @@ const ResultPanel = (props: ItemProps) => {
             fontSize: 50,
             fontWeight: '600',
             textAlign: 'center',
-            color: '#003366',
+            color: colors.resultTitle,
         },
         retryContainer: {
             marginTop: 68,
             height: 72,
             width: 248,
-            backgroundColor: '#F58B44',
+            backgroundColor: colors.base,
             borderRadius: 6,
-            shadowColor: '#D2691E',
+            shadowColor: colors.baseShadow,
             shadowOffset: { width: 3, height: 3 },
             shadowOpacity: 0.5,
         },
@@ -61,15 +62,15 @@ const ResultPanel = (props: ItemProps) => {
             fontSize: 50,
             textAlign: 'center',
             fontWeight: '400',
-            color: '#4B5161',
+            color: colors.text,
         },
         nextContainer: {
             marginTop: 48,
             height: 72,
             width: 178,
-            backgroundColor: '#F58B44',
+            backgroundColor: colors.disabled,
             borderRadius: 6,
-            shadowColor: '#D2691E',
+            shadowColor: colors.disabledShadow,
             shadowOffset: { width: 3, height: 3 },
             shadowOpacity: 0.5,
         },
@@ -78,7 +79,7 @@ const ResultPanel = (props: ItemProps) => {
             fontSize: 50,
             textAlign: 'center',
             fontWeight: '400',
-            color: '#4B5161',
+            color: colors.text,
         }
     });
 
@@ -90,7 +91,7 @@ const ResultPanel = (props: ItemProps) => {
             <TouchableOpacity style={styles.retryContainer} onPress={props.rePlayCallback}>
                 <Text style={styles.retry}>もう一度</Text>
             </TouchableOpacity>
-            <View style={[styles.retryContainer, {backgroundColor: '#70737C'}]}>
+            <View style={[styles.retryContainer, {backgroundColor: colors.disabled}]}>
                 <Text style={[styles.retry, styles.next]}>次へ</Text>
             </View>
         </View>
