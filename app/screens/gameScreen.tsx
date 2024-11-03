@@ -289,6 +289,11 @@ const HomeScreen = ({stageNum, changeEnable}: HomeScreenProps) => {
         console.log("gameState: " + gameState);
     }, [gameState]);
 
+    const replay = (stageNum: number) => {
+        setStageNumState(stageNum);
+        setGameState(STATE_START_QUESTION);
+    }
+
     return (
         <View style={[styles.container]}>
             <View style={styles.titleContainer}>
@@ -305,7 +310,7 @@ const HomeScreen = ({stageNum, changeEnable}: HomeScreenProps) => {
                 />
             </View>
             <CountDownPanel count={countDownNum} isVisible={countDownIsVisible} key={countDownNum} />
-            <ResultPanel result={correctNum} isVisible={gameState == 4} rePlayCallback={() => { setGameState(STATE_START_QUESTION) }}></ResultPanel>
+            <ResultPanel result={correctNum} isVisible={gameState == 4} rePlayCallback={(stageNum) => { replay(stageNum) }}></ResultPanel>
         </View >
     );
 }
