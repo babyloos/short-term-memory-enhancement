@@ -87,17 +87,14 @@ const ResultPanel = (props: ItemProps) => {
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>合格</Text>
             </View>
-            <View style={styles.retryContainer}>
+            <TouchableOpacity style={styles.retryContainer} onPress={props.rePlayCallback}>
                 <Text style={styles.retry}>もう一度</Text>
-            </View>
-            <TouchableOpacity style={styles.nextContainer} onPress={props.rePlayCallback}>
-                <Text style={[styles.retry, styles.next]}>次へ</Text>
             </TouchableOpacity>
+            <View style={styles.retryContainer}>
+                <Text style={[styles.retry, styles.next]}>次へ</Text>
+            </View>
         </View>
     );
 }
-
-
-
 
 export default ResultPanel;
