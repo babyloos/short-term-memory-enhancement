@@ -236,7 +236,6 @@ const HomeScreen = ({questionCount, changeEnable}: HomeScreenProps) => {
 
     const answerStart = () => {
         setAnswerStep(0);
-        playSound(bgm);
         setLeftTime(ANSWER_TIME_LIMIT);
         const interval = setInterval(() => {
             setLeftTime(prev => {
