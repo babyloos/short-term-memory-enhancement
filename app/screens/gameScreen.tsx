@@ -8,7 +8,8 @@ import {
     StyleSheet,
     Text,
     TouchableOpacity,
-    View
+    View,
+    Animated
 } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import colors from '../util/constants';
@@ -26,7 +27,7 @@ const HomeScreen = () => {
 
     const ANSWER_TIME_LIMIT = 3;
 
-    const panelCount = 9;
+    const panelCount = 3;
     const countStartNum = 4;
     const [gameState, setGameState] = useState(STATE_START_QUESTION);
     const [correctNum, setCorrectNum] = useState(0);
@@ -103,7 +104,6 @@ const HomeScreen = () => {
         if (touchPanelNumber == numbers[answerStep]) {
             return true;
         } else {
-            console.log("touched failed");
             return false;
         }
     }
@@ -114,11 +114,16 @@ const HomeScreen = () => {
     }
 
     const Tile = ({ index, isEnable }: TileDataProps) => {
+        const backgroundColor = useRef(new Animated.Value(0)).current;
+
         const touchedAction = () => {
+            console.log('toucheActin');
             if (!isEnable || (gameState != STATE_INPROGRESS_ANSWER && gameState != STATE_START_ANSWER)) {
                 return;
             }
+
             playSound(enterTitleSound);
+
             if (judgeAnswer(index)) {
                 setCorrectNum((prev) => prev + 1);
             } else {
@@ -133,10 +138,28 @@ const HomeScreen = () => {
             tileData[index - 1].isEnable = false;
         }
 
+        const animatedBackgroundColor = backgroundColor.interpolate({
+            inputRange: [0, 1],
+            outputRange: [colors.panel, colors.orange],
+        });
+
+        useEffect(() => {
+            if (gameState != STATE_INPROGRESS_QUESTION) return;
+            console.log('visibleIndex: ' + visibleIndex);
+            Animated.timing(backgroundColor, {
+                toValue: visibleIndex != index ? 0 : 1,
+                duration: 250,
+                delay: 0,
+                useNativeDriver: false,
+            }).start();
+        }, [visibleIndex]);
+
         return (
-            <TouchableOpacity style={[styles.tile, { backgroundColor: visibleIndex != index && isEnable ? colors.panel : colors.orange }]} onPressIn={touchedAction}>
+            <TouchableOpacity onPressIn={touchedAction}>
+                <Animated.View style={[styles.tile, { backgroundColor: animatedBackgroundColor }]}>
+                </Animated.View>
             </TouchableOpacity>
-        );
+        )
     }
 
     const arrayShuffle = (array: Array<number>) => {
@@ -303,6 +326,7 @@ const styles = StyleSheet.create({
     tile: {
         margin: 4,
         flex: 1,
+        width: 100,
         aspectRatio: 1,
         justifyContent: 'center',
         verticalAlign: 'middle',
