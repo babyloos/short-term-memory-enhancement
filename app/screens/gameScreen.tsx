@@ -29,7 +29,7 @@ const HomeScreen = ({stageNum, changeEnable}: HomeScreenProps) => {
     const ANSWER_TIME_LIMIT = 3;
 
     const panelCount = 9;
-    const [questionCountState, setQuestionCountState] = useState(stageNum + 2);
+    const [questionCountState, setQuestionCountState] = useState(stageNum + 1);
     const [stageNumState, setStageNumState] = useState(stageNum);
     const countStartNum = 4;
     const [gameState, setGameState] = useState(STATE_START_QUESTION);
