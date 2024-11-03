@@ -340,7 +340,7 @@ const styles = StyleSheet.create({
     tile: {
         margin: 4,
         flex: 1,
-        width: 100,
+        width: '55%',
         aspectRatio: 1,
         justifyContent: 'center',
         verticalAlign: 'middle',
