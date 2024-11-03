@@ -27,7 +27,7 @@ const HomeScreen = () => {
 
     const ANSWER_TIME_LIMIT = 3;
 
-    const panelCount = 3;
+    const panelCount = 9;
     const countStartNum = 4;
     const [gameState, setGameState] = useState(STATE_START_QUESTION);
     const [correctNum, setCorrectNum] = useState(0);
@@ -152,7 +152,6 @@ const HomeScreen = () => {
                 delay: 0,
                 useNativeDriver: false,
             }).start(() => {
-                // backgroundColor.setValue(0);
             });
         }
 
@@ -163,10 +162,8 @@ const HomeScreen = () => {
 
         useEffect(() => {
             if (gameState != STATE_INPROGRESS_ANSWER) return;
-            console.log('isEnable: ' + isEnable);
-            if (tileData[index - 1].isEnable) return;
             colorChange(isEnable);
-        }, [tileData[index - 1].isEnable]);
+        }, [index]);
 
         return (
             <TouchableOpacity onPressIn={touchedAction}>
@@ -174,7 +171,7 @@ const HomeScreen = () => {
                 </Animated.View>
             </TouchableOpacity>
         )
-    }
+    };
 
     const arrayShuffle = (array: Array<number>) => {
         for (let i = (array.length - 1); 0 < i; i--) {
@@ -299,7 +296,7 @@ const HomeScreen = () => {
                     data={tileData}
                     numColumns={3}
                     renderItem={({ item }) => <Tile index={item.index} isEnable={item.isEnable} />}
-                    keyExtractor={(item, index) => index.toString()}
+                    keyExtractor={(item, index) => item.index.toString()}
                     scrollEnabled={false}
                 />
             </View>
