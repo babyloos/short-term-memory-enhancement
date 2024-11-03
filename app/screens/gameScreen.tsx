@@ -126,10 +126,11 @@ const HomeScreen = () => {
         const backgroundColor = useRef(new Animated.Value(0)).current;
 
         const touchedAction = () => {
-            console.log('touchAction');
-            if (!isEnable || (gameState != STATE_INPROGRESS_ANSWER)) {
+            if (gameState != STATE_INPROGRESS_ANSWER) {
                 return;
             }
+
+            console.log('touchAction');
 
             playSound(enterTitleSound);
 
@@ -145,29 +146,11 @@ const HomeScreen = () => {
                 setGameState(STATE_RESULT);
             }
 
-            tileData[index - 1].isEnable = false;
-        }
-
-        const animatedBackgroundColor = backgroundColor.interpolate({
-            inputRange: [0, 1],
-            outputRange: [colors.panel, colors.orange],
-        });
-
-        const colorChange = (isEnable: boolean) => {
-            backgroundColor.stopAnimation();
-            Animated.timing(backgroundColor, {
-                toValue: isEnable ? 0 : 1,
-                duration: 250,
-                delay: 0,
-                useNativeDriver: false,
-            }).start(() => {
-            });
+            setVisibleIndex(prev=> index);
         }
 
         return (
-            <TouchableOpacity onPressIn={touchedAction}>
-                <Animated.View style={[styles.tile, { backgroundColor: isEnable ? colors.panel : colors.orange }]}>
-                </Animated.View>
+            <TouchableOpacity style={[styles.tile, { backgroundColor: visibleIndex != index ? colors.panel : colors.orange }]} onPressIn={touchedAction}>
             </TouchableOpacity>
         )
     };
@@ -259,6 +242,7 @@ const HomeScreen = () => {
     useEffect(() => {
         if (gameState == STATE_START_QUESTION) {
             // changeEnable(false);
+            setVisibleIndex(0);
             resetTileData();
             countDownStart();
         }
@@ -270,18 +254,12 @@ const HomeScreen = () => {
 
         if (gameState == STATE_START_ANSWER) {
             // changeEnable(true);
+            setVisibleIndex(0);
             console.log(numbers);
             setGameState(prev => prev + 1);
         }
 
         if (gameState == STATE_INPROGRESS_ANSWER) {
-            setTimeout(() => {
-                setTileData(prev => {
-                    return prev.map((tile) => {
-                        return { index: tile.index, isEnable: true };
-                    });
-                });
-            }, beatInterval);
             answerStart();
         }
 
