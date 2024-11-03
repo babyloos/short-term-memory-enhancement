@@ -16,7 +16,8 @@ import colors from '../util/constants';
 
 type TileDataProps = { index: number, isEnable: boolean };
 
-const HomeScreen = () => {
+type HomeScreenProps = {questionCount: number, changeEnable: (isEnable: boolean)=>void};
+const HomeScreen = ({questionCount, changeEnable}: HomeScreenProps) => {
     // export default function HomeScreen() {
     // ゲームの状態, 0: 出題開始, 1: 出題中, 2: 回答開始 3: 回答中, 4: 結果表示中
     const STATE_START_QUESTION = 0;
@@ -28,7 +29,6 @@ const HomeScreen = () => {
     const ANSWER_TIME_LIMIT = 3;
 
     const panelCount = 9;
-    const questionCount = 3;
     const countStartNum = 4;
     const [gameState, setGameState] = useState(STATE_START_QUESTION);
     const [correctNum, setCorrectNum] = useState(0);
@@ -260,6 +260,7 @@ const HomeScreen = () => {
 
     useEffect(() => {
         if (gameState == STATE_START_QUESTION) {
+            changeEnable(false);
             resetTileData();
             countDownStart();
         }
@@ -270,6 +271,7 @@ const HomeScreen = () => {
         }
 
         if (gameState == STATE_START_ANSWER) {
+            changeEnable(true);
             console.log(numbers);
             setGameState(prev => prev + 1);
         }
@@ -338,11 +340,10 @@ const styles = StyleSheet.create({
     tile: {
         margin: 4,
         flex: 1,
-        width: '55%',
+        width: '54%',
         aspectRatio: 1,
         justifyContent: 'center',
         verticalAlign: 'middle',
-        backgroundColor: colors.panel,
         borderRadius: 6,
     },
 });
