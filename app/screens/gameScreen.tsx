@@ -118,7 +118,7 @@ const HomeScreen = () => {
 
         const touchedAction = () => {
             console.log('toucheActin');
-            if (!isEnable || (gameState != STATE_INPROGRESS_ANSWER && gameState != STATE_START_ANSWER)) {
+            if (!isEnable || (gameState != STATE_INPROGRESS_ANSWER)) {
                 return;
             }
 
@@ -136,23 +136,37 @@ const HomeScreen = () => {
             }
 
             tileData[index - 1].isEnable = false;
+            colorChange(false);
         }
 
         const animatedBackgroundColor = backgroundColor.interpolate({
             inputRange: [0, 1],
             outputRange: [colors.panel, colors.orange],
         });
-
-        useEffect(() => {
-            if (gameState != STATE_INPROGRESS_QUESTION) return;
-            console.log('visibleIndex: ' + visibleIndex);
+        
+        const colorChange = (isEnable: boolean) => {
+            backgroundColor.stopAnimation();
             Animated.timing(backgroundColor, {
-                toValue: visibleIndex != index ? 0 : 1,
+                toValue: isEnable ? 0 : 1,
                 duration: 250,
                 delay: 0,
                 useNativeDriver: false,
-            }).start();
+            }).start(() => {
+                // backgroundColor.setValue(0);
+            });
+        }
+
+        useEffect(() => {
+            if (gameState != STATE_INPROGRESS_QUESTION) return;
+            colorChange(visibleIndex != index);
         }, [visibleIndex]);
+
+        useEffect(() => {
+            if (gameState != STATE_INPROGRESS_ANSWER) return;
+            console.log('isEnable: ' + isEnable);
+            if (tileData[index - 1].isEnable) return;
+            colorChange(isEnable);
+        }, [tileData[index - 1].isEnable]);
 
         return (
             <TouchableOpacity onPressIn={touchedAction}>
