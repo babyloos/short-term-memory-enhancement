@@ -2,7 +2,7 @@ const colors = {
     base: '#F58B44',
     baseShadow: '#D2691E',
     background: '#FDF5EB',
-    disabledBackground: '#E0D5C8',
+    disabledBackground: '#70737C',
     text: '#4B5161',
     disabled: '#70737C',
     disabledShadow: '#4E5159',

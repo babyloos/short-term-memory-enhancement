@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-type ItemProps = { isVisible: boolean, isClear: boolean, rePlayCallback: () => void, nextPlayCallback: () => void}
+type ItemProps = { isVisible: boolean, isClear: boolean, rePlayCallback: () => void, nextPlayCallback: () => void }
 const ResultPanel = (props: ItemProps) => {
     const { width, height } = Dimensions.get('window');
     const panelWidth = width;
@@ -68,8 +68,17 @@ const ResultPanel = (props: ItemProps) => {
             marginTop: 48,
             height: 72,
             width: 178,
-            backgroundColor: colors.disabled,
             borderRadius: 6,
+            shadowColor: colors.disabledShadow,
+            shadowOffset: { width: 3, height: 3 },
+            shadowOpacity: 0.5,
+        },
+        disabledNextContainer: {
+            marginTop: 48,
+            height: 72,
+            width: 178,
+            borderRadius: 6,
+            backgroundColor: colors.disabledBackground,
             shadowColor: colors.disabledShadow,
             shadowOffset: { width: 3, height: 3 },
             shadowOpacity: 0.5,
@@ -86,12 +95,12 @@ const ResultPanel = (props: ItemProps) => {
     return (
         <View style={styles.container}>
             <View style={styles.titleContainer}>
-                <Text style={styles.title}>{ props.isClear ? "合格" : "失敗"}</Text>
+                <Text style={styles.title}>{props.isClear ? "合格" : "失敗"}</Text>
             </View>
-            <TouchableOpacity style={styles.retryContainer} onPress={() => {props.rePlayCallback()}}>
+            <TouchableOpacity style={styles.retryContainer} onPress={() => { props.rePlayCallback() }}>
                 <Text style={styles.retry}>もう一度</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.retryContainer, {backgroundColor: colors.disabled}]} onPress={() => {props.nextPlayCallback()}}>
+            <TouchableOpacity style={[styles.retryContainer, props.isClear ? styles.nextContainer : styles.disabledNextContainer]} onPress={() => { props.nextPlayCallback() }} disabled={!props.isClear}>
                 <Text style={[styles.retry, styles.next]}>次へ</Text>
             </TouchableOpacity>
         </View>
