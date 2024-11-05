@@ -58,8 +58,10 @@ const HomeScreen = ({ stageNum, changeEnable }: HomeScreenProps) => {
     }, []);
 
     const playSound = async (sound: React.MutableRefObject<Sound | null>) => {
-        if (sound.current != null)
+        if (sound.current != null) {
+            await sound.current.setRateAsync(1.0, true);
             await sound.current.replayAsync();
+        }
     }
 
     const stopSound = async (sound: React.MutableRefObject<Sound | null>) => {
