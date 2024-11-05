@@ -86,7 +86,7 @@ const ResultPanel = (props: ItemProps) => {
     return (
         <View style={styles.container}>
             <View style={styles.titleContainer}>
-                <Text style={styles.title}>合格</Text>
+                <Text style={styles.title}>{ props.isClear ? "合格" : "失敗"}</Text>
             </View>
             <TouchableOpacity style={styles.retryContainer} onPress={() => {props.rePlayCallback()}}>
                 <Text style={styles.retry}>もう一度</Text>
