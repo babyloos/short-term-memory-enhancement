@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-type ItemProps = { isVisible: boolean, rePlayCallback: () => void, nextPlayCallback: () => void}
+type ItemProps = { isVisible: boolean, isClear: boolean, rePlayCallback: () => void, nextPlayCallback: () => void}
 const ResultPanel = (props: ItemProps) => {
     const { width, height } = Dimensions.get('window');
     const panelWidth = width;

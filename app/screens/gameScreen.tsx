@@ -5,11 +5,11 @@ import { Audio } from 'expo-av';
 import { Sound } from 'expo-av/build/Audio';
 import React, { useEffect, useRef, useState } from 'react';
 import {
+    Animated,
     StyleSheet,
     Text,
     TouchableOpacity,
-    View,
-    Animated
+    View
 } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import colors from '../util/constants';
@@ -315,7 +315,7 @@ const HomeScreen = ({ stageNum, changeEnable }: HomeScreenProps) => {
                 />
             </View>
             <CountDownPanel count={countDownNum} isVisible={countDownIsVisible} key={countDownNum} />
-            <ResultPanel isVisible={gameState == 4} rePlayCallback={() => { replay(); }} nextPlayCallback={() => { nextPlay() }}></ResultPanel>
+            <ResultPanel isVisible={gameState == 4} isClear={false} rePlayCallback={() => { replay(); }} nextPlayCallback={() => { nextPlay(); }} ></ResultPanel>
         </View >
     );
 }
