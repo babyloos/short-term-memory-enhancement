@@ -78,7 +78,7 @@ const ResultPanel = (props: ItemProps) => {
             height: 72,
             width: 178,
             borderRadius: 6,
-            backgroundColor: colors.disabledBackground,
+            backgroundColor: colors.disabled,
             shadowColor: colors.disabledShadow,
             shadowOffset: { width: 3, height: 3 },
             shadowOpacity: 0.5,
