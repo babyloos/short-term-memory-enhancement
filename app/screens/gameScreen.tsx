@@ -33,6 +33,7 @@ const HomeScreen = ({ stageNum, changeEnable }: HomeScreenProps) => {
     const [stageNumState, setStageNumState] = useState(stageNum);
     const countStartNum = 4;
     const [gameState, setGameState] = useState(STATE_START_QUESTION);
+    const [isClear, setIsClear] = useState(false);
     const [correctNum, setCorrectNum] = useState(0);
     const [backgroundColor, setBackgroundColor] = useState('');
     const [index, setIndex] = useState(0);
@@ -113,6 +114,7 @@ const HomeScreen = ({ stageNum, changeEnable }: HomeScreenProps) => {
 
     const failedAction = (): void => {
         flashBackgroundWith('red');
+        setIsClear(false);
         setGameState(STATE_RESULT);
     }
 
@@ -135,6 +137,7 @@ const HomeScreen = ({ stageNum, changeEnable }: HomeScreenProps) => {
 
             setAnswerStep((prev) => prev + 1);
             if (answerStep >= questionCountState - 1) {
+                setIsClear(true);
                 setGameState(STATE_RESULT);
             }
 
@@ -315,7 +318,7 @@ const HomeScreen = ({ stageNum, changeEnable }: HomeScreenProps) => {
                 />
             </View>
             <CountDownPanel count={countDownNum} isVisible={countDownIsVisible} key={countDownNum} />
-            <ResultPanel isVisible={gameState == 4} isClear={false} rePlayCallback={() => { replay(); }} nextPlayCallback={() => { nextPlay(); }} ></ResultPanel>
+            <ResultPanel isVisible={gameState == 4} isClear={isClear} rePlayCallback={() => { replay(); }} nextPlayCallback={() => { nextPlay(); }} ></ResultPanel>
         </View >
     );
 }
@@ -358,5 +361,3 @@ const styles = StyleSheet.create({
         borderRadius: 6,
     },
 });
-
-
