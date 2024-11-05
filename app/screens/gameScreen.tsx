@@ -171,7 +171,7 @@ const HomeScreen = ({ stageNum, changeEnable }: HomeScreenProps) => {
         useEffect(() => {
             if (gameState != STATE_INPROGRESS_ANSWER) return;
             colorChange(isEnable);
-        }, [index]);
+        }, [isEnable]);
 
         return (
             <TouchableOpacity onPressIn={touchedAction}>
