@@ -19,6 +19,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { LogBox } from "react-native";
 import colors from './util/constants';
+import TopScreen from './screens/TopScreen';
 LogBox.ignoreLogs([
     "Possible warning",
 ]);
@@ -51,7 +52,8 @@ const RootLayout = () => {
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
             <SafeAreaView style={[styles.container, { backgroundColor: isEnable ? colors.background : colors.disabledBackground }]}>
                 <GestureHandlerRootView>
-                    <HomeScreen stageNum={1} changeEnable={changeEnable} />
+                    {/* <HomeScreen stageNum={1} changeEnable={changeEnable} /> */}
+                    <TopScreen />
                 </GestureHandlerRootView>
             </SafeAreaView>
         </ThemeProvider>
