@@ -5,6 +5,7 @@ import {
     StyleSheet,
 } from "react-native";
 import colors from "../util/constants";
+import MenuPanel from "@/components/MenuPanel";
 
 type TopScreenProps = {};
 const TopScreen = ({ }: TopScreenProps) => {
@@ -65,18 +66,10 @@ const TopScreen = ({ }: TopScreenProps) => {
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>メモリータップ</Text>
             </View>
-            <View style={styles.menuPanel}>
-                <Text style={styles.menu}>はじめから</Text>
-            </View>
-            <View style={styles.menuPanel}>
-                <Text style={styles.menu}>続きから</Text>
-            </View>
-            <View style={styles.menuPanel}>
-                <Text style={styles.menu}>ステージ選択</Text>
-            </View>
-            <View style={styles.menuPanel}>
-                <Text style={styles.menu}>あそび方</Text>
-            </View>
+            <MenuPanel title={"はじめから"} />
+            <MenuPanel title={"続きから"} />
+            <MenuPanel title={"ステージ選択"} />
+            <MenuPanel title={"あそび方"} />
             <Text style={styles.version}>ver.1.0.0</Text>
         </View >
     );
