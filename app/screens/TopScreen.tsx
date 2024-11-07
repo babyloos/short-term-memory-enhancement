@@ -52,6 +52,12 @@ const TopScreen = ({ }: TopScreenProps) => {
             fontWeight: '500',
             color: colors.text,
         },
+        version: {
+            position: 'absolute',
+            left: 24,
+            bottom: 24,
+            color: colors.text,
+        }
     });
 
     return (
@@ -71,6 +77,7 @@ const TopScreen = ({ }: TopScreenProps) => {
             <View style={styles.menuPanel}>
                 <Text style={styles.menu}>あそび方</Text>
             </View>
+            <Text style={styles.version}>ver.1.0.0</Text>
         </View >
     );
 }
