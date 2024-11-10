@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import colors from '../util/constants';
-import { useLocalSearchParams } from 'expo-router';
+import { Link, useLocalSearchParams } from 'expo-router';
 
 type TileDataProps = { index: number, isEnable: boolean };
 
@@ -309,7 +309,9 @@ const HomeScreen = () => {
     return (
         <View style={[styles.container]}>
             <View style={styles.gotopContainer}>
-                <Text style={styles.gotop}>トップへ</Text>
+                <Link href={'/screens/TopScreen'}>
+                    <Text style={styles.gotop}>トップへ</Text>
+                </Link>
             </View>
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>ステージ{stageNumState}</Text>
