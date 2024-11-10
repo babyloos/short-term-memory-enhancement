@@ -1,6 +1,6 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { Slot, Stack, Tabs } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect, useState } from 'react';
 import 'react-native-reanimated';
@@ -53,7 +53,8 @@ const RootLayout = () => {
             <SafeAreaView style={[styles.container, { backgroundColor: isEnable ? colors.background : colors.disabledBackground }]}>
                 <GestureHandlerRootView>
                     {/* <HomeScreen stageNum={1} changeEnable={changeEnable} /> */}
-                    <TopScreen />
+                    {/* <TopScreen /> */}
+                    <Slot />
                 </GestureHandlerRootView>
             </SafeAreaView>
         </ThemeProvider>
