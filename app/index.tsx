@@ -4,7 +4,6 @@ import ManualScreen from "./screens/manualScreen";
 
 export default function Home() {
   return (
-    // <TopScreen />
-    <ManualScreen />
+    <TopScreen />
   );
 }
