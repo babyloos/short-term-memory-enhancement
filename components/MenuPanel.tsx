@@ -36,7 +36,7 @@ const MenuPanel = ({ title }: menuPanelProps) => {
 
     return (
         <View style={styles.menuPanel}>
-            <Link href={"/screens/gameScreen"}>
+            <Link href={{pathname: "/screens/gameScreen", params: {stageNum: 1}}}>
                 <Text style={styles.menu}>{title}</Text>
             </Link>
         </View>

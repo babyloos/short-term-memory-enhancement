@@ -13,11 +13,11 @@ import {
 } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import colors from '../util/constants';
+import { useLocalSearchParams } from 'expo-router';
 
 type TileDataProps = { index: number, isEnable: boolean };
 
-type HomeScreenProps = { stageNum: number };
-const HomeScreen = ({ stageNum }: HomeScreenProps) => {
+const HomeScreen = () => {
     // export default function HomeScreen() {
     // ゲームの状態, 0: 出題開始, 1: 出題中, 2: 回答開始 3: 回答中, 4: 結果表示中
     const STATE_START_QUESTION = 0;
@@ -29,6 +29,8 @@ const HomeScreen = ({ stageNum }: HomeScreenProps) => {
     const ANSWER_TIME_LIMIT = 3;
 
     const panelCount = 9;
+    const local = useLocalSearchParams();
+    const stageNum: number = parseInt(local.stageNum[0]);
     const [questionCountState, setQuestionCountState] = useState(stageNum + 2);
     const [stageNumState, setStageNumState] = useState(stageNum);
     const countStartNum = 4;
