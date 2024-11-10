@@ -1,5 +1,5 @@
 import colors from "@/app/util/constants";
-import { Link } from "expo-router";
+import { Href, Link } from "expo-router";
 import {
     View,
     Text,
@@ -7,8 +7,12 @@ import {
     StyleSheet,
 } from "react-native"
 
-type menuPanelProps = { title: string };
-const MenuPanel = ({ title }: menuPanelProps) => {
+type menuPanelProps = {
+    title: string,
+    pathname: "/screens/gameScreen",
+    params: {}
+};
+const MenuPanel = ({ title, pathname, params }: menuPanelProps) => {
     const { width, height } = Dimensions.get('window');
     const panelWidth = width;
     const panelHeight = height / 13;
@@ -36,7 +40,7 @@ const MenuPanel = ({ title }: menuPanelProps) => {
 
     return (
         <View style={styles.menuPanel}>
-            <Link href={{pathname: "/screens/gameScreen", params: {stageNum: 1}}}>
+            <Link href={{pathname: pathname, params: params}}>
                 <Text style={styles.menu}>{title}</Text>
             </Link>
         </View>
