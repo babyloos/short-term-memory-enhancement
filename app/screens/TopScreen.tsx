@@ -50,10 +50,10 @@ const TopScreen = ({ }: TopScreenProps) => {
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>メモリータップ</Text>
             </View>
-            <MenuPanel title={"はじめから"} pathname={"/screens/gameScreen"} params={{stageNum: 1}} />
-            <MenuPanel title={"続きから"} pathname={"/screens/gameScreen"} params={{stageNum: 2}} />
-            <MenuPanel title={"ステージ選択"} pathname={"/screens/gameScreen"} params={{stageNum: 3}} />
-            <MenuPanel title={"あそび方"} pathname={"/screens/manualScreen"} params={{stageNum: 4}} />
+            <MenuPanel title={"はじめから"} pathname={"/screens/GameScreen"} params={{stageNum: 1}} />
+            <MenuPanel title={"続きから"} pathname={"/screens/GameScreen"} params={{stageNum: 2}} />
+            <MenuPanel title={"ステージ選択"} pathname={"/screens/GameScreen"} params={{stageNum: 3}} />
+            <MenuPanel title={"あそび方"} pathname={"/screens/ManualScreen"} params={{}} />
             <Text style={styles.version}>ver.1.0.0</Text>
         </View >
     );

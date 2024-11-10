@@ -60,6 +60,19 @@ const ManualScreen = () => {
                         出題された通りの順番でタイルをタップしましょう。
                     </Text>
                 </View>
+                <View style={styles.textContainer}>
+                    <Text style={styles.text}>
+                        ゲームが終了すると結果画面が表示されます。
+                    </Text>
+                    <Text style={styles.text}>
+                        不合格の場合は再チャレンジを、合格の場合は次のゲームに挑戦できます。
+                    </Text>
+                </View>
+                <View style={styles.textContainer}>
+                    <Text style={styles.text}>
+                        ゲームを行うごとにレベルが徐々に上がっていくの自己ベストを目指して頑張りましょう。
+                    </Text>
+                </View>
             </ScrollView>
         </View>
     );
