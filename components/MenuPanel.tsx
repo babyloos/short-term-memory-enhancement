@@ -9,7 +9,7 @@ import {
 
 type menuPanelProps = {
     title: string,
-    pathname: "/screens/gameScreen",
+    pathname: "/screens/gameScreen" | "/screens/manualScreen",
     params: {}
 };
 const MenuPanel = ({ title, pathname, params }: menuPanelProps) => {
