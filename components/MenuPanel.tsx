@@ -32,14 +32,11 @@ const MenuPanel = ({ title }: menuPanelProps) => {
             fontWeight: '500',
             color: colors.text,
         },
-        link: {
-            backgroundColor: 'red',
-        },
     });
 
     return (
         <View style={styles.menuPanel}>
-            <Link style={styles.link} href={"/screens/gameScreen"}>
+            <Link href={"/screens/gameScreen"}>
                 <Text style={styles.menu}>{title}</Text>
             </Link>
         </View>
