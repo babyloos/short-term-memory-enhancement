@@ -17,7 +17,7 @@ export default TimerPanel;
 
 const styles = StyleSheet.create({
   timerPanel: {
-    marginTop: 24,
+    marginTop: 12,
     marginHorizontal: 'auto',
     width: 80,
     height: 80,

@@ -308,6 +308,9 @@ const HomeScreen = () => {
 
     return (
         <View style={[styles.container]}>
+            <View style={styles.gotopContainer}>
+                <Text style={styles.gotop}>トップへ</Text>
+            </View>
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>ステージ{stageNumState}</Text>
             </View>
@@ -333,8 +336,26 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
+    gotopContainer: {
+        marginTop: 12,
+        height: 48,
+        width: '30%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: colors.base,
+        marginHorizontal: '10%',
+        borderRadius: 6,
+        shadowColor: colors.baseShadow,
+        shadowOffset: { width: 3, height: 3 },
+        shadowOpacity: 0.5,
+    },
+    gotop: {
+        fontSize: 24,
+        fontWeight: '600',
+        color: colors.text,
+    },
     titleContainer: {
-        marginTop: 62,
+        marginTop: 48,
         height: 62,
         justifyContent: 'center',
         backgroundColor: colors.base,
