@@ -50,9 +50,7 @@ const TopScreen = ({ }: TopScreenProps) => {
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>メモリータップ</Text>
             </View>
-            <Link href={"/screens/gameScreen"}>
-                <MenuPanel title={"はじめから"} />
-            </Link>
+            <MenuPanel title={"はじめから"} />
             <MenuPanel title={"続きから"} />
             <MenuPanel title={"ステージ選択"} />
             <MenuPanel title={"あそび方"} />

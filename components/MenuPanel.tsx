@@ -1,4 +1,5 @@
 import colors from "@/app/util/constants";
+import { Link } from "expo-router";
 import {
     View,
     Text,
@@ -36,6 +37,7 @@ const MenuPanel = ({title}: menuPanelProps) => {
     return (
         <View style={styles.menuPanel}>
             <Text style={styles.menu}>{title}</Text>
+            <Link href={"/screens/gameScreen"} />
         </View>
     );
 }

@@ -16,8 +16,8 @@ import colors from '../util/constants';
 
 type TileDataProps = { index: number, isEnable: boolean };
 
-type HomeScreenProps = { stageNum: number, changeEnable: (isEnable: boolean) => void };
-const HomeScreen = ({ stageNum, changeEnable }: HomeScreenProps) => {
+type HomeScreenProps = { stageNum: number };
+const HomeScreen = ({ stageNum }: HomeScreenProps) => {
     // export default function HomeScreen() {
     // ゲームの状態, 0: 出題開始, 1: 出題中, 2: 回答開始 3: 回答中, 4: 結果表示中
     const STATE_START_QUESTION = 0;
@@ -266,7 +266,7 @@ const HomeScreen = ({ stageNum, changeEnable }: HomeScreenProps) => {
 
     useEffect(() => {
         if (gameState == STATE_START_QUESTION) {
-            changeEnable(false);
+            // changeEnable(false);
             resetTileData();
             countDownStart();
         }
@@ -277,7 +277,7 @@ const HomeScreen = ({ stageNum, changeEnable }: HomeScreenProps) => {
         }
 
         if (gameState == STATE_START_ANSWER) {
-            changeEnable(true);
+            // changeEnable(true);
             console.log(numbers);
             setGameState(prev => prev + 1);
         }
