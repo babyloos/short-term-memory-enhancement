@@ -37,23 +37,6 @@ const TopScreen = ({ }: TopScreenProps) => {
             fontWeight: '600',
             color: colors.text,
         },
-        menuPanel: {
-            marginTop: panelHeight - 10,
-            height: panelHeight,
-            justifyContent: 'center',
-            backgroundColor: colors.panel,
-            marginHorizontal: '10%',
-            borderRadius: 6,
-            shadowColor: colors.panelShadow,
-            shadowOffset: { width: 3, height: 3 },
-            shadowOpacity: 0.5,
-        },
-        menu: {
-            fontSize: 28,
-            textAlign: 'center',
-            fontWeight: '500',
-            color: colors.text,
-        },
         version: {
             position: 'absolute',
             left: 24,
@@ -67,7 +50,9 @@ const TopScreen = ({ }: TopScreenProps) => {
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>メモリータップ</Text>
             </View>
-            <MenuPanel title={"はじめから"} />
+            <Link href={"/screens/gameScreen"}>
+                <MenuPanel title={"はじめから"} />
+            </Link>
             <MenuPanel title={"続きから"} />
             <MenuPanel title={"ステージ選択"} />
             <MenuPanel title={"あそび方"} />
