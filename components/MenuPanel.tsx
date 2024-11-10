@@ -7,8 +7,8 @@ import {
     StyleSheet,
 } from "react-native"
 
-type menuPanelProps = {title: string};
-const MenuPanel = ({title}: menuPanelProps) => {
+type menuPanelProps = { title: string };
+const MenuPanel = ({ title }: menuPanelProps) => {
     const { width, height } = Dimensions.get('window');
     const panelWidth = width;
     const panelHeight = height / 13;
@@ -32,12 +32,16 @@ const MenuPanel = ({title}: menuPanelProps) => {
             fontWeight: '500',
             color: colors.text,
         },
+        link: {
+            backgroundColor: 'red',
+        },
     });
 
     return (
         <View style={styles.menuPanel}>
-            <Text style={styles.menu}>{title}</Text>
-            <Link href={"/screens/gameScreen"} />
+            <Link style={styles.link} href={"/screens/gameScreen"}>
+                <Text style={styles.menu}>{title}</Text>
+            </Link>
         </View>
     );
 }
