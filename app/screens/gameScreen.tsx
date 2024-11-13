@@ -146,7 +146,6 @@ const HomeScreen = () => {
             }
 
             tileData[index - 1].isEnable = false;
-            colorChange(false);
         }
 
         const animatedBackgroundColor = backgroundColor.interpolate({
@@ -169,11 +168,6 @@ const HomeScreen = () => {
             if (gameState != STATE_INPROGRESS_QUESTION) return;
             colorChange(visibleIndex != index);
         }, [visibleIndex]);
-
-        useEffect(() => {
-            if (gameState != STATE_INPROGRESS_ANSWER) return;
-            colorChange(isEnable);
-        }, [isEnable]);
 
         return (
             <TouchableOpacity onPressIn={touchedAction}>
