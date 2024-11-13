@@ -1,10 +1,9 @@
 import { Link } from "expo-router";
 import {
-    Dimensions,
     FlatList,
     StyleSheet,
     Text,
-    View,
+    View
 } from "react-native";
 import colors from "../util/constants";
 
