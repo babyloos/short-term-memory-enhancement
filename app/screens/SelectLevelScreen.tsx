@@ -9,8 +9,6 @@ import {
 import colors from "../util/constants";
 
 const ManualScreen = () => {
-    const { width, height } = Dimensions.get('window');
-    const tileWidth = (width - 24) / 5;
     const data = new Array<LevelTileProps>();
 
     type LevelTileProps = ({ index: number });
