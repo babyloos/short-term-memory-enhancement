@@ -51,11 +51,6 @@ const ManualScreen = () => {
                 </View>
                 <View style={styles.textContainer}>
                     <Text style={styles.text}>
-                        参考画像
-                    </Text>
-                </View>
-                <View style={styles.textContainer}>
-                    <Text style={styles.text}>
                         背景が白色になり回答フェーズが始まるとあなたが入力する番です。
                         出題された通りの順番でタイルをタップしましょう。
                     </Text>
