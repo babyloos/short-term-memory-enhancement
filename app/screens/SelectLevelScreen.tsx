@@ -16,11 +16,9 @@ const ManualScreen = () => {
     type LevelTileProps = ({ index: number });
 
     const initData = () => {
-        data.push({ index: 0 });
-        data.push({ index: 1 });
-        data.push({ index: 2 });
-        data.push({ index: 3 });
-        data.push({ index: 4 });
+        for (var i = 1; i<=100; i++) {
+            data.push({ index: i });
+        }
     }
 
     const LevelTile = ({ index }: LevelTileProps) => {
@@ -81,17 +79,17 @@ const ManualScreen = () => {
             color: colors.text,
         },
         flatList: {
-            backgroundColor: 'red',
             marginTop: 28,
             marginHorizontal: 12,
             borderWidth: 1,
             borderEndWidth: 1,
-            borderColor: 'gray',
+            borderColor: colors.disabled,
         },
         tileContainer: {
             flex: 1,
             borderEndWidth: 1,
-            backgroundColor: "skyblue",
+            borderBottomWidth: 1,
+            borderColor: colors.disabled,
             aspectRatio: 1,
         },
         tile: {
