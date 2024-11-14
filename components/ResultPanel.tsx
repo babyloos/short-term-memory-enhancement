@@ -1,12 +1,11 @@
 import colors from '@/app/util/constants';
 import {
-    Text,
-    View,
-    StyleSheet,
     Dimensions,
+    StyleSheet,
+    Text,
     TouchableNativeFeedback,
+    View,
 } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 type ItemProps = { isVisible: boolean, isClear: boolean, rePlayCallback: () => void, nextPlayCallback: () => void }
 const ResultPanel = (props: ItemProps) => {
