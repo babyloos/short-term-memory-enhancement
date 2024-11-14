@@ -4,6 +4,7 @@ import {
     View,
     StyleSheet,
     Dimensions,
+    TouchableNativeFeedback,
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -97,12 +98,16 @@ const ResultPanel = (props: ItemProps) => {
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>{props.isClear ? "合格" : "失敗"}</Text>
             </View>
-            <TouchableOpacity style={styles.retryContainer} onPress={() => { props.rePlayCallback() }}>
-                <Text style={styles.retry}>もう一度</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={[styles.retryContainer, props.isClear ? styles.nextContainer : styles.disabledNextContainer]} onPress={() => { props.nextPlayCallback() }} disabled={!props.isClear}>
-                <Text style={[styles.retry, styles.next]}>次へ</Text>
-            </TouchableOpacity>
+            <TouchableNativeFeedback onPress={() => { props.rePlayCallback() }}>
+                <View style={styles.retryContainer}>
+                    <Text style={styles.retry}>もう一度</Text>
+                </View>
+            </TouchableNativeFeedback>
+            <TouchableNativeFeedback onPress={() => { props.nextPlayCallback() }} disabled={!props.isClear}>
+                <View style={[styles.retryContainer, props.isClear ? styles.nextContainer : styles.disabledNextContainer]}>
+                    <Text style={[styles.retry, styles.next]}>次へ</Text>
+                </View>
+            </TouchableNativeFeedback>
         </View>
     );
 }
