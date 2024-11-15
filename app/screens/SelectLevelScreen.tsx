@@ -78,15 +78,12 @@ const ManualScreen = () => {
         flatList: {
             marginTop: 28,
             marginHorizontal: 12,
-            borderWidth: 1,
-            borderEndWidth: 1,
-            borderColor: colors.disabled,
+            borderColor: '#AAAAAA',
         },
         tileContainer: {
             flex: 1,
-            borderEndWidth: 1,
-            borderBottomWidth: 1,
-            borderColor: colors.disabled,
+            borderWidth: 1,
+            borderColor: '#AAAAAA',
             aspectRatio: 1,
         },
         tile: {
