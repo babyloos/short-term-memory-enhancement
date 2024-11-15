@@ -126,7 +126,7 @@ const HomeScreen = () => {
         const backgroundColor = useRef(new Animated.Value(0)).current;
 
         const touchedAction = () => {
-            console.log('toucheActin');
+            console.log('touchAction');
             if (!isEnable || (gameState != STATE_INPROGRESS_ANSWER)) {
                 return;
             }
@@ -164,14 +164,14 @@ const HomeScreen = () => {
             });
         }
 
-        useEffect(() => {
-            if (gameState != STATE_INPROGRESS_QUESTION) return;
-            colorChange(visibleIndex != index);
-        }, [visibleIndex]);
+        // useEffect(() => {
+        //     if (gameState != STATE_INPROGRESS_QUESTION) return;
+        //     isEnable = visibleIndex != index;
+        // }, [visibleIndex, isEnable]);
 
         return (
             <TouchableOpacity onPressIn={touchedAction}>
-                <Animated.View style={[styles.tile, { backgroundColor: animatedBackgroundColor }]}>
+                <Animated.View style={[styles.tile, { backgroundColor: isEnable ? colors.panel : colors.orange }]}>
                 </Animated.View>
             </TouchableOpacity>
         )
@@ -255,7 +255,7 @@ const HomeScreen = () => {
     }
 
     useEffect(() => {
-        setLeftTime(prev => {
+        setLeftTime(() => {
             return ANSWER_TIME_LIMIT;
         })
     }, [answerStep]);
@@ -279,6 +279,11 @@ const HomeScreen = () => {
         }
 
         if (gameState == STATE_INPROGRESS_ANSWER) {
+            setTileData(prev => {
+                return prev.map((tile) => {
+                    return { index: tile.index, isEnable: true };
+                });
+            });
             answerStart();
         }
 
@@ -299,6 +304,13 @@ const HomeScreen = () => {
         setQuestionCountState(prev => prev + 1);
         setGameState(STATE_START_QUESTION);
     }
+
+    useEffect(() => {
+        if (gameState == STATE_INPROGRESS_QUESTION) {
+            tileData[visibleIndex - 1].isEnable = false;
+            console.log('visibleIndex: ' + visibleIndex);
+        }
+    }, [visibleIndex]);
 
     return (
         <View style={[styles.container]}>
