@@ -21,7 +21,7 @@ const ManualScreen = () => {
     const LevelTile = ({ index }: LevelTileProps) => {
         return (
             <View style={styles.tileContainer}>
-                <Text style={styles.tile}>{index.toString()}</Text>
+                <Text style={styles.tile}>{index < 100 ? index.toString() : ""}</Text>
             </View>
         );
     }
