@@ -10,7 +10,7 @@ import colors from "../util/constants";
 const ManualScreen = () => {
     const data = new Array<LevelTileProps>();
 
-    type LevelTileProps = ({ index: number });
+    type LevelTileProps = { index: number };
 
     const initData = () => {
         for (var i = 1; i<=100; i++) {
