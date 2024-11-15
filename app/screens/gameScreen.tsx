@@ -164,11 +164,6 @@ const HomeScreen = () => {
             });
         }
 
-        // useEffect(() => {
-        //     if (gameState != STATE_INPROGRESS_QUESTION) return;
-        //     isEnable = visibleIndex != index;
-        // }, [visibleIndex, isEnable]);
-
         return (
             <TouchableOpacity onPressIn={touchedAction}>
                 <Animated.View style={[styles.tile, { backgroundColor: isEnable ? colors.panel : colors.orange }]}>
@@ -220,6 +215,7 @@ const HomeScreen = () => {
         const showTile = (setIndex: React.Dispatch<React.SetStateAction<number>>, numbers: number[], setVisibleIndex: React.Dispatch<React.SetStateAction<number>>, interval: NodeJS.Timeout | null, setGameState: React.Dispatch<React.SetStateAction<number>>) => {
             setIndex(prevIndex => {
                 if (prevIndex < questionCountState) {
+                    console.log('prevIndex: ' + prevIndex);
                     setVisibleIndex(numbers[prevIndex]);
                     return prevIndex + 1;
                 } else {
@@ -279,11 +275,13 @@ const HomeScreen = () => {
         }
 
         if (gameState == STATE_INPROGRESS_ANSWER) {
-            setTileData(prev => {
-                return prev.map((tile) => {
-                    return { index: tile.index, isEnable: true };
+            setTimeout(() => {
+                setTileData(prev => {
+                    return prev.map((tile) => {
+                        return { index: tile.index, isEnable: true };
+                    });
                 });
-            });
+            }, beatInterval);
             answerStart();
         }
 
@@ -328,7 +326,7 @@ const HomeScreen = () => {
                     data={tileData}
                     numColumns={3}
                     renderItem={({ item }) => <Tile index={item.index} isEnable={item.isEnable} />}
-                    keyExtractor={(item, index) => item.index.toString()}
+                    keyExtractor={(item, index) => index.toString()}
                     scrollEnabled={false}
                 />
             </View>
