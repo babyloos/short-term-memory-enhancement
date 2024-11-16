@@ -3,7 +3,8 @@ import {
     FlatList,
     StyleSheet,
     Text,
-    View
+    View,
+    Image,
 } from "react-native";
 import colors from "../util/constants";
 
@@ -13,7 +14,7 @@ const ManualScreen = () => {
     type LevelTileProps = { index: number };
 
     const initData = () => {
-        for (var i = 1; i<=100; i++) {
+        for (var i = 1; i <= 100; i++) {
             data.push({ index: i });
         }
     }
@@ -21,9 +22,13 @@ const ManualScreen = () => {
     const LevelTile = ({ index }: LevelTileProps) => {
         return (
             <View style={styles.tileContainer}>
-                <Link style={{margin: 'auto'}} href={{pathname: '/screens/GameScreen', params: {stageNum: index}}}>
-                    <Text style={styles.tile}>{index < 100 ? index.toString() : ""}</Text>
+                <Link style={{ margin: 'auto' }} href={{ pathname: '/screens/GameScreen', params: { stageNum: index } }}>
+                    <Text style={styles.tileText}>{index < 100 ? index.toString() : ""}</Text>
                 </Link>
+                <Image
+                    source={require('../../assets/images/passed.png')}
+                    style={styles.image}
+                />
             </View>
         );
     }
@@ -69,14 +74,6 @@ const ManualScreen = () => {
             fontWeight: '600',
             color: colors.text,
         },
-        textContainer: {
-            marginTop: 48,
-            marginHorizontal: 24,
-        },
-        text: {
-            fontSize: 22,
-            color: colors.text,
-        },
         flatList: {
             marginTop: 28,
             marginHorizontal: 12,
@@ -88,11 +85,19 @@ const ManualScreen = () => {
             borderColor: '#AAAAAA',
             aspectRatio: 1,
         },
-        tile: {
+        tileText: {
             fontSize: 48,
-            margin: 'auto',
+            color: colors.text,
+            width: '100%',
+            textAlign: 'center',
             fontWeight: '300',
         },
+        image: {
+            width: '100%',
+            height: '100%',
+            position: 'absolute',
+            opacity: 0.8,
+        }
     });
 
     return (
@@ -120,4 +125,3 @@ const ManualScreen = () => {
 }
 
 export default ManualScreen;
-
