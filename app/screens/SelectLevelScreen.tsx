@@ -13,12 +13,14 @@ import strage from "../util/gameStrage";
 const ManualScreen = () => {
     const data = new Array<LevelTileProps>();
     const [clearedStage, setClearedStage] = useState([0]);
+    const [maxStage, setMaxStage] = useState(0);
 
     type LevelTileProps = { index: number };
 
     useEffect(() => {
         strage.loadClearedStage().then((clearedStage) => {
             setClearedStage(clearedStage);
+            setMaxStage(Math.max(...clearedStage));
         });
     }, []);
 
@@ -129,7 +131,7 @@ const ManualScreen = () => {
                 <Text style={styles.title}>ステージ選択</Text>
             </View>
             <View style={styles.titleContainer}>
-                <Text style={styles.title}>最高難易度: 24</Text>
+                <Text style={styles.title}>最高難易度: {maxStage}</Text>
             </View>
             <FlatList
                 style={styles.flatList}
