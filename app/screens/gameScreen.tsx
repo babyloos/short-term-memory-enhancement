@@ -14,6 +14,7 @@ import {
 import { FlatList } from 'react-native-gesture-handler';
 import colors from '../util/constants';
 import { Link, useLocalSearchParams } from 'expo-router';
+import strage from '../util/gameStrage';
 
 type TileDataProps = { index: number, isEnable: boolean };
 
@@ -143,6 +144,7 @@ const HomeScreen = () => {
             setAnswerStep((prev) => prev + 1);
             if (answerStep >= questionCountState - 1) {
                 setIsClear(true);
+                strage.saveCleardStage(stageNumState);
                 setGameState(STATE_RESULT);
             }
 

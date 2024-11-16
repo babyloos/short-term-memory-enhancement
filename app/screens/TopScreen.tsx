@@ -6,6 +6,8 @@ import {
     View,
 } from "react-native";
 import colors from "../util/constants";
+import { useEffect, useState } from "react";
+import strage from "../util/gameStrage";
 
 type TopScreenProps = {};
 const TopScreen = ({ }: TopScreenProps) => {
@@ -13,6 +15,15 @@ const TopScreen = ({ }: TopScreenProps) => {
     const panelWidth = width;
     const panelHeight = height / 13;
     const top = height / 5;
+
+    const [clearedStage, setClearedStage] = useState(0);
+
+    useEffect(() => {
+        strage.load().then((clearedStage) => {
+            setClearedStage(clearedStage);
+            console.log('cleared stage' + clearedStage);
+        });
+    }, []);
 
     const styles = StyleSheet.create({
         container: {
