@@ -144,7 +144,7 @@ const HomeScreen = () => {
             setAnswerStep((prev) => prev + 1);
             if (answerStep >= questionCountState - 1) {
                 setIsClear(true);
-                strage.saveCleardStage(stageNumState);
+                strage.addClearedStage(stageNumState);
                 setGameState(STATE_RESULT);
             }
 

@@ -19,7 +19,7 @@ const TopScreen = ({ }: TopScreenProps) => {
     const [clearedStage, setClearedStage] = useState(0);
 
     useEffect(() => {
-        strage.load().then((clearedStage) => {
+        strage.loadClearedStage().then((clearedStage) => {
             setClearedStage(clearedStage);
             console.log('cleared stage' + clearedStage);
         });
