@@ -7,11 +7,20 @@ import {
     Image,
 } from "react-native";
 import colors from "../util/constants";
+import { useEffect, useState } from "react";
+import strage from "../util/gameStrage";
 
 const ManualScreen = () => {
     const data = new Array<LevelTileProps>();
+    const [clearedStage, setClearedStage] = useState([0]);
 
     type LevelTileProps = { index: number };
+
+    useEffect(() => {
+        strage.loadClearedStage().then((clearedStage) => {
+            setClearedStage(clearedStage);
+        });
+    }, []);
 
     const initData = () => {
         for (var i = 1; i <= 100; i++) {
@@ -23,11 +32,11 @@ const ManualScreen = () => {
         return (
             <View style={styles.tileContainer}>
                 <Link style={{ margin: 'auto' }} href={{ pathname: '/screens/GameScreen', params: { stageNum: index } }}>
-                    <View style={{width: '100%', height: '100%'}}>
+                    <View style={{ width: '100%', height: '100%' }}>
                         <Text style={styles.tileText}>{index < 100 ? index.toString() : ""}</Text>
                         <Image
                             source={require('../../assets/images/passed.png')}
-                            style={styles.image}
+                            style={[styles.image, clearedStage.includes(index) ? styles.visibleImage : styles.hiddenImage]}
                         />
                     </View>
                 </Link>
@@ -100,7 +109,13 @@ const ManualScreen = () => {
             height: '100%',
             position: 'absolute',
             opacity: 0.8,
-        }
+        },
+        visibleImage: {
+            display: 'flex',
+        },
+        hiddenImage: {
+            display: 'none',
+        },
     });
 
     return (
