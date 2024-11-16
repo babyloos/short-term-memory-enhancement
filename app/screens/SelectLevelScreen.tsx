@@ -23,12 +23,14 @@ const ManualScreen = () => {
         return (
             <View style={styles.tileContainer}>
                 <Link style={{ margin: 'auto' }} href={{ pathname: '/screens/GameScreen', params: { stageNum: index } }}>
-                    <Text style={styles.tileText}>{index < 100 ? index.toString() : ""}</Text>
+                    <View style={{width: '100%', height: '100%'}}>
+                        <Text style={styles.tileText}>{index < 100 ? index.toString() : ""}</Text>
+                        <Image
+                            source={require('../../assets/images/passed.png')}
+                            style={styles.image}
+                        />
+                    </View>
                 </Link>
-                <Image
-                    source={require('../../assets/images/passed.png')}
-                    style={styles.image}
-                />
             </View>
         );
     }
@@ -87,6 +89,7 @@ const ManualScreen = () => {
         },
         tileText: {
             fontSize: 48,
+            lineHeight: 72,
             color: colors.text,
             width: '100%',
             textAlign: 'center',
