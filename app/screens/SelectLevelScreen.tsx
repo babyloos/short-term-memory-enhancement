@@ -113,7 +113,7 @@ const ManualScreen = () => {
                 data={data}
                 numColumns={5}
                 renderItem={({ item }) => <LevelTile index={item.index} />}
-                keyExtractor={(index) => index.toString()}
+                keyExtractor={(item) => item.index.toString()}
             />
         </View>
     );
