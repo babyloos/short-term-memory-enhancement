@@ -148,7 +148,7 @@ const HomeScreen = () => {
                 setGameState(STATE_RESULT);
             }
 
-            setVisibleIndex(prev=> index);
+            setVisibleIndex(prev => index);
         }
 
         return (
@@ -188,13 +188,26 @@ const HomeScreen = () => {
         setCountDownIsVisible(true);
     }
 
+    const getRandomInt = (max: number) => {
+        return Math.floor(Math.random() * max);
+    }
+
     const questionStart = () => {
         let numbers = Array<number>();
-        for (var i = 1; i <= panelCount; i++) {
-            numbers.push(i);
+        let beforeNum = 0;
+        for (var i = 0; i < questionCountState; i++) {
+            while (true) {
+                let addNum = getRandomInt(panelCount) + 1;
+                if (beforeNum != addNum) {
+                    numbers.push(addNum);
+                    beforeNum = addNum;
+                    break;
+                }
+            }
         }
-        numbers = arrayShuffle(numbers);
+
         setNumbers(numbers);
+        console.log(numbers);
         setCorrectNum(0);
 
         const showTile = (setIndex: React.Dispatch<React.SetStateAction<number>>, numbers: number[], setVisibleIndex: React.Dispatch<React.SetStateAction<number>>, interval: NodeJS.Timeout | null, setGameState: React.Dispatch<React.SetStateAction<number>>) => {
