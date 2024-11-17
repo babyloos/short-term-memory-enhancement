@@ -30,8 +30,9 @@ const HomeScreen = () => {
     const ANSWER_TIME_LIMIT = 3;
 
     const panelCount = 9;
-    const local = useLocalSearchParams();
-    const stageNum: number = parseInt(local.stageNum[0]);
+    type params = { stageNum: string };
+    const local = useLocalSearchParams<params>();
+    const stageNum: number = parseInt(local.stageNum);
     const [questionCountState, setQuestionCountState] = useState(stageNum + 2);
     const [stageNumState, setStageNumState] = useState(stageNum);
     const countStartNum = 4;
