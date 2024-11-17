@@ -6,8 +6,9 @@ import {
     View,
     Image,
 } from "react-native";
+import { Image as ExpoImage } from 'expo-image';
 import colors from "../util/constants";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import strage from "../util/gameStrage";
 
 const ManualScreen = () => {
@@ -34,7 +35,7 @@ const ManualScreen = () => {
                 <Link style={{ margin: 'auto' }} href={{ pathname: '/screens/GameScreen', params: { stageNum: index } }}>
                     <View style={{ width: '100%', height: '100%' }}>
                         <Text style={styles.tileText}>{index < 100 ? index.toString() : ""}</Text>
-                        <Image
+                        <ExpoImage
                             source={require('../../assets/images/passed.png')}
                             style={[styles.image, clearedStage.includes(index) ? styles.visibleImage : styles.hiddenImage]}
                         />
