@@ -16,12 +16,11 @@ const TopScreen = ({ }: TopScreenProps) => {
     const panelHeight = height / 13;
     const top = height / 5;
 
-    const [clearedStage, setClearedStage] = useState(0);
+    const [nextStage, setNextStage] = useState(1);
 
     useEffect(() => {
-        strage.loadClearedStage().then((clearedStage) => {
-            setClearedStage(clearedStage);
-            console.log('cleared stage' + clearedStage);
+        strage.loadNextStage().then((nextStage) => {
+            setNextStage(nextStage);
         });
     }, []);
 
@@ -61,7 +60,7 @@ const TopScreen = ({ }: TopScreenProps) => {
                 <Text style={styles.title}>メモリータップ</Text>
             </View>
             <MenuPanel title={"はじめから"} pathname={"/screens/GameScreen"} params={{ stageNum: 1 }} />
-            <MenuPanel title={"続きから"} pathname={"/screens/GameScreen"} params={{}} />
+            <MenuPanel title={"続きから"} pathname={"/screens/GameScreen"} params={{ stageNum: nextStage}} />
             <MenuPanel title={"ステージ選択"} pathname={"/screens/SelectLevelScreen"} params={{}} />
             <MenuPanel title={"あそび方"} pathname={"/screens/ManualScreen"} params={{}} />
             <Text style={styles.version}>ver.1.0.0</Text>

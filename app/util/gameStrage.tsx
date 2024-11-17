@@ -23,6 +23,21 @@ const strage = {
             return null;
         }
     },
+    loadNextStage: async () => {
+        try {
+            const value = await AsyncStorage.getItem('clearedStage');
+            if (value) {
+                const clearedStage = JSON.parse(value);
+                const nextStage = Math.max(...clearedStage) + 1;
+                return nextStage < 100 ? nextStage : 100;
+            } else {
+                return 1;
+            }
+        } catch (error) {
+            console.error(`Failed to load cleard stage:`, error);
+            return 1;
+        }
+    },
     clearAll: async () => {
         try {
             await AsyncStorage.clear();
