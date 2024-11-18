@@ -56,10 +56,15 @@ const HomeScreen = () => {
     const bgm = useRef<Audio.Sound | null>(null);
     const countDownSound = useRef<Audio.Sound | null>(null);
 
+    const setQuestionCount = () => {
+        const questionCount = Math.floor(stageNumState / 10) + 3;
+        setQuestionCountState(questionCount);
+    };
+
     useEffect(() => {
         loadSounds();
         addTileData(panelCount);
-        setQuestionCountState(stageNum + 2);
+        setQuestionCount();
     }, []);
 
     const playSound = async (sound: React.MutableRefObject<Sound | null>) => {
@@ -294,7 +299,7 @@ const HomeScreen = () => {
 
     const nextPlay = () => {
         setStageNumState(prev => prev + 1);
-        setQuestionCountState(prev => prev + 1);
+        setQuestionCount();
         setGameState(STATE_START_QUESTION);
     }
 
