@@ -3,7 +3,7 @@ import ResultPanel from '@/components/ResultPanel';
 import TimerPanel from '@/components/TimerPanel';
 import { Audio } from 'expo-av';
 import { Sound } from 'expo-av/build/Audio';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
     Animated,
     StyleSheet,
@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import colors from '../util/constants';
-import { Link, useLocalSearchParams } from 'expo-router';
+import { Link, useFocusEffect, useLocalSearchParams } from 'expo-router';
 import strage from '../util/gameStrage';
 
 type TileDataProps = { index: number, isEnable: boolean };
@@ -67,6 +67,17 @@ const HomeScreen = () => {
         setQuestionCount();
     }, []);
 
+    useFocusEffect(
+        useCallback(() => {
+            return async () => {
+                stopSound(bgm);
+                if (bgm.current != null) {
+                    await bgm.current.unloadAsync();
+                }
+            };
+        }, []),
+    );
+
     const playSound = async (sound: React.MutableRefObject<Sound | null>) => {
         if (sound.current != null) {
             await sound.current.setRateAsync(1.0, true);
@@ -75,8 +86,9 @@ const HomeScreen = () => {
     }
 
     const stopSound = async (sound: React.MutableRefObject<Sound | null>) => {
-        if (sound.current != null)
+        if (sound.current != null) {
             await sound.current.stopAsync();
+        }
     }
 
     const loadSounds = async () => {
