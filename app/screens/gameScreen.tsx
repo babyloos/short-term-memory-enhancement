@@ -49,8 +49,10 @@ const HomeScreen = () => {
     const [tileData, setTileData] = useState(Array<TileDataProps>);
     const [leftTime, setLeftTime] = useState(ANSWER_TIME_LIMIT);
     const [leftTimeInterval, setLeftTimeInterval] = useState<NodeJS.Timeout>();
-    const bpm = 125;
-    const beatInterval = (60 / bpm) * 1000;
+    const [speed, setSpeed] = useState(1.0);
+    const defaultBpm = 125;
+    const [bpm, setBpm] = useState(defaultBpm);
+    const [beatInterval, setBeatInterval] = useState((60 / bpm) * 1000);
 
     const enterTitleSound = useRef<Audio.Sound | null>(null);
     const bgm = useRef<Audio.Sound | null>(null);
@@ -62,10 +64,18 @@ const HomeScreen = () => {
     };
 
     useEffect(() => {
+        setSpeed(1 + stageNumState / 10);
         loadSounds();
         addTileData(panelCount);
         setQuestionCount();
     }, []);
+
+    useEffect(() => {
+        setBpm(defaultBpm * speed);
+        setBeatInterval((60 / (bpm * speed)) * 1000);
+        console.log('speed: ' + speed);
+        console.log('beat interval: ' + beatInterval);
+    }, [speed]);
 
     useFocusEffect(
         useCallback(() => {
@@ -80,7 +90,7 @@ const HomeScreen = () => {
 
     const playSound = async (sound: React.MutableRefObject<Sound | null>) => {
         if (sound.current != null) {
-            await sound.current.setRateAsync(1.0, true);
+            await sound.current.setRateAsync(speed, true);
             await sound.current.replayAsync();
         }
     }
