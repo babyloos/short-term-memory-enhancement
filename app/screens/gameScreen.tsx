@@ -33,7 +33,7 @@ const HomeScreen = () => {
     type params = { stageNum: string };
     const local = useLocalSearchParams<params>();
     const stageNum: number = parseInt(local.stageNum);
-    const [questionCountState, setQuestionCountState] = useState(stageNum + 2);
+    const [questionCountState, setQuestionCountState] = useState(0);
     const [stageNumState, setStageNumState] = useState(stageNum);
     const countStartNum = 4;
     const [gameState, setGameState] = useState(STATE_START_QUESTION);
@@ -59,6 +59,7 @@ const HomeScreen = () => {
     useEffect(() => {
         loadSounds();
         addTileData(panelCount);
+        setQuestionCountState(stageNum + 2);
     }, []);
 
     const playSound = async (sound: React.MutableRefObject<Sound | null>) => {

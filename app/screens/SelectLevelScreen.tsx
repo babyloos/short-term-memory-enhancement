@@ -4,7 +4,6 @@ import {
     StyleSheet,
     Text,
     View,
-    Image,
 } from "react-native";
 import { Image as ExpoImage } from 'expo-image';
 import colors from "../util/constants";
