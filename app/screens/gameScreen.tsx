@@ -59,7 +59,7 @@ const HomeScreen = () => {
     const countDownSound = useRef<Audio.Sound | null>(null);
 
     const setQuestionCount = () => {
-        const questionCount = Math.floor(stageNumState / 10) + 3;
+        const questionCount = Math.floor(stageNumState / 5) + 3;
         setQuestionCountState(questionCount);
     };
 
