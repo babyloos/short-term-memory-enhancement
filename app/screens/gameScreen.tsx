@@ -49,9 +49,9 @@ const HomeScreen = () => {
     const [tileData, setTileData] = useState(Array<TileDataProps>);
     const [leftTime, setLeftTime] = useState(ANSWER_TIME_LIMIT);
     const [leftTimeInterval, setLeftTimeInterval] = useState<NodeJS.Timeout>();
-    const [speed, setSpeed] = useState(1.0);
+    const [speed, setSpeed] = useState(1.3);
     const defaultBpm = 125;
-    const [bpm, setBpm] = useState(defaultBpm);
+    const [bpm, setBpm] = useState(defaultBpm * speed);
     const [beatInterval, setBeatInterval] = useState((60 / bpm) * 1000);
 
     const enterTitleSound = useRef<Audio.Sound | null>(null);
@@ -63,23 +63,23 @@ const HomeScreen = () => {
         setQuestionCountState(questionCount);
     };
 
-    const setSpeedByLevel = () => {
-        setSpeed(1.5 - stageNumState % 10 / 10);
+    const updateSpeed = () => {
+        setBpm(defaultBpm * speed);
+        setBeatInterval((60 / (bpm * speed)) * 1000);
+        console.log('speed: ' + speed);
+        console.log('beat interval: ' + beatInterval);
     };
 
     useEffect(() => {
-        setSpeedByLevel();
+        updateSpeed();
         loadSounds();
         addTileData(panelCount);
         setQuestionCount();
     }, []);
 
     useEffect(() => {
-        setBpm(defaultBpm * speed);
-        setBeatInterval((60 / (bpm * speed)) * 1000);
-        console.log('speed: ' + speed);
         console.log('beat interval: ' + beatInterval);
-    }, [speed]);
+    }, [beatInterval]);
 
     useFocusEffect(
         useCallback(() => {
@@ -164,7 +164,7 @@ const HomeScreen = () => {
                 return;
             }
 
-            console.log('touchAction');
+            // console.log('touchAction');
 
             playSound(enterTitleSound);
 
@@ -229,13 +229,13 @@ const HomeScreen = () => {
         }
 
         setNumbers(numbers);
-        console.log(numbers);
+        // console.log(numbers);
         setCorrectNum(0);
 
         const showTile = (setIndex: React.Dispatch<React.SetStateAction<number>>, numbers: number[], setVisibleIndex: React.Dispatch<React.SetStateAction<number>>, interval: NodeJS.Timeout | null, setGameState: React.Dispatch<React.SetStateAction<number>>) => {
             setIndex(prevIndex => {
                 if (prevIndex < questionCountState) {
-                    console.log('prevIndex: ' + prevIndex);
+                    // console.log('prevIndex: ' + prevIndex);
                     setVisibleIndex(numbers[prevIndex]);
                     return prevIndex + 1;
                 } else {
@@ -292,7 +292,7 @@ const HomeScreen = () => {
         if (gameState == STATE_START_ANSWER) {
             // changeEnable(true);
             setVisibleIndex(0);
-            console.log(numbers);
+            // console.log(numbers);
             setGameState(prev => prev + 1);
         }
 
@@ -305,7 +305,7 @@ const HomeScreen = () => {
             stopSound(bgm);
         }
 
-        console.log("gameState: " + gameState);
+        // console.log("gameState: " + gameState);
     }, [gameState]);
 
     const replay = () => {
@@ -314,7 +314,7 @@ const HomeScreen = () => {
 
     const nextPlay = () => {
         setStageNumState(prev => prev + 1);
-        setSpeedByLevel();
+        updateSpeed();
         setQuestionCount();
         setGameState(STATE_START_QUESTION);
     }
@@ -322,7 +322,7 @@ const HomeScreen = () => {
     useEffect(() => {
         if (gameState == STATE_INPROGRESS_QUESTION) {
             tileData[visibleIndex - 1].isEnable = false;
-            console.log('visibleIndex: ' + visibleIndex);
+            // console.log('visibleIndex: ' + visibleIndex);
         }
     }, [visibleIndex]);
 
