@@ -63,8 +63,12 @@ const HomeScreen = () => {
         setQuestionCountState(questionCount);
     };
 
+    const setSpeedByLevel = () => {
+        setSpeed(1.5 - stageNumState % 10 / 10);
+    };
+
     useEffect(() => {
-        setSpeed(1 + stageNumState / 10);
+        setSpeedByLevel();
         loadSounds();
         addTileData(panelCount);
         setQuestionCount();
@@ -310,6 +314,7 @@ const HomeScreen = () => {
 
     const nextPlay = () => {
         setStageNumState(prev => prev + 1);
+        setSpeedByLevel();
         setQuestionCount();
         setGameState(STATE_START_QUESTION);
     }
