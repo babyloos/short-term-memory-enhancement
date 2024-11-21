@@ -2,7 +2,7 @@ import CountDownPanel from '@/components/CountDownPanel';
 import ResultPanel from '@/components/ResultPanel';
 import TimerPanel from '@/components/TimerPanel';
 import { Audio } from 'expo-av';
-import { Sound } from 'expo-av/build/Audio';
+import { Link, useFocusEffect, useLocalSearchParams } from 'expo-router';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
     Animated,
@@ -13,8 +13,8 @@ import {
 } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import colors from '../util/constants';
-import { Link, useFocusEffect, useLocalSearchParams } from 'expo-router';
 import strage from '../util/gameStrage';
+import SoundManager from '../util/soundManager';
 
 type TileDataProps = { index: number, isEnable: boolean };
 
@@ -54,10 +54,6 @@ const HomeScreen = () => {
     const [bpm, setBpm] = useState(defaultBpm * speed);
     const [beatInterval, setBeatInterval] = useState((60 / bpm) * 1000);
 
-    const enterTitleSound = useRef<Audio.Sound | null>(null);
-    const bgm = useRef<Audio.Sound | null>(null);
-    const countDownSound = useRef<Audio.Sound | null>(null);
-
     const setQuestionCount = () => {
         const questionCount = Math.floor(stageNumState / 5) + 3;
         setQuestionCountState(questionCount);
@@ -71,8 +67,8 @@ const HomeScreen = () => {
     };
 
     useEffect(() => {
+        SoundManager.getInstance().loadSounds();
         updateSpeed();
-        loadSounds();
         addTileData(panelCount);
         setQuestionCount();
     }, []);
@@ -84,43 +80,10 @@ const HomeScreen = () => {
     useFocusEffect(
         useCallback(() => {
             return async () => {
-                stopSound(bgm);
-                if (bgm.current != null) {
-                    await bgm.current.unloadAsync();
-                }
+                SoundManager.getInstance().stopSound('drumBpm125');
             };
         }, []),
     );
-
-    const playSound = async (sound: React.MutableRefObject<Sound | null>) => {
-        if (sound.current != null) {
-            await sound.current.setRateAsync(speed, true);
-            await sound.current.replayAsync();
-        }
-    }
-
-    const stopSound = async (sound: React.MutableRefObject<Sound | null>) => {
-        if (sound.current != null) {
-            await sound.current.stopAsync();
-        }
-    }
-
-    const loadSounds = async () => {
-        {
-            const { sound } = await Audio.Sound.createAsync(require('../../assets/sounds/enterTile.mp3'));
-            enterTitleSound.current = sound;
-        }
-
-        {
-            const { sound } = await Audio.Sound.createAsync(require('../../assets/sounds/drum_BPM123.mp3'));
-            bgm.current = sound;
-        }
-
-        {
-            const { sound } = await Audio.Sound.createAsync(require('../../assets/sounds/countDown.mp3'));
-            countDownSound.current = sound;
-        }
-    }
 
     const addTileData = (tileCount: number) => {
         let data = Array<TileDataProps>();
@@ -166,7 +129,7 @@ const HomeScreen = () => {
 
             // console.log('touchAction');
 
-            playSound(enterTitleSound);
+            SoundManager.getInstance().playSound('enterTile');
 
             if (judgeAnswer(index)) {
                 setCorrectNum((prev) => prev + 1);
@@ -193,11 +156,11 @@ const HomeScreen = () => {
     const countDownStart = () => {
         setCountDownNum(countStartNum);
         setCountDownIsVisible(true);
-        playSound(countDownSound);
+        SoundManager.getInstance().playSound('countDown');
         const countDownInterval = setInterval(() => {
             setCountDownNum((prev) => {
                 if (prev >= 2) {
-                    playSound(countDownSound);
+                    SoundManager.getInstance().playSound('countDown');
                     return prev - 1;
                 } else {
                     setGameState((prev) => prev + 1);
@@ -285,7 +248,7 @@ const HomeScreen = () => {
         }
 
         if (gameState == STATE_INPROGRESS_QUESTION) {
-            playSound(bgm);
+            SoundManager.getInstance().playSound('drumBpm125');
             questionStart();
         }
 
@@ -302,7 +265,7 @@ const HomeScreen = () => {
 
         if (gameState == STATE_RESULT) {
             clearInterval(leftTimeInterval);
-            stopSound(bgm);
+            SoundManager.getInstance().stopSound('drumBpm125');
         }
 
         // console.log("gameState: " + gameState);
