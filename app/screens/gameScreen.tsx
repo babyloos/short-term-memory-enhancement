@@ -265,6 +265,7 @@ const HomeScreen = () => {
         if (gameState == STATE_RESULT) {
             clearInterval(leftTimeInterval);
             SoundManager.getInstance().stopSound('drumBpm125');
+            isClear ? SoundManager.getInstance().playSound('success') : SoundManager.getInstance().playSound('failed');
         }
 
         // console.log("gameState: " + gameState);

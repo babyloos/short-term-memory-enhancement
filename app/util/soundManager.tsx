@@ -21,6 +21,8 @@ class SoundManager {
         SoundManager.instance.loadSound('countDown', require('../../assets/sounds/countDown.mp3'));
         SoundManager.instance.loadSound('enterTile', require('../../assets/sounds/enterTile.mp3'));
         SoundManager.instance.loadSound('enterButton', require('../../assets/sounds/enterButton.mp3'));
+        SoundManager.instance.loadSound('success', require('../../assets/sounds/success.mp3'));
+        SoundManager.instance.loadSound('failed', require('../../assets/sounds/failed.mp3'));
     }
 
     // サウンドをロード
