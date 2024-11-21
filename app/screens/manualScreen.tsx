@@ -6,8 +6,14 @@ import {
 import colors from "../util/constants";
 import { Link } from "expo-router";
 import { ScrollView } from "react-native-gesture-handler";
+import { useEffect } from "react";
+import SoundManager from "../util/soundManager";
 
 const ManualScreen = () => {
+    useEffect(() => {
+        SoundManager.getInstance().playSound('enterButton');
+    }, []);
+
     return (
         <View style={[styles.container]}>
             <View style={styles.gotopContainer}>

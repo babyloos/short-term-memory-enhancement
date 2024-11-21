@@ -1,7 +1,6 @@
 import CountDownPanel from '@/components/CountDownPanel';
 import ResultPanel from '@/components/ResultPanel';
 import TimerPanel from '@/components/TimerPanel';
-import { Audio } from 'expo-av';
 import { Link, useFocusEffect, useLocalSearchParams } from 'expo-router';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
@@ -67,7 +66,7 @@ const HomeScreen = () => {
     };
 
     useEffect(() => {
-        SoundManager.getInstance().loadSounds();
+        SoundManager.getInstance().playSound('enterButton');
         updateSpeed();
         addTileData(panelCount);
         setQuestionCount();

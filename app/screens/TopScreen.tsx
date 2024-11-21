@@ -8,6 +8,7 @@ import {
 import colors from "../util/constants";
 import { useEffect, useState } from "react";
 import strage from "../util/gameStrage";
+import SoundManager from "../util/soundManager";
 
 type TopScreenProps = {};
 const TopScreen = ({ }: TopScreenProps) => {
@@ -19,6 +20,7 @@ const TopScreen = ({ }: TopScreenProps) => {
     const [nextStage, setNextStage] = useState(1);
 
     useEffect(() => {
+        SoundManager.getInstance().playSound('enterButton');
         strage.loadNextStage().then((nextStage) => {
             setNextStage(nextStage);
         });

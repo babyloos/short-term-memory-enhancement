@@ -9,6 +9,7 @@ import { Image as ExpoImage } from 'expo-image';
 import colors from "../util/constants";
 import React, { useEffect, useState } from "react";
 import strage from "../util/gameStrage";
+import SoundManager from "../util/soundManager";
 
 const ManualScreen = () => {
     const data = new Array<LevelTileProps>();
@@ -17,6 +18,7 @@ const ManualScreen = () => {
     type LevelTileProps = { index: number };
 
     useEffect(() => {
+        SoundManager.getInstance().playSound('enterButton');
         strage.loadClearedStage().then((clearedStage) => {
             setClearedStage(clearedStage);
         });

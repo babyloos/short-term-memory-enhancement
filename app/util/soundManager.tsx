@@ -20,6 +20,7 @@ class SoundManager {
         SoundManager.instance.loadSound('drumBpm125', require('../../assets/sounds/drum_BPM123.mp3'));
         SoundManager.instance.loadSound('countDown', require('../../assets/sounds/countDown.mp3'));
         SoundManager.instance.loadSound('enterTile', require('../../assets/sounds/enterTile.mp3'));
+        SoundManager.instance.loadSound('enterButton', require('../../assets/sounds/enterButton.mp3'));
     }
 
     // サウンドをロード
