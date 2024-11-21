@@ -271,10 +271,12 @@ const HomeScreen = () => {
     }, [gameState]);
 
     const replay = () => {
+        SoundManager.getInstance().playSound('enterButton');
         setGameState(STATE_START_QUESTION);
     }
 
     const nextPlay = () => {
+        SoundManager.getInstance().playSound('enterButton');
         setStageNumState(prev => prev + 1);
         updateSpeed();
         setQuestionCount();
