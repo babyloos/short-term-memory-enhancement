@@ -8,8 +8,6 @@ const strage = {
                 loadStage.push(clearedStage);
             }
             await AsyncStorage.setItem('clearedStage', JSON.stringify(loadStage));
-            console.log('Game state saved!');
-            console.log('cleared stage' + loadStage);
         } catch (error) {
             console.error('Failed to save game state:', error);
         }
