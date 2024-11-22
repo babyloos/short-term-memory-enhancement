@@ -36,7 +36,7 @@ const HomeScreen = () => {
     const [stageNumState, setStageNumState] = useState(stageNum);
     const countStartNum = 4;
     const [gameState, setGameState] = useState(STATE_START_QUESTION);
-    const [isClear, setIsClear] = useState(false);
+    const [isClear, setIsClear] = useState(true);
     const [correctNum, setCorrectNum] = useState(0);
     const [backgroundColor, setBackgroundColor] = useState('');
     const [index, setIndex] = useState(0);
@@ -61,8 +61,6 @@ const HomeScreen = () => {
     const updateSpeed = () => {
         setBpm(defaultBpm * speed);
         setBeatInterval((60 / (bpm * speed)) * 1000);
-        console.log('speed: ' + speed);
-        console.log('beat interval: ' + beatInterval);
     };
 
     useEffect(() => {
@@ -126,8 +124,6 @@ const HomeScreen = () => {
                 return;
             }
 
-            // console.log('touchAction');
-
             SoundManager.getInstance().playSound('enterTile');
 
             if (judgeAnswer(index)) {
@@ -137,8 +133,7 @@ const HomeScreen = () => {
             }
 
             setAnswerStep((prev) => prev + 1);
-            if (answerStep >= questionCountState - 1) {
-                setIsClear(true);
+            if (answerStep >= questionCountState - 1 && isClear) {
                 strage.addClearedStage(stageNumState);
                 setGameState(STATE_RESULT);
             }
@@ -197,7 +192,6 @@ const HomeScreen = () => {
         const showTile = (setIndex: React.Dispatch<React.SetStateAction<number>>, numbers: number[], setVisibleIndex: React.Dispatch<React.SetStateAction<number>>, interval: NodeJS.Timeout | null, setGameState: React.Dispatch<React.SetStateAction<number>>) => {
             setIndex(prevIndex => {
                 if (prevIndex < questionCountState) {
-                    // console.log('prevIndex: ' + prevIndex);
                     setVisibleIndex(numbers[prevIndex]);
                     return prevIndex + 1;
                 } else {
@@ -241,6 +235,7 @@ const HomeScreen = () => {
     useEffect(() => {
         if (gameState == STATE_START_QUESTION) {
             // changeEnable(false);
+            setIsClear(true);
             setVisibleIndex(0);
             resetTileData();
             countDownStart();
