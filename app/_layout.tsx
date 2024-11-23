@@ -14,7 +14,7 @@ import {
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import HomeScreen from './screens/GameScreen';
+import HomeScreen from './screens/gameScreen';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { LogBox } from "react-native";

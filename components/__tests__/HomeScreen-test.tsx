@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react-native';
 
-import HomeScreen from '@/app/screens/GameScreen';
+import HomeScreen from '@/app/screens/gameScreen';
 
 // describe('<HomeScreen />', () => {
 //     test('タイトルが表示されていること', () => {

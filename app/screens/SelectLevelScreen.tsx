@@ -33,7 +33,7 @@ const ManualScreen = () => {
     const LevelTile = ({ index }: LevelTileProps) => {
         return (
             <View style={styles.tileContainer}>
-                <Link style={{ margin: 'auto' }} href={{ pathname: '/screens/GameScreen', params: { stageNum: index } }}>
+                <Link style={{ margin: 'auto' }} href={{ pathname: '/screens/gameScreen', params: { stageNum: index } }}>
                     <View style={{ width: '100%', height: '100%' }}>
                         <Text style={styles.tileText}>{index < 100 ? index.toString() : ""}</Text>
                         <ExpoImage
