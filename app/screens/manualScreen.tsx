@@ -57,8 +57,7 @@ const ManualScreen = () => {
                 </View>
                 <View style={styles.textContainer}>
                     <Text style={styles.text}>
-                        背景が白色になり回答フェーズが始まるとあなたが入力する番です。
-                        出題された通りの順番でタイルをタップしましょう。
+                        回答フェーズが始まるとカウントダウンが表示されるので出題された通りの順番でタイルをタップしましょう。
                     </Text>
                 </View>
                 <View style={styles.textContainer}>
@@ -71,7 +70,7 @@ const ManualScreen = () => {
                 </View>
                 <View style={styles.textContainer}>
                     <Text style={styles.text}>
-                        ゲームを行うごとにレベルが徐々に上がっていくの自己ベストを目指して頑張りましょう。
+                        ゲームを行うごとにレベルが徐々に上がっていきます。自己ベストを目指して頑張りましょう。
                     </Text>
                 </View>
             </ScrollView>
