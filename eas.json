@@ -16,6 +16,12 @@
     }
   },
   "submit": {
-    "production": {}
+    "production": {
+      "ios": {
+        "appleId": "babyloos2501@gmail.com",
+        "ascAppId": "6738608229",
+        "appleTeamId": "KVF74DWS83"
+      }
+    }
   }
 }
