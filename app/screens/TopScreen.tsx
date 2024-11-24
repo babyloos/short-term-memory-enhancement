@@ -8,10 +8,11 @@ import {
     View,
 } from "react-native";
 import colors from "../util/constants";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import strage from "../util/gameStrage";
 import SoundManager from "../util/soundManager";
 import mobileAds, { TestIds, useInterstitialAd } from 'react-native-google-mobile-ads';
+import Admob from "../util/admob";
 
 type TopScreenProps = {};
 const TopScreen = ({ }: TopScreenProps) => {
@@ -22,60 +23,14 @@ const TopScreen = ({ }: TopScreenProps) => {
 
     const [nextStage, setNextStage] = useState(1);
 
-    const [unitId, setUnitId] = useState<string>(TestIds.INTERSTITIAL);
-    const { isLoaded, isClosed, load, show } = useInterstitialAd(unitId, {
-        requestNonPersonalizedAdsOnly: false,
-    });
+    const [triggerAction, setTriggerAction] = useState<boolean>(false);
 
     useEffect(() => {
         SoundManager.getInstance().playSound('enterButton');
         strage.loadNextStage().then((nextStage) => {
             setNextStage(nextStage);
         });
-
-
-        let testUnitID = null; 
-
-        if (__DEV__) {
-            testUnitID = TestIds.INTERSTITIAL;
-        }
-
-        // 実際に広告配信する際のID
-        // 広告ユニットを作成した際に表示されたものを設定する
-        const adUnitID = Platform.select({
-            ios: "ca-app-pub-1479927029413242/9027896134",
-            android: "ca-app-pub-xxxxxxxxxxxxxxxx/yyyyyyyyyy",
-        });
-
-        if (testUnitID) {
-            setUnitId(testUnitID);
-        } else if (adUnitID) {
-            setUnitId(adUnitID);
-        }
     }, []);
-
-    useEffect(() => {
-        if (load) {
-            // 広告をロードする
-            load();
-        }
-    }, [load]);
-
-    useEffect(() => {
-        // 閉じられたら次の広告をロードしておく
-        if (isClosed) {
-            load();
-        }
-    }, [isClosed]);
-
-    const viewInterstitial = useCallback(async () => {
-        // 広告の表示
-        if (isLoaded) {
-            show();
-        } else {
-            console.log("not loaded:", isLoaded);
-        }
-    }, [isLoaded]);
 
     const styles = StyleSheet.create({
         container: {
@@ -107,19 +62,27 @@ const TopScreen = ({ }: TopScreenProps) => {
         }
     });
 
+    const handleButtonClick = () => {
+        setTriggerAction(true); // 状態を変更して非表示コンポーネントのメソッドを呼び出す
+        setTimeout(() => {
+            setTriggerAction(false);
+        }, 500);
+    };
+
     return (
         <View style={[styles.container]}>
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>メモリータップ</Text>
             </View>
             <View>
-                <Button title="show add" onPress={() => { viewInterstitial() }}></Button>
+                <Button title="show add" onPress={() => { handleButtonClick() }}></Button>
             </View>
             <MenuPanel title={"はじめから"} pathname={"/screens/gameScreen"} params={{ stageNum: 1 }} />
             <MenuPanel title={"続きから"} pathname={"/screens/gameScreen"} params={{ stageNum: nextStage }} />
             <MenuPanel title={"ステージ選択"} pathname={"/screens/SelectLevelScreen"} params={{}} />
             <MenuPanel title={"あそび方"} pathname={"/screens/manualScreen"} params={{}} />
             <Text style={styles.version}>ver.1.0.0</Text>
+            <Admob triggerAction={triggerAction} />
         </View >
     );
 }
