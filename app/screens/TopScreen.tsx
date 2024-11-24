@@ -1,5 +1,6 @@
 import MenuPanel from "@/components/MenuPanel";
 import {
+    Button,
     Dimensions,
     StyleSheet,
     Text,
@@ -60,6 +61,9 @@ const TopScreen = ({ }: TopScreenProps) => {
         <View style={[styles.container]}>
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>メモリータップ</Text>
+            </View>
+            <View>
+                <Button title="show add" onPress={() => {console.log("show add")}}></Button>
             </View>
             <MenuPanel title={"はじめから"} pathname={"/screens/gameScreen"} params={{ stageNum: 1 }} />
             <MenuPanel title={"続きから"} pathname={"/screens/gameScreen"} params={{ stageNum: nextStage}} />
