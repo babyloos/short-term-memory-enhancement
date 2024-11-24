@@ -29,7 +29,22 @@
     },
     "plugins": [
       "expo-router",
-      "expo-font"
+      "expo-font",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ],
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "",
+          "iosAppId": "ca-app-pub-1479927029413242~5209177840"
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
