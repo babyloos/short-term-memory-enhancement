@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const strage = {
+    // clearedStage
     addClearedStage: async (clearedStage: number) => {
         try {
             let loadStage = await strage.loadClearedStage();
@@ -34,6 +35,24 @@ const strage = {
         } catch (error) {
             console.error(`Failed to load cleard stage:`, error);
             return 1;
+        }
+    },
+    addClearedCount: async () => {
+        try {
+            let loadCount = await strage.loadClearedCount();
+            loadCount++;
+            await AsyncStorage.setItem('clearedCount', loadCount.toString());
+        } catch (error) {
+            console.error('Failed to save game state:', error);
+        }
+    },
+    loadClearedCount: async () => {
+        try {
+            const value = await AsyncStorage.getItem('clearedCount');
+            return value ? parseInt(value) : 0;
+        } catch (error) {
+            console.error(`Failed to load cleard count:`, error);
+            return 0;
         }
     },
     clearAll: async () => {

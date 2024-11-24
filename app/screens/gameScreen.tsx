@@ -14,6 +14,7 @@ import { FlatList } from 'react-native-gesture-handler';
 import colors from '../util/constants';
 import strage from '../util/gameStrage';
 import SoundManager from '../util/soundManager';
+import Admob from '../util/admob';
 
 type TileDataProps = { index: number, isEnable: boolean };
 
@@ -52,6 +53,9 @@ const HomeScreen = () => {
     const defaultBpm = 125;
     const [bpm, setBpm] = useState(defaultBpm * speed);
     const [beatInterval, setBeatInterval] = useState((60 / bpm) * 1000);
+
+    // admob
+    const [triggerAction, setTriggerAction] = useState<boolean>(false);
 
     const setQuestionCount = () => {
         const questionCount = Math.floor(stageNumState / 5) + 3;
@@ -132,10 +136,22 @@ const HomeScreen = () => {
                 failedAction();
             }
 
+            const showAdd = async () => {
+                console.log('cleared count: ' + await strage.loadClearedCount());
+                if (await strage.loadClearedCount() % 10 == 0) {
+                    setTriggerAction(true); // 状態を変更して非表示コンポーネントのメソッドを呼び出す
+                    setTimeout(() => {
+                        setTriggerAction(false);
+                    }, 500);
+                }
+            }
+
             setAnswerStep((prev) => prev + 1);
             if (answerStep >= questionCountState - 1 && isClear) {
                 strage.addClearedStage(stageNumState);
                 setGameState(STATE_RESULT);
+                strage.addClearedCount();
+                showAdd();
             }
 
             setVisibleIndex(prev => index);
@@ -308,6 +324,7 @@ const HomeScreen = () => {
             </View>
             <CountDownPanel count={countDownNum} isVisible={countDownIsVisible} key={countDownNum} />
             <ResultPanel isVisible={gameState == 4} isClear={isClear} rePlayCallback={() => { replay(); }} nextPlayCallback={() => { nextPlay(); }} ></ResultPanel>
+            <Admob triggerAction={triggerAction} />
         </View >
     );
 }
