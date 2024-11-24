@@ -33,7 +33,12 @@ const TopScreen = ({ }: TopScreenProps) => {
             setNextStage(nextStage);
         });
 
-        const testUnitID = TestIds.INTERSTITIAL;
+
+        let testUnitID = null; 
+
+        if (__DEV__) {
+            testUnitID = TestIds.INTERSTITIAL;
+        }
 
         // 実際に広告配信する際のID
         // 広告ユニットを作成した際に表示されたものを設定する
