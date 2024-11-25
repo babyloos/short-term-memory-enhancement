@@ -17,6 +17,9 @@
       "bundleIdentifier": "com.babyloos.shorttermmemoryenhancement"
     },
     "android": {
+      "package": "com.babyloos.shorttermmemoryenhancement",
+      "versionCode": 1,
+      "icon": "./assets/images/adaptive-icon.png",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -41,7 +44,7 @@
       [
         "react-native-google-mobile-ads",
         {
-          "androidAppId": "",
+          "androidAppId": "ca-app-pub-1479927029413242~5873191128",
           "iosAppId": "ca-app-pub-1479927029413242~5209177840"
         }
       ]
