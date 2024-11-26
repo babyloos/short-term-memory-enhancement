@@ -7,7 +7,9 @@ interface HiddenComponentProps {
 }
 
 const Admob: React.FC<HiddenComponentProps> = ({ triggerAction }) => {
-    const [unitId, setUnitId] = useState<string>(TestIds.INTERSTITIAL);
+    const [iosUnitId, setIosUnitId] = useState<string>('ca-app-pub-1479927029413242/9027896134');
+    const [androidUnitId, setAndroidUnitId] = useState<string>('');
+    const unitId = __DEV__ ? TestIds.INTERSTITIAL : iosUnitId;
     const { isLoaded, isClosed, load, show } = useInterstitialAd(unitId, {
         requestNonPersonalizedAdsOnly: false,
     });
