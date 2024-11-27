@@ -1,18 +1,14 @@
 import MenuPanel from "@/components/MenuPanel";
+import { useEffect, useState } from "react";
 import {
-    Button,
     Dimensions,
-    Platform,
     StyleSheet,
     Text,
-    View,
+    View
 } from "react-native";
 import colors from "../util/constants";
-import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import strage from "../util/gameStrage";
 import SoundManager from "../util/soundManager";
-import mobileAds, { TestIds, useInterstitialAd } from 'react-native-google-mobile-ads';
-import Admob from "../util/admob";
 
 type TopScreenProps = {};
 const TopScreen = ({ }: TopScreenProps) => {
@@ -69,7 +65,7 @@ const TopScreen = ({ }: TopScreenProps) => {
             <MenuPanel title={"続きから"} pathname={"/screens/gameScreen"} params={{ stageNum: nextStage }} />
             <MenuPanel title={"ステージ選択"} pathname={"/screens/SelectLevelScreen"} params={{}} />
             <MenuPanel title={"あそび方"} pathname={"/screens/manualScreen"} params={{}} />
-            <Text style={styles.version}>ver.1.0.0</Text>
+            <Text style={styles.version}>ver.1.0.1</Text>
         </View >
     );
 }
