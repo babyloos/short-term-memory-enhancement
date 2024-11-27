@@ -33,15 +33,17 @@ const ManualScreen = () => {
     const LevelTile = ({ index }: LevelTileProps) => {
         return (
             <View style={styles.tileContainer}>
-                <Link style={{ margin: 'auto' }} href={{ pathname: '/screens/gameScreen', params: { stageNum: index } }}>
-                    <View style={{ width: '100%', height: '100%' }}>
+                <Link style={{ flex: 1, margin: 'auto'}} href={{ pathname: '/screens/gameScreen', params: { stageNum: index } }}>
+                    <View style={styles.tile}>
                         <Text style={styles.tileText}>{index < 100 ? index.toString() : ""}</Text>
-                        <ExpoImage
-                            source={require('../../assets/images/passed.png')}
-                            style={[styles.image, clearedStage.includes(index) ? styles.visibleImage : styles.hiddenImage]}
-                        />
                     </View>
                 </Link>
+                <ExpoImage
+                    pointerEvents="none"
+                    source={require('../../assets/images/passed.png')}
+                    style={[styles.image, clearedStage.includes(index) ? styles.visibleImage : styles.hiddenImage]}
+                    contentFit="contain"
+                />
             </View>
         );
     }
@@ -98,15 +100,20 @@ const ManualScreen = () => {
             borderColor: '#AAAAAA',
             aspectRatio: 1,
         },
+        tile: {
+            flex: 1,
+            width: '100%',
+        },
         tileText: {
+            flex: 1,
+            width: '100%',
             fontSize: 48,
             lineHeight: 72,
             color: colors.text,
-            width: '100%',
-            textAlign: 'center',
             fontWeight: '300',
         },
         image: {
+            flex: 1,
             width: '100%',
             height: '100%',
             position: 'absolute',
