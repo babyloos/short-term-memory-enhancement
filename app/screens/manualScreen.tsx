@@ -37,7 +37,7 @@ const ManualScreen = () => {
                 </View>
                 <View style={styles.textContainer}>
                     <Text style={styles.text}>
-                        "続きから"を選択すると前回遊んだレベルからゲームを再開できます
+                        "続きから"を選択すると前回遊んだレベルからゲームを再開できます。
                     </Text>
                 </View>
                 <View style={styles.textContainer}>
@@ -70,7 +70,7 @@ const ManualScreen = () => {
                 </View>
                 <View style={styles.textContainer}>
                     <Text style={styles.text}>
-                        ゲームを行うごとにレベルが徐々に上がっていきます。自己ベストを目指して頑張りましょう。
+                        ゲームを行うごとにレベルが徐々に上がっていきます。自己ベストを目指して頑張ってください！！
                     </Text>
                 </View>
             </ScrollView>
