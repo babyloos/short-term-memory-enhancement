@@ -65,7 +65,7 @@ const TopScreen = ({ }: TopScreenProps) => {
             <MenuPanel title={"続きから"} pathname={"/screens/gameScreen"} params={{ stageNum: nextStage }} />
             <MenuPanel title={"ステージ選択"} pathname={"/screens/SelectLevelScreen"} params={{}} />
             <MenuPanel title={"あそび方"} pathname={"/screens/manualScreen"} params={{}} />
-            <Text style={styles.version}>ver.1.0.1</Text>
+            <Text style={styles.version}>ver.1.1.0</Text>
         </View >
     );
 }
