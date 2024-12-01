@@ -27,7 +27,7 @@ const ManualScreen = () => {
             <ScrollView>
                 <View style={styles.textContainer}>
                     <Text style={styles.text}>
-                        メモリータップはシンプルなゲームを通じて短期記憶力の強化を図るための脳トレアプリです。
+                        このアプリはシンプルなゲームを通じて短期記憶力の強化を図るための脳トレアプリです。
                     </Text>
                 </View>
                 <View style={styles.textContainer}>
